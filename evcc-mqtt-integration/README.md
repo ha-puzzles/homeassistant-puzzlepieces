@@ -2,6 +2,8 @@
 
 Konfigurationsdateien für eine MQTT Integration, welche die Basis für alle anderen Puzzleteile ist, welche auf EVCC Entities zugreifen.
 
+Leider aktualisiert EVCC die MQTT Topics sehr dynamisch auch in kleinen Minor-Releases. Wir versuchen mit EVCC Schritt zu halten. Wenn hier etwas nicht tut, bitte schaue zuerst ob Deine EVCC Version aktuell ist. Falls ja, und es tut trotzdem was nicht, kann es sein, dass wir noch nicht hinterhergekommen sind die Konfiguration unten anzupassen. Bitte gebe dann hier einen neuen Issue ein oder noch besser: schicke uns einen Pull Request, damit wir uns darum kümmern können.
+
 ## Setup
 
 ### packages Verzeichnis einrichten
@@ -37,6 +39,10 @@ Falls noch nicht getan, muss in HomeAssistant noch das `packages` Verzeichnis ko
 Wenn jetzt Home Assistant neu gestartet ist, solltest Du neue Entitäten sehen. Gehe auf 'Einstellungen > Geräte und Dienste', klicke auf den Tab 'Entitäten' und gebe EVCC in der Suche ein.
 
 ![alt text](image-1.png)
+
+### TODO: Helper anlegen
+
+### TODO: Automationen um die Helper zu synchronisieren
 
 ### EVCC MQTT Entities Dashboard
 
