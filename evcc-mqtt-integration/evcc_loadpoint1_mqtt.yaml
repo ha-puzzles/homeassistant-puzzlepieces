@@ -1,0 +1,206 @@
+# Loadpoint 1 specific settings.
+
+mqtt:
+  select:
+
+    - name: evcc_lp_1_mode
+      unique_id: uniqueid__evcc_lp_1_mode_select
+      icon: mdi:tune-variant
+      state_topic: "evcc/loadpoints/1/mode"
+      command_topic: "evcc/loadpoints/1/mode/set"
+      availability_topic: "evcc/status"
+      options:
+        - "off"
+        - "now"
+        - "minpv"
+        - "pv"
+
+    - name: evcc_lp_1_phases
+      unique_id: uniqueid__evcc_lp_1_phases_select
+      icon: mdi:backburger
+      state_topic: "evcc/loadpoints/1/phases"
+      command_topic: "evcc/loadpoints/1/phases/set"
+      availability_topic: "evcc/status"
+      options:
+        - "0"
+        - "1"
+        - "3"
+
+
+  sensor:
+
+    - name: evcc_lp_1_charge_power
+      unique_id: uniqueid__evcc_lp_1_charge_power
+      icon: mdi:car-electric
+      state_topic: "evcc/loadpoints/1/chargePower"
+      value_template: "{{ value | round(1) }}"
+      unit_of_measurement: "W"
+      state_class: measurement
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_charged_energy
+      unique_id: uniqueid__evcc_lp_1_charged_energy
+      icon: mdi:battery-charging-high
+      state_topic: "evcc/loadpoints/1/chargedEnergy"
+      value_template: "{{ (value | float / 1000) | round(1) }}"
+      unit_of_measurement: "kWh"
+      state_class: total_increasing
+      availability_topic: "evcc/status"
+      device_class: energy
+
+    - name: evcc_lp_1_vehicle_soc
+      unique_id: uniqueid__evcc_lp_1_vehicle_soc
+      state_topic: "evcc/loadpoints/1/vehicleSoc"
+      state_class: total
+      icon: mdi:label-percent-outline
+      value_template: "{{ value | round(1) }}"
+      availability_topic: "evcc/status"
+      unit_of_measurement: "%"
+
+    - name: evcc_lp_1_effective_limit_soc
+      unique_id: uniqueid__evcc_lp_1_effective_limit_soc
+      state_topic: "evcc/loadpoints/1/effectiveLimitSoc"
+      state_class: total
+      icon: mdi:label-percent-outline
+      value_template: "{{ value | round(1) }}"
+      availability_topic: "evcc/status"
+      unit_of_measurement: "%"
+
+    - name: evcc_lp_1_active_phases
+      unique_id: uniqueid__evcc_lp_1_active_phases
+      icon: mdi:backburger
+      state_topic: "evcc/loadpoints/1/phasesActive"
+      value_template: "{{ value | round(0) }}"
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_charge_duration
+      unique_id: uniqueid__evcc_lp_1_charge_duration
+      icon: mdi:timer-settings-outline
+      state_topic: "evcc/loadpoints/1/chargeDuration"
+      value_template: "{{ value | round(0) }}"
+      unit_of_measurement: "s"
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_charge_current_l1
+      unique_id: uniqueid__evcc_lp_1_charge_current_l1
+      icon: mdi:current-ac
+      state_topic: "evcc/loadpoints/1/chargeCurrents/l1"
+      value_template: "{{ value | round(1) }}"
+      unit_of_measurement: "A"
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_charge_current_l2
+      unique_id: uniqueid__evcc_lp_1_charge_current_l2
+      icon: mdi:current-ac
+      state_topic: "evcc/loadpoints/1/chargeCurrents/l2"
+      value_template: "{{ value | round(1) }}"
+      unit_of_measurement: "A"
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_charge_current_l3
+      unique_id: uniqueid__evcc_lp_1_charge_current_l3
+      icon: mdi:current-ac
+      state_topic: "evcc/loadpoints/1/chargeCurrents/l3"
+      value_template: "{{ value | round(1) }}"
+      unit_of_measurement: "A"
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_vehicle_name
+      unique_id: uniqueid__evcc_lp_1_vehicle_name
+      icon: mdi:car-electric
+      state_topic: "evcc/loadpoints/1/vehicleName"
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_session_price
+      unique_id: uniqueid__evcc_lp_1_session_price
+      icon: mdi:home-lightning-bolt-outline
+      state_topic: "evcc/loadpoints/1/sessionPrice"
+      state_class: total
+      icon: mdi:currency-eur
+      unit_of_measurement: "€"
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_session_price_per_kwh
+      unique_id: uniqueid__evcc_lp_1_session_price_per_kwh
+      icon: mdi:home-lightning-bolt-outline
+      state_topic: "evcc/loadpoints/1/sessionPricePerKWh"
+      state_class: total
+      icon: mdi:currency-eur
+      unit_of_measurement: "€"
+      availability_topic: "evcc/status"
+
+
+  binary_sensor:
+
+    - name: evcc_lp_1_enabled
+      unique_id: uniqueid__evcc_lp_1_enabled
+      icon: mdi:ev-station
+      state_topic: "evcc/loadpoints/1/enabled"
+      payload_on: "true"
+      payload_off: "false"
+      #device_class: problem
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_connected
+      unique_id: uniqueid__evcc_lp_1_connected
+      icon: mdi:ev-station
+      state_topic: "evcc/loadpoints/1/connected"
+      payload_on: "true"
+      payload_off: "false"
+      #device_class: problem
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_charging
+      unique_id: uniqueid__evcc_lp_1_charging
+      icon: mdi:ev-station
+      state_topic: "evcc/loadpoints/1/charging"
+      payload_on: "true"
+      payload_off: "false"
+      #device_class: problem
+      availability_topic: "evcc/status"
+
+    - name: evcc_lp_1_smart_cost_active
+      unique_id: uniqueid___evcc_lp_1_smart_cost_active
+      icon: mdi:ev-station
+      state_topic: "evcc/loadpoints/1/smartCostActive"
+      payload_on: "true"
+      payload_off: "false"
+      #device_class: problem
+      availability_topic: "evcc/status"
+
+
+  number:
+  
+    - name: evcc_lp_1_min_current
+      unique_id: uniqueid__evcc_lp_1_min_current
+      icon: mdi:current-ac
+      state_topic: "evcc/loadpoints/1/minCurrent"
+      command_topic: "evcc/loadpoints/1/minCurrent/set"
+      availability_topic: "evcc/status"
+      min: 6
+      max: 16
+      step: 0.25
+      unit_of_measurement: "A"
+
+    - name: evcc_lp_1_max_current
+      unique_id: uniqueid__evcc_lp_1_max_current
+      icon: mdi:current-ac
+      state_topic: "evcc/loadpoints/1/maxCurrent"
+      command_topic: "evcc/loadpoints/1/maxCurrent/set"
+      availability_topic: "evcc/status"
+      min: 6
+      max: 16
+      step: 0.25
+      unit_of_measurement: "A"
+
+    - name: evcc_lp_1_limit_soc
+      unique_id: uniqueid__evcc_lp_1_limit_soc
+      icon: mdi:label-percent-outline
+      state_topic: "evcc/loadpoints/1/limitSoc"
+      command_topic: "evcc/loadpoints/1/limitSoc/set"
+      availability_topic: "evcc/status"
+      min: 20
+      max: 100
+      step: 5
+      unit_of_measurement: "%"
+

@@ -1,0 +1,59 @@
+# Note that you have to replace the name (not the title) of the vehicle in the topics
+# and in the value_template of the first entity. Here: Replace "tesla-m3-lr" with the
+# name of your vehicle as it is configured in your evcc.yaml.
+
+
+mqtt:
+
+  sensor:
+
+    # A hack to get the related vehicle name to be read as entity for use in 
+    # automations to related the name of the connected vehicle from the
+    # loadpoint to the actual vehicle as evcc is using the name as part of the
+    # topic.
+    - name: evcc_vehicle_1_name
+      unique_id: uniqueid__evcc_vehicle_1_name
+      icon: mdi:car-electric
+      state_topic: "evcc/vehicles/tesla-m3-lr/title"
+      value_template: "{{ 'tesla-m3-lr' }}"
+      availability_topic: "evcc/status"
+
+    - name: evcc_vehicle_1_title
+      unique_id: uniqueid__evcc_vehicle_1_title
+      icon: mdi:car-electric
+      state_topic: "evcc/vehicles/tesla-m3-lr/title"
+      availability_topic: "evcc/status"
+
+    - name: evcc_vehicle_1_capacity
+      unique_id: uniqueid__evcc_vehicle_1_capacity
+      icon: mdi:battery
+      state_topic: "evcc/vehicles/tesla-m3-lr/capacity"
+      value_template: "{{ value | round(1) }}"
+      unit_of_measurement: "kWh"
+      state_class: total
+      availability_topic: "evcc/status"
+      device_class: energy
+
+  number:
+
+    - name: evcc_vehicle_1_limit_soc
+      unique_id: uniqueid__evcc_vehicle_1_limit_soc
+      icon: mdi:label-percent-outline
+      state_topic: "evcc/vehicles/tesla-m3-lr/limitSoc"
+      command_topic: "evcc/vehicles/tesla-m3-lr/limitSoc/set"
+      availability_topic: "evcc/status"
+      min: 0
+      max: 100
+      step: 5
+      unit_of_measurement: "%"
+
+    - name: evcc_vehicle_1_min_soc
+      unique_id: uniqueid__evcc_vehicle_1_min_soc
+      icon: mdi:label-percent-outline
+      state_topic: "evcc/vehicles/tesla-m3-lr/minSoc"
+      command_topic: "evcc/vehicles/tesla-m3-lr/minSoc/set"
+      availability_topic: "evcc/status"
+      min: 0
+      max: 100
+      step: 5
+      unit_of_measurement: "%"

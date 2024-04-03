@@ -1,0 +1,117 @@
+# Generic site specific topics
+
+mqtt:
+
+  sensor:
+  
+    - name: evcc_site_battery_soc
+      unique_id: uniqueid__evcc_site_battery_soc
+      state_topic: "evcc/site/batterySoc"
+      state_class: total
+      icon: mdi:label-percent-outline
+      value_template: "{{ value | round(1) }}"
+      availability_topic: "evcc/status"
+      unit_of_measurement: "%"
+
+    - name: evcc_site_pv_power
+      unique_id: uniqueid__evcc_site_pv_power
+      icon: mdi:home-lightning-bolt-outline
+      state_topic: "evcc/site/pvPower"
+      state_class: total
+      value_template: "{{ value | round(1) }}"
+      unit_of_measurement: "W"
+      availability_topic: "evcc/status"
+
+    - name: evcc_site_battery_power
+      unique_id: uniqueid__evcc_site_battery_power
+      icon: mdi:home-lightning-bolt-outline
+      state_topic: "evcc/site/batteryPower"
+      state_class: total
+      value_template: "{{ value | round(1) }}"
+      unit_of_measurement: "W"
+      availability_topic: "evcc/status"
+
+    - name: evcc_site_grid_power
+      unique_id: uniqueid__evcc_site_grid_power
+      icon: mdi:home-lightning-bolt-outline
+      state_topic: "evcc/site/gridPower"
+      state_class: total
+      value_template: "{{ value | round(1) }}"
+      unit_of_measurement: "W"
+      availability_topic: "evcc/status"
+
+    - name: evcc_site_home_power
+      unique_id: uniqueid__evcc_site_home_power
+      icon: mdi:home-lightning-bolt-outline
+      state_topic: "evcc/site/homePower"
+      state_class: total
+      value_template: "{{ value | round(1) }}"
+      unit_of_measurement: "W"
+      availability_topic: "evcc/status"
+
+    - name: evcc_site_tariff_grid
+      unique_id: uniqueid__evcc_site_tariff_grid
+      icon: mdi:home-lightning-bolt-outline
+      state_topic: "evcc/site/tariffGrid"
+      state_class: total
+      icon: mdi:currency-eur
+      unit_of_measurement: "€"
+      availability_topic: "evcc/status"
+
+    - name: evcc_site_tariff_feedin
+      unique_id: uniqueid__evcc_site_tariff_feedin
+      icon: mdi:home-lightning-bolt-outline
+      state_topic: "evcc/site/tariffFeedIn"
+      state_class: total
+      icon: mdi:currency-eur
+      unit_of_measurement: "€"
+      availability_topic: "evcc/status"
+
+    - name: evcc_site_tariff_home
+      unique_id: uniqueid__evcc_site_tariff_home
+      state_topic: "evcc/site/tariffPriceHome"
+      state_class: total
+      icon: mdi:currency-eur
+      unit_of_measurement: "€"
+      availability_topic: "evcc/status"
+
+    - name: evcc_site_tariff_loadpoints
+      unique_id: uniqueid__evcc_site_tariff_loadpoints
+      state_topic: "evcc/site/tariffPriceLoadpoints"
+      state_class: total
+      icon: mdi:currency-eur
+      unit_of_measurement: "€"
+      availability_topic: "evcc/status"
+
+
+  number:
+
+    - name: evcc_site_buffer_soc
+      unique_id: uniqueid__evcc_site_buffer_soc
+      icon: mdi:label-percent-outline
+      state_topic: "evcc/site/bufferSoc"
+      command_topic: "evcc/site/bufferSoc/set"
+      availability_topic: "evcc/status"
+      min: 1
+      max: 100
+      unit_of_measurement: "%"
+
+    - name: evcc_site_priority_soc
+      unique_id: uniqueid__evcc_site_priority_soc
+      icon: mdi:label-percent-outline
+      state_topic: "evcc/site/prioritySoc"
+      command_topic: "evcc/site/prioritySoc/set"
+      availability_topic: "evcc/status"
+      min: 1
+      max: 100
+      unit_of_measurement: "%"
+
+    - name: evcc_site_residual_power
+      unique_id: uniqueid__evcc_site_residual_power
+      icon: mdi:home-lightning-bolt-outline
+      state_topic: "evcc/site/residualPower"
+      command_topic: "evcc/site/residualPower/set"
+      availability_topic: "evcc/status"
+      min: -5000
+      max: +5000
+      unit_of_measurement: "W"
