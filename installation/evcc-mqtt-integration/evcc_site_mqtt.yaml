@@ -51,19 +51,17 @@ mqtt:
 
     - name: evcc_site_tariff_grid
       unique_id: uniqueid__evcc_site_tariff_grid
-      icon: mdi:home-lightning-bolt-outline
+      icon: mdi:currency-eur
       state_topic: "evcc/site/tariffGrid"
       state_class: total
-      icon: mdi:currency-eur
       unit_of_measurement: "€"
       availability_topic: "evcc/status"
 
     - name: evcc_site_tariff_feedin
       unique_id: uniqueid__evcc_site_tariff_feedin
-      icon: mdi:home-lightning-bolt-outline
+      icon: mdi:currency-eur
       state_topic: "evcc/site/tariffFeedIn"
       state_class: total
-      icon: mdi:currency-eur
       unit_of_measurement: "€"
       availability_topic: "evcc/status"
 
