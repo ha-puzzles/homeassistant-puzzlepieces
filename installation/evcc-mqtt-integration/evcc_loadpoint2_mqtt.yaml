@@ -113,19 +113,17 @@ mqtt:
 
     - name: evcc_lp_2_session_price
       unique_id: uniqueid__evcc_lp_2_session_price
-      icon: mdi:home-lightning-bolt-outline
+      icon: mdi:currency-eur
       state_topic: "evcc/loadpoints/2/sessionPrice"
       state_class: total
-      icon: mdi:currency-eur
       unit_of_measurement: "€"
       availability_topic: "evcc/status"
 
     - name: evcc_lp_2_session_price_per_kwh
       unique_id: uniqueid__evcc_lp_2_session_price_per_kwh
-      icon: mdi:home-lightning-bolt-outline
+      icon: mdi:currency-eur
       state_topic: "evcc/loadpoints/2/sessionPricePerKWh"
       state_class: total
-      icon: mdi:currency-eur
       unit_of_measurement: "€"
       availability_topic: "evcc/status"
 
