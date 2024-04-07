@@ -1,0 +1,105 @@
+alias: "EVCC: Aktualisiere Titel des Fahrzeuges am Loadpoint"
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - sensor.evcc_lp_1_vehicle_name
+      - sensor.evcc_lp_2_vehicle_name
+      - sensor.evcc_vehicle_1_title
+condition: []
+action:
+  - service: input_text.set_value
+    metadata: {}
+    data:
+      value: Kein Fahrzeug verbunden
+    target:
+      entity_id:
+        - input_text.helper_evcc_lp_1_vehicle_title
+        - input_text.helper_evcc_lp_2_vehicle_title
+  - alias: Aktualisiere Titel von Loadpoint 1 auf Fahrzeug 1
+    if:
+      - condition: template
+        value_template: >-
+          {{ states('sensor.evcc_lp_1_vehicle_name') ==
+          states('sensor.evcc_vehicle_1_name')}}
+    then:
+      - service: input_text.set_value
+        metadata: {}
+        data:
+          value: "{{ states('sensor.evcc_vehicle_1_title') }}"
+        target:
+          entity_id: input_text.helper_evcc_lp_1_vehicle_title
+    else:
+      - alias: Aktualisiere Titel von Loadpoint 1 auf Fahrzeug 2
+        if:
+          - condition: template
+            value_template: >-
+              {{ states('sensor.evcc_lp_1_vehicle_name') ==
+              states('sensor.evcc_vehicle_2_name')}}
+        then:
+          - service: input_text.set_value
+            metadata: {}
+            data:
+              value: "{{ states('sensor.evcc_vehicle_2_title') }}"
+            target:
+              entity_id: input_text.helper_evcc_lp_1_vehicle_title
+        else:
+          - alias: >-
+              Am Loadpoint 1 is ein Fahrzeug verbunden, aber es ist keines der
+              bekannten.
+            if:
+              - condition: state
+                entity_id: binary_sensor.evcc_lp_1_connected
+                state: "on"
+            then:
+              - service: input_text.set_value
+                metadata: {}
+                data:
+                  value: Unbekanntes Fahrzeug
+                target:
+                  entity_id:
+                    - input_text.helper_evcc_lp_1_vehicle_title
+  - alias: Aktualisiere Titel von Loadpoint 2 auf Fahrzeug 1
+    if:
+      - condition: template
+        value_template: >-
+          {{ states('sensor.evcc_lp_2_vehicle_name') ==
+          states('sensor.evcc_vehicle_1_name')}}
+    then:
+      - service: input_text.set_value
+        metadata: {}
+        data:
+          value: "{{ states('sensor.evcc_vehicle_1_title') }}"
+        target:
+          entity_id: input_text.helper_evcc_lp_2_vehicle_title
+    else:
+      - alias: Aktualisiere Titel von Loadpoint 2 auf Fahrzeug 2
+        if:
+          - condition: template
+            value_template: >-
+              {{ states('sensor.evcc_lp_2_vehicle_name') ==
+              states('sensor.evcc_vehicle_2_name')}}
+        then:
+          - service: input_text.set_value
+            metadata: {}
+            data:
+              value: "{{ states('sensor.evcc_vehicle_2_title') }}"
+            target:
+              entity_id: input_text.helper_evcc_lp_2_vehicle_title
+        else:
+          - alias: >-
+              Am Loadpoint 2 is ein Fahrzeug verbunden, aber es ist keines der
+              bekannten.
+            if:
+              - condition: state
+                entity_id: binary_sensor.evcc_lp_2_connected
+                state: "on"
+            then:
+              - service: input_text.set_value
+                metadata: {}
+                data:
+                  value: Unbekanntes Fahrzeug
+                target:
+                  entity_id:
+                    - input_text.helper_evcc_lp_2_vehicle_title
+mode: single

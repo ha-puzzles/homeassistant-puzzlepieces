@@ -1,0 +1,78 @@
+alias: "EVCC: Aktualisere Min Soc des Fahrzeuges am Loadpoint"
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - binary_sensor.evcc_lp_1_connected
+      - binary_sensor.evcc_lp_2_connected
+      - number.evcc_vehicle_1_min_soc
+condition: []
+action:
+  - service: input_number.set_value
+    metadata: {}
+    data:
+      value: 0
+    target:
+      entity_id:
+        - input_number.helper_evcc_lp_1_vehicle_min_soc_2
+        - input_number.helper_evcc_lp_2_vehicle_min_soc
+    alias: Initialize default value to 0
+  - alias: Aktualisiere Min Soc von Loadpoint 1 auf Min Soc von Fahrzeug 1
+    if:
+      - condition: template
+        value_template: >-
+          {{ states('sensor.evcc_lp_1_vehicle_name') ==
+          states('sensor.evcc_vehicle_1_name')}}
+        alias: vehicle_1 mit loadpoint_1 verbunden
+    then:
+      - service: input_number.set_value
+        metadata: {}
+        data:
+          value: "{{ states('number.evcc_vehicle_1_min_soc') | int(0) }}"
+        target:
+          entity_id: input_number.helper_evcc_lp_1_vehicle_min_soc
+    else:
+      - alias: Aktualisiere Min Soc von Loadpoint 1 auf Min Soc von Fahrzeug 2
+        if:
+          - condition: template
+            value_template: >-
+              {{ states('sensor.evcc_lp_1_vehicle_name') ==
+              states('sensor.evcc_vehicle_2_name')}}
+            alias: vehicle_1 mit loadpoint_1 verbunden
+        then:
+          - service: input_number.set_value
+            metadata: {}
+            data:
+              value: "{{ states('number.evcc_vehicle_2_min_soc') | int(0) }}"
+            target:
+              entity_id: input_number.helper_evcc_lp_1_vehicle_min_soc
+  - alias: Aktualisiere Min Soc von Loadpoint 2
+    if:
+      - alias: vehicle_1 mit loadpoint_2 verbunden
+        condition: template
+        value_template: >-
+          {{ states('sensor.evcc_lp_2_vehicle_name') ==
+          states('sensor.evcc_vehicle_1_name')}}
+    then:
+      - service: input_number.set_value
+        metadata: {}
+        data:
+          value: "{{ states('number.evcc_vehicle_1_min_soc') | int(0) }}"
+        target:
+          entity_id: input_number.helper_evcc_lp_2_vehicle_min_soc
+    else:
+      - alias: Aktualisiere Min Soc von Loadpoint 2 auf Min Soc von Fahrzeug 2
+        if:
+          - condition: template
+            value_template: >-
+              {{ states('sensor.evcc_lp_2_vehicle_name') ==
+              states('sensor.evcc_vehicle_2_name')}}
+            alias: vehicle_1 mit loadpoint_1 verbunden
+        then:
+          - service: input_number.set_value
+            metadata: {}
+            data:
+              value: "{{ states('number.evcc_vehicle_2_min_soc') | int(0) }}"
+            target:
+              entity_id: input_number.helper_evcc_lp_2_vehicle_min_soc
+mode: single

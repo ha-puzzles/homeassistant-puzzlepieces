@@ -41,9 +41,43 @@ Anwendungsfälle für Automatisierungen. Nachdem Dein Home Assistant aufgesetzt 
 
 ### shared
 
-Geteilte Artefakte, die von use-cases verwendet werden. Falls eine Anwendungsfall ein solches Artefakt voraussetzt wird dort darauf hingewiesen. 
+Geteilte Artefakte, die von use-cases verwendet werden. Falls eine Anwendungsfall ein solches Artefakt voraussetzt wird dort darauf hingewiesen.
 
 
+## Grundlagen
+
+Ein paar Grundlagen zum Umgang mit den Puzzle Teilen
+
+### Home Assistant Artefakte
+
+Viele Artefakte von Home Assistant werden im UI angelegt. Nun können wir Euch jeden einzelnen Schritt erklären, wie ihr zum Beispiel eine Automation per UI Editor anlegen könnt. Einfacher geht es über die RAW Editoren, die sich bei (fast?) allen Einstellungen finden.
+
+Um z.B. eine Automatisierung anzulegen mit unserer Konfigurationmacht folgendes:
+
+1. Geht zu 'Einstellungen / Automatisierungen & Szenen'.
+2. Klickt unten rechts auf 'AUTOMATISIERUNG ERSTELLEN' und wählt dann 'Neue Automatisierung erstellen' um mit einer leeren Automatisierung zu starten.
+3. Geht oben rechts auf das Menü mit den drei Punkten und wählt 'Als YAML bearbeiten' aus.
+4. Nun seht ihr einen Text Editor, in dem ihr unsere Automatisierung als YAML einfügen könnt.
+5. Öffnet hier in GitHub die Datei mit der Automatisierung
+6. Klickt oben rechts auf den Knopf 'Copy raw file'.
+7. Geht zurück zum Editor in Home Assistant und fügt dort den kopierten Inhalt ein.
+8. Nun könnt ihr die Automaitiserung mit dem Knopf untern rechts speichern, oder ihr könnt sie Euch nochmal im visuellen Editor verständlicher anschauen, in dem ihr im Menü oben rechts nun 'Im visuellen Editor bearbeiten' auswählt.
+
+Bei anderen Artefakten wie Dashboards, Skripten,... u.s.w. ist das Vorgehen hier ähnlich.
+
+### Helfer
+
+Einige unserer Automatisierungen und Skripte benutzten Helfer. Helfer sind Entitäten, die vom Benutzer erstellt und gesetzt werden können.
+
+Um einen Helper zu erstellen...
+
+1. Gehe zu 'Einstellungen / Geräte & Dienste'.
+2. Öffne oben den Tab 'Helfer'.
+3. Klicke unten rechts auf 'HELFER ERSTELLEN'
+4. Wähle den entsprechenden Helfer Typ aus wie in der jeweiligen Dokumentation beschreiben.
+5. Gebe den Namen **exakt** so ein, wie in der Dokumentation beschrieben.
+6. Optional: Gebe ein beliebiges Symbol an
+7. Gebe die restlichen Attribute, wie beschrieben an und klicke auf 'ERSTELLEN'.
 
 ---
 
