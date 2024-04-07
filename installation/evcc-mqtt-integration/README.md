@@ -19,11 +19,11 @@ Falls noch nicht getan, muss in HomeAssistant noch das `packages` Verzeichnis ko
 
 ### MQTT Integration installieren
 
-1. Home Assistant öffnen
-2. Gehe zu 'Einstellungen > Geräte und Dienste'
-3. Unten rechts auf 'INTEGRATION HINZUFÜGEN' klicken
+1. Home Assistant öffnen.
+2. Gehe zu 'Einstellungen > Geräte und Dienste'.
+3. Unten rechts auf 'INTEGRATION HINZUFÜGEN' klicken.
 4. Die MQTT Integration hinzufügen:
-   ![alt text](image.png)
+   ![MQTT Integration hinzufügen](./img/image.png)
 
 ### EVCC MQTT YAMLs installieren
 
@@ -38,11 +38,41 @@ Falls noch nicht getan, muss in HomeAssistant noch das `packages` Verzeichnis ko
 
 Wenn jetzt Home Assistant neu gestartet ist, solltest Du neue Entitäten sehen. Gehe auf 'Einstellungen > Geräte und Dienste', klicke auf den Tab 'Entitäten' und gebe EVCC in der Suche ein.
 
-![alt text](image-1.png)
+![Liste der Entities](./img/entity-list.png)
 
-### TODO: Helper anlegen
+### Fahrzeug Informationen am aktuellen Loadpoint
 
-### TODO: Automationen um die Helper zu synchronisieren
+Das Team von EVCC hat beschlossen einige MQTT Topics nur noch unter dem `vehicle` Topic abzulegen. Leider macht uns das mit Home Assistant nun das Leben schwerer, da wir auf einige Attribute von dem `vehicle` zugreifen müssen, das gerade an einem Loadpoint hängt. Noch schwerer, da die Referenz nur über den Vehicle Namen erfolgt - der Vehicle Name aber nicht als Attribut, sondern im MQTT Topic Pfad enthalten ist (daher müssen oben die MQTT der Fahrzeuge auch angepasst werden) - so dynamisch ist Home Assistant leider nicht.
+
+Um dieses Problem zu lösen installieren wir ein paar Helfer, deren Wert wir per Automatisierung aktualisieren.
+
+#### Helfer anlegen
+
+[Grundlagen zu Helfern](../../README.md#helfer).
+
+Lege die Folgenden Helfer an:
+
+- Typ: Nummer
+  - Name: helper_evcc_lp_1_vehicle_min_soc
+  - Minimaler Wert:0
+  - Maximaler Wert: 100
+- Typ: Text
+  - Name: helper_evcc_lp_1_vehicle_title
+- Typ: Nummer
+  - Name: helper_evcc_lp_2_vehicle_min_soc
+  - Minimaler Wert:0
+  - Maximaler Wert: 100
+- Typ: Text
+  - Name: helper_evcc_lp_2_vehicle_title
+
+
+#### TODO: Automationen um die Helper zu synchronisieren
+
+[Grundlagen um Automatisierungen zu erstellen](../../README.md#home-assistant-artefakte).
+
+Installiere diese Automatisierungen:
+- [EVCC: Aktualisere Min Soc des Fahrzeuges am Loadpoint](./automatisierungen/evcc%20-%20aktualisiere%20min%20soc%20des%20fahrzeuges%20am%20loadpoint.yaml)
+- [EVCC: Aktualisiere Titel des Fahrzeuges am Loadpoint](./automatisierungen/evcc%20-%20aktualisiere%20titel%20des%20fahrzeuges%20am%20loadpoint.yaml)
 
 ### EVCC MQTT Entities Dashboard
 
@@ -51,9 +81,9 @@ Optionaler Schritt, den Du nur brauchst, wenn Du eine Übersicht über alle EVCC
 1. Lege ein neues Dashboard an.
 2. Editiere das Dashboard.
 3. Klicke oben rechts auf die drei Punkte und wähle 'Raw-Konfigurationseditor' aus.
-4. Aus dem Unterordner `entities-dashboard` hier im GitHub, öffne die Datei `evcc-mqtt-entities.yaml`
+4. Aus dem Unterordner `entities-dashboard` hier im GitHub, öffne die Datei `evcc-mqtt-entities.yaml`.
 5. Kopiere den Inhalt dieser Datei in den Raw-Konfigurationseditor des Dashboards und klicke auf Speichern.
 
 Dann solltest Du dieses Dashboard sehen:
 
-![alt text](image-2.png)
+![EVCC Entity Dashboard](./img/entity-dashboard.png)

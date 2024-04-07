@@ -31,8 +31,7 @@ Da das System die ganze Zeit laufen muss bietet sichfür ein stromsparender [Ras
 
 #### Home Assistant
 
-Home Assistant installieren
-Ich habe Home Assistant via docker container installiert.
+Ich habe Home Assistant via Docker Container installiert.
 
 Zunächst mal Docker installieren via apt-get install docker docker-compose.
 
@@ -102,7 +101,9 @@ sudo systemctl restart mosquitto
 ```
 
 
-#### EVCC an Mosquitto anbinden
+## Konfiguration
+
+### EVCC an Mosquitto anbinden
 
 Damit EVCC MQTT Topics an Mosquitto schickt muss die Konfigurationsdatei von EVCC `evcc.yaml` mit folgendem Teil ergänzt werden:
 
@@ -116,7 +117,10 @@ mqtt:
 
 PASSWORD ist hierbei das Mosquitto Password für den EVCC user, wie ihr es oben anlegt habt.
 
+Nun empfehlen wir mal kurz zu überprüfen, ob EVCC schon erfolgreich seine Daten an MQTT sendet. Am besten geht das mit dem [MQTT Explorer](https://mqtt-explorer.com/).
 
-#### EVCC an Home Assistant via MQTT anbinden
+
+### EVCC an Home Assistant via MQTT anbinden
 
 Siehe Unterordner [`evcc-mqtt-integration`](./evcc-mqtt-integration/)
+
