@@ -27,7 +27,9 @@ Falls noch nicht getan, muss in HomeAssistant noch das `packages` Verzeichnis ko
 
 ### EVCC MQTT YAMLs installieren
 
-1. Lade die YAML Dateien aus diesem Verzeichnis herunter. **TBD: Wie lade ich die Dateien von GITHUB herunter?**
+1. Lade die YAML Dateien aus diesem Verzeichnis herunter. 
+   1. Öffne die YAML Datei hier in GitHub indem Du auf ihren Dateinamen klickst.
+   2. Klicke oben rechts auf 'Download raw file'.
 2. Wenn Du nur eine Wallbox hast, lösche `evcc_loadpoint2_mqtt.yaml`. 
 3. Kopiere diese Dateien in das oben erstellte `packages` Verzeichnis.
 4. Öffne `evcc_vehicle1_mqtt.yaml` und ersetze dort alle Vorkommen des Fahrzeugnamens (nicht der Titel) durch den Namen Deines Fahrzeuges, wie in Deiner `evcc.yaml` angegeben.
@@ -66,7 +68,7 @@ Lege die Folgenden Helfer an:
   - Name: helper_evcc_lp_2_vehicle_title
 
 
-#### TODO: Automationen um die Helper zu synchronisieren
+#### Automationen um die Helper zu synchronisieren
 
 [Grundlagen um Automatisierungen zu erstellen](../../README.md#home-assistant-artefakte).
 
