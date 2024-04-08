@@ -1,4 +1,4 @@
-# MQTT Integration für Home Assistant
+# EVCC MQTT Integration für Home Assistant
 
 Konfigurationsdateien für eine MQTT Integration, welche die Basis für alle anderen Puzzleteile ist, welche auf EVCC Entities zugreifen.
 
@@ -42,9 +42,9 @@ Wenn jetzt Home Assistant neu gestartet ist, solltest Du neue Entitäten sehen. 
 
 ### Fahrzeug Informationen am aktuellen Loadpoint
 
-Das Team von EVCC hat beschlossen einige MQTT Topics nur noch unter dem `vehicle` Topic abzulegen. Leider macht uns das mit Home Assistant nun das Leben schwerer, da wir auf einige Attribute von dem `vehicle` zugreifen müssen, das gerade an einem Loadpoint hängt. Noch schwerer, da die Referenz nur über den Vehicle Namen erfolgt - der Vehicle Name aber nicht als Attribut, sondern im MQTT Topic Pfad enthalten ist (daher müssen oben die MQTT der Fahrzeuge auch angepasst werden) - so dynamisch ist Home Assistant leider nicht.
+Lange Story: Das Team von EVCC hat aus nachvollziehbaren Gründen eines normalisierten Datenmodells beschlossen einige MQTT Topics nur noch unter dem `vehicle` Topic abzulegen. Leider macht uns das mit Home Assistant nun das Leben komplizierter, da wir auf einige Attribute von dem `vehicle` zugreifen müssen, das gerade an einem Loadpoint hängt. Noch schwerer, da die Referenz nur über den Vehicle Namen erfolgt - der Vehicle Name aber nicht als Attribut, sondern im MQTT Topic Pfad enthalten ist (daher müssen oben die MQTT der Fahrzeuge auch angepasst werden). Greift man problematisch auf die MQTT Topics zu ist das ohne große Probleme machbar. Home Assistant ist da aber leider nicht so flexibel, da die MQTT Topic Namen fest zu Entities zugeordnet werden müssen.
 
-Um dieses Problem zu lösen installieren wir ein paar Helfer, deren Wert wir per Automatisierung aktualisieren.
+Kurze Story: Um dieses Problem zu lösen installieren wir ein paar Helfer, deren Wert wir per Automatisierung aktualisieren.
 
 #### Helfer anlegen
 
