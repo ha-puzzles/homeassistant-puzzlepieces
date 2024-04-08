@@ -12,7 +12,7 @@ Wir sammeln und teilen hier Puzzlestücke für Deine Homeautomation. Jedes Puzze
 
 ## Voraussetzungen
 
-Wir setzen hier folgendes Voraus:
+Wir setzen hier folgendes voraus:
 
 - Bereitschaft sich etwas tiefer mit der Materie zu beschäftigen: Wir versuchen immer alles möglichst einfach und allgemein zur Verfügung zu stellen - das klappt aber nicht immer und Du wirst öfters mal etwas an Deine Situation anpassen müssen.
 
