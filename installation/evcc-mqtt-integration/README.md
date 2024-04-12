@@ -4,6 +4,8 @@ Konfigurationsdateien für eine MQTT Integration, welche die Basis für alle and
 
 Leider aktualisiert EVCC die MQTT Topics sehr dynamisch auch in kleinen Minor-Releases. Wir versuchen mit EVCC Schritt zu halten. Wenn hier etwas nicht tut, bitte schaue zuerst ob Deine EVCC Version aktuell ist. Falls ja, und es tut trotzdem was nicht, kann es sein, dass wir noch nicht hinterhergekommen sind die Konfiguration unten anzupassen. Bitte gebe dann hier einen neuen Issue ein oder noch besser: schicke uns einen Pull Request, damit wir uns darum kümmern können.
 
+Unsere Konfiguration basiert auf der Arbeit von ThomDietrich, die er in der [Home Assistant Community gepostet](https://community.home-assistant.io/t/evcc-integration-via-mqtt-sensor-entity-config/407959) hat.
+
 ## Setup
 
 ### packages Verzeichnis einrichten
