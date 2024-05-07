@@ -124,3 +124,7 @@ Nun empfehlen wir mal kurz zu überprüfen, ob EVCC schon erfolgreich seine Date
 
 Siehe Unterordner [`evcc-mqtt-integration`](./evcc-mqtt-integration/)
 
+
+## Wechselrichter anbinden
+
+Siehe Unterorder [`wechselrichter`](./wechselrichter/) und dort in die Unterordner der jeweiligen Wechselrichter, die von uns unterstützt werden.
