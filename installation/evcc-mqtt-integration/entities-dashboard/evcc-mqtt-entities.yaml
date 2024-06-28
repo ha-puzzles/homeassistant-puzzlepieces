@@ -37,6 +37,7 @@ views:
           - entity: sensor.evcc_lp_1_session_price
           - entity: sensor.evcc_lp_1_session_price_per_kwh
           - entity: binary_sensor.evcc_lp_1_smart_cost_active
+          - entity: number.evcc_lp_1_smart_cost_limit
           - entity: sensor.evcc_lp_1_vehicle_name
           - entity: sensor.evcc_lp_1_vehicle_soc
         title: Loadpoint 1
@@ -61,6 +62,7 @@ views:
           - entity: sensor.evcc_lp_2_session_price
           - entity: sensor.evcc_lp_2_session_price_per_kwh
           - entity: binary_sensor.evcc_lp_2_smart_cost_active
+          - entity: number.evcc_lp_2_smart_cost_limit
           - entity: sensor.evcc_lp_2_vehicle_name
           - entity: sensor.evcc_lp_2_vehicle_soc
         title: Loadpoint 2
@@ -84,6 +86,8 @@ views:
         entities:
           - entity: input_number.helper_evcc_lp_1_vehicle_min_soc
           - entity: input_text.helper_evcc_lp_1_vehicle_title
+          - entity: sensor.helper_lp1_summary_text
           - entity: input_number.helper_evcc_lp_2_vehicle_min_soc
           - entity: input_text.helper_evcc_lp_2_vehicle_title
+          - entity: sensor.helper_lp2_summary_text
         title: Helpers

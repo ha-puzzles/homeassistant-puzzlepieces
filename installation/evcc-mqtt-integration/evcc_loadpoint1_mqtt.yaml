@@ -202,3 +202,14 @@ mqtt:
       step: 5
       unit_of_measurement: "%"
 
+    - name: evcc_lp_1_smart_cost_limit
+      unique_id: uniqueid__evcc_lp_1_smart_cost_limit
+      icon: mdi:label-percent-outline
+      state_topic: "evcc/loadpoints/1/smartCostLimit"
+      command_topic: "evcc/loadpoints/1/smartCostLimit/set"
+      availability_topic: "evcc/status"
+      min: -0.05
+      max: 0.445
+      step: 0.005
+      unit_of_measurement: "€"
+
