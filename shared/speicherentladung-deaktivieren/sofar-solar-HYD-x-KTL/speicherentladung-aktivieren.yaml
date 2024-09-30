@@ -8,13 +8,18 @@ trigger:
       - input_boolean.helper_home_battery_discharge_disabled
     from: "on"
     to: "off"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
 condition: []
 action:
   - alias: Self Use Mode setzen
-    service: select.select_option
+    continue_on_error: true
     target:
       entity_id:
-        - select.sofar_energy_storage_mode
+        - select.sofar_charger_use_mode
     data:
       option: Self Use
+    action: select.select_option
 mode: single

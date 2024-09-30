@@ -8,26 +8,32 @@ trigger:
       - input_boolean.helper_home_battery_discharge_disabled
     from: "off"
     to: "on"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
 condition: []
 action:
   - alias: Passive Mode setzen
-    service: select.select_option
+    continue_on_error: true
     target:
       entity_id:
-        - select.sofar_energy_storage_mode
+        - select.sofar_charger_use_mode
     data:
       option: Passive Mode
+    action: select.select_option
   - alias: Entladeleistung auf 0 setzen
-    service: number.set_value
     target:
       entity_id:
-        - number.sofar_passive_minimum_batter_power
+        - number.sofar_passive_mode_battery_power_min
     data:
       value: "0.0"
+    action: number.set_value
   - alias: Batterieleistung setzen
-    service: button.press
+    continue_on_error: true
     target:
       entity_id:
-        - button.sofar_passive_update_battery_charge_discharge
+        - button.sofar_passive_mode_battery_charge_discharge
     data: {}
+    action: button.press
 mode: single
