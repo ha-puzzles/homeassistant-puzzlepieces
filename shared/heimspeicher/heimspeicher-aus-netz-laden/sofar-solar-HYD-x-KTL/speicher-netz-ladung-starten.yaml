@@ -1,0 +1,43 @@
+alias: "Heimspeicher: Manuelle Ladung starten"
+description: ""
+triggers:
+  - entity_id:
+      - input_boolean.helper_home_battery_manual_charging
+    from: "off"
+    to: "on"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    trigger: state
+conditions:
+  - condition: numeric_state
+    entity_id: sensor.sofar_battery_capacity_total
+    below: 80
+actions:
+  - continue_on_error: true
+    data:
+      option: Passive Mode
+    target:
+      entity_id:
+        - select.sofar_charger_use_mode
+    action: select.select_option
+  - data:
+      value: "4500"
+    target:
+      entity_id:
+        - number.sofar_passive_mode_battery_power_min
+    action: number.set_value
+  - data:
+      value: "5000"
+    target:
+      entity_id:
+        - number.sofar_passive_mode_battery_power_max
+    action: number.set_value
+  - continue_on_error: true
+    data: {}
+    target:
+      entity_id:
+        - button.sofar_passive_mode_battery_charge_discharge
+    action: button.press
+mode: single
