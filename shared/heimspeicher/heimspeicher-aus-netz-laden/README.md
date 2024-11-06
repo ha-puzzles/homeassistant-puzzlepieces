@@ -1,13 +1,13 @@
-# Speicherentladung deaktiveren
+# Heimspeicher: Aus Netz laden
 
-Erlaubt es die Entladung des Hausspeichers zu deaktivieren. Zum Beispiel um während einer schnellen Autoladung den Speicher nicht unnötig zu leeren.
+Started das Laden des Heimspeichers aus dem Netz bis auf einen Ladestand von 80%.
 
 ## Helfer
 
 Für die Automatisierungen in den Unterordnern muss folgender Helper angelegt werden:
 
 - Typ: Schalter
-- Name:  `helper_home_battery_discharge_disabled`
+- Name:  `helper_home_battery_manual_charging`
 
 ## Automatisierungen
 
@@ -20,8 +20,6 @@ Nachdem untenstehender Helfer angelegt wurde und die Automatisierungen für den 
 1. Unter `Geräte und Dienste` auf den Helfer Tab gehen
 2. Auf obigen Helfer klicken
 3. Schalter umlegen so, dass er auf An geht.
-4. Nach einer gewissen Wartezeit sollte der Speicher keinen Strom mehr abgeben.
+4. Nach einer gewissen Wartezeit sollte der Speicher anfangen aus dem Netz zu laden.
 3. Schalter auf Aus umlegen.
-4. Nach einer gewissen Wartezeit sollte der Speicher wieder Strom liefern.
-
-![Speicherentladung Helfer](./img/speicherentladung-deaktiviert.png)
+4. Nach einer gewissen Wartezeit sollte der Speicher nicht mehr aus dem Netz geladen werden.

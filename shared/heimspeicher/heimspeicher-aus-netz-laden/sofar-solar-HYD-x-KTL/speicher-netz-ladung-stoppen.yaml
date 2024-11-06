@@ -1,0 +1,40 @@
+alias: "Heimspeicher: Manuelle Ladung gestoppt"
+description: ""
+mode: single
+triggers:
+  - entity_id:
+      - input_boolean.helper_home_battery_manual_charging
+    from: "on"
+    to: "off"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    trigger: state
+conditions: []
+actions:
+  - alias: Passive Mode Battery Power auf 0 setzen
+    target:
+      entity_id:
+        - number.sofar_passive_mode_battery_power_min
+        - number.sofar_passive_mode_battery_power_max
+        - number.sofar_passive_mode_grid_power
+    data:
+      value: "0"
+    action: number.set_value
+  - alias: Geänderte Batterieleistung comitten
+    continue_on_error: true
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - button.sofar_passive_mode_battery_charge_discharge
+    action: button.press
+  - alias: Charger Use Mode auf 'Self Use' setzen
+    continue_on_error: true
+    data:
+      option: Self Use
+    target:
+      entity_id:
+        - select.sofar_charger_use_mode
+    action: select.select_option
