@@ -47,17 +47,26 @@ Erste Seite:
 - Schnittstelle: TCP/Ethernet
 - Modbus Adresse: 1
 - Wechselrichter Typ: sofar
-- Abfragefrequenz: 15 Sekunden (oder länger, aber nicht kürzer)
+- Abfragefrequenz: 60 Sekunden (oder länger, aber nicht kürzer)
+- Medium polling interval: 30 Sekunden
+- Fast polling interval: 15 Sekunden
+- Namenszusatz für den Wechselrichter: Kann beliebig gewählt werden, sollte aber möglichst kurz sein oder leer.
 
 Setze die Checkboxen je nachdem welche Features Dein Wechselrichter unterstützt - ist für unseren Fall aber alles optional.
 
-Auf 'Absenden' klicken. Nun muss die TCP/IP Schnittstelle für ModBus TCP konfiguriert werden:
+![Erste Seite der Konfiguration](./img/setup-page1.png)
+
+Auf 'Bestätigen' klicken. Nun muss die TCP/IP Schnittstelle für ModBus TCP konfiguriert werden:
 
 - Gebe die IP Adresse des LSE-3 Loggersticks an.
 - Port: 8899
 - Modbus TCP
 
-Und 'Absenden'. Nun sollte unter der Integration ein Gerät auftauchen. Klicke mal darauf.
+![Zweite Seite der Konfiguration](./img/setup-page2.png)
+
+Und 'Bestätigen' klicken. Nun kann man noch wählen ob man das Auslesen der Batteriemodule deaktivieren will. Dies ist notwendig und kann deaktiviert bleiben. Nochmals auf 'Bestätigen' klicken.
+
+Nun sollte unter der Integration ein Gerät auftauchen. Klicke mal darauf.
 
 Wenn die Steuerelemente und Entities noch nicht mit Werten gefüllt sind, habe etwas Geduld. Das kann dauern. Weiter unten unter 'Sensoren' werden dann irgendwann auch mal jede Menge Werte des Wechselrichters angezeigt.
 
