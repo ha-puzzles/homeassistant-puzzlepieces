@@ -1,0 +1,19 @@
+# Erhaltungsladung des Stromspeichers
+
+Viele Wechselrichter haben für den Heimspeicher einen Schutz gegen Tiefentladung. Ab einem bestimmten Ladestand wird der Speicher aus dem Netz aufgeladen.
+
+Mit dieser Automation kann dies flexibler gemacht werden. Der Batteriestand wann diese Ladung beginnt und bis zu welchem Stand aufgeladen wird kann frei gewählt werden.
+
+Eine bereits im Wechselrichter eingebaut Schutzfunktion muss eventuell deaktiviert werden, wenn diese den Speicher schon früher auflädt.
+
+## Abhängigkeiten
+
+- [Heimspeicher: Aus Netz laden](../../shared/heimspeicher/heimspeicher-aus-netz-laden)
+
+## Automatisierungen
+
+Automatisierungen mit Hilfe der YAML Dateien für die nächtliche Deaktivierung aus den entsprechenden Unterordnern für den passenden Wechselrichter und aus diesem Ordner für die morgendliche Aktivierung anlegen.
+
+## Anpassungen
+
+Aktuell wird der Speicher ab unter 10% auf 20% aufgeladen. In [erhaltungsladung-starten.yaml](./sofar-solar-HYD-x-KTL/erhaltungsladung-starten.yaml) ist die untere Entladegrenze anzupassen, in [erhaltungsladung-stoppen.yaml](./sofar-solar-HYD-x-KTL/erhaltungsladung-stoppen.yaml) der Zielladestand.
