@@ -1,4 +1,4 @@
-# Tibber: Nächtliches Speicher sparen
+# Dynamischer Stromtarif: Nächtliches Speicher sparen
 
 Warum sollte sich der Speicher Nachts in den günstigen Stunden ganz entleeren und morgens, wenn es wieder teurer wird muss man dann den teuren Strom kaufen?
 
