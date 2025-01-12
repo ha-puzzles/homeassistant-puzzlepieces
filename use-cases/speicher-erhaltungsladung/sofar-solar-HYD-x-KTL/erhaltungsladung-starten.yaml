@@ -1,0 +1,21 @@
+alias: "Speicher: Erhaltungsladung starten"
+description: ""
+triggers:
+  - trigger: numeric_state
+    entity_id:
+      - sensor.sofar_battery_capacity_total
+    below: 10
+conditions: []
+actions:
+  - action: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - input_boolean.helper_home_battery_manual_charging
+        - input_boolean.helper_pv_battery_mincharge_active
+  - action: notify.mobile_app_handy_carsten
+    data:
+      title: Erhaltungsladung gestartet.
+      message: Der SOC des Heimspeichers ist zu niedrig. Erhaltungsladung gestartet.
+mode: single

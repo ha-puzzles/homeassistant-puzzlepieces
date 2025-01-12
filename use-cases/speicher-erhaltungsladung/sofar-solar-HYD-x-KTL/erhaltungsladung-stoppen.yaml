@@ -1,0 +1,20 @@
+alias: "Speicher: Erhaltungsladung stoppen"
+description: ""
+triggers:
+  - trigger: numeric_state
+    entity_id:
+      - sensor.sofar_battery_capacity_total
+    above: 20
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_pv_battery_mincharge_active
+    state: "on"
+actions:
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - input_boolean.helper_pv_battery_mincharge_active
+        - input_boolean.helper_home_battery_manual_charging
+mode: single
