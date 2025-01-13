@@ -31,6 +31,24 @@ mqtt:
       unit_of_measurement: "W"
       availability_topic: "evcc/status"
 
+    - name: evcc_site_battery_discharge_control
+      unique_id: uniqueid__evcc_battery_discharge_control
+      icon: mdi:battery
+      state_topic: "evcc/site/batteryDischargeControl"
+      availability_topic: "evcc/status"
+
+    - name: evcc_site_battery_mode
+      unique_id: uniqueid__evcc_site_battery_mode
+      icon: mdi:battery
+      state_topic: "evcc/site/batteryMode"
+      availability_topic: "evcc/status"
+
+    - name: evcc_site_battery_grid_charge_active
+      unique_id: uniqueid__evcc_site_battery_grid_charge_active
+      icon: mdi:battery
+      state_topic: "evcc/site/batteryGridChargeActive"
+      availability_topic: "evcc/status"
+
     - name: evcc_site_grid_power
       unique_id: uniqueid__evcc_site_grid_power
       icon: mdi:home-lightning-bolt-outline

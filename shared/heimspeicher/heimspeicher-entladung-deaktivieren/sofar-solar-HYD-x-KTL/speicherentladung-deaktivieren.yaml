@@ -1,10 +1,9 @@
-alias: Speicherentladung deaktiveren
+alias: "Heimspeicher: Entladung deaktiveren"
 description: >-
   Deaktiviert die Entladung der Speicher Batterie, wenn der Helfer auf An
   geschaltet wird.
-trigger:
-  - platform: state
-    entity_id:
+triggers:
+  - entity_id:
       - input_boolean.helper_home_battery_discharge_disabled
     from: "off"
     to: "on"
@@ -12,8 +11,24 @@ trigger:
       hours: 0
       minutes: 0
       seconds: 5
-condition: []
-action:
+    trigger: state
+conditions:
+  - condition: or
+    conditions:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: select.sofar_charger_use_mode
+            state: Passive Mode
+        alias: Passive mode nicht aktiv
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: number.sofar_passive_mode_battery_power_min
+            state: "0"
+        alias: Entladeleistung ist nicht 0
+    alias: Prüfe, ob es notwendig ist die Entladung bereits deaktiviert ist.
+actions:
   - alias: Passive Mode setzen
     continue_on_error: true
     target:
@@ -37,3 +52,4 @@ action:
     data: {}
     action: button.press
 mode: single
+

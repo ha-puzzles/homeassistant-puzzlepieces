@@ -1,10 +1,9 @@
-alias: Speicherentladung aktivieren
+alias: "Heimspeicher: Entladung aktivieren"
 description: >-
   Aktiviert die Entladung der Speicher Batterie, wenn der Helfer auf Aus
   geschaltet wird.
-trigger:
-  - platform: state
-    entity_id:
+triggers:
+  - entity_id:
       - input_boolean.helper_home_battery_discharge_disabled
     from: "on"
     to: "off"
@@ -12,14 +11,40 @@ trigger:
       hours: 0
       minutes: 0
       seconds: 5
-condition: []
-action:
-  - alias: Self Use Mode setzen
-    continue_on_error: true
-    target:
-      entity_id:
-        - select.sofar_charger_use_mode
-    data:
-      option: Self Use
-    action: select.select_option
+    trigger: state
+conditions: []
+actions:
+  - if:
+      - condition: state
+        entity_id: input_boolean.helper_nightly_battery_saver
+        state: "off"
+        alias: Nächtliches Speichersparen muss aus sein.
+    then:
+      - condition: state
+        entity_id: sensor.evcc_site_battery_mode
+        state: normal
+      - alias: Self Use aktivieren
+        continue_on_error: true
+        target:
+          entity_id:
+            - select.sofar_charger_use_mode
+        data:
+          option: Self Use
+        action: select.select_option
+    else:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.helper_home_battery_discharge_disabled
+        alias: Speicher sollte nicht aktiviert werden, also Flag wieder setzen.
+      - action: notify.mobile_app_handy_carsten
+        metadata: {}
+        data:
+          title: Speicheraktivierung abgebrochen.
+          message: >-
+            Der Speicher wurde nicht aktiviert, da die Vorkonditionen nicht
+            erfüllt worden sind.
+        alias: Benachrichtige, dass der Speicher nicht aktiviert worden ist.
+        enabled: false
 mode: single
