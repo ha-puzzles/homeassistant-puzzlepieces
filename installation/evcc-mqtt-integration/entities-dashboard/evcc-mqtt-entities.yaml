@@ -3,8 +3,11 @@ views:
     cards:
       - type: entities
         entities:
-          - entity: sensor.evcc_site_battery_power
           - entity: sensor.evcc_site_battery_soc
+          - entity: sensor.evcc_site_battery_power
+          - entity: sensor.evcc_site_battery_discharge_control
+          - entity: sensor.evcc_site_battery_mode
+          - entity: sensor.evcc_site_battery_grid_charge_active
           - entity: number.evcc_site_buffer_soc
           - entity: sensor.evcc_site_grid_power
           - entity: sensor.evcc_site_home_power
