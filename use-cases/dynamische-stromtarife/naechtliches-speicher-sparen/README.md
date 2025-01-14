@@ -8,7 +8,7 @@ Die Entladeschwelle von 35% sowie die Zeiten in den Automatisierungen sind an di
 
 ## Abhängigkeiten
 
-- [Heimspeicher: Entladung Verhindern](../../../shared/heimspeicher/heimspeicher-entladung-deaktivieren/)
+- [Heimspeicher: Entladung Verhindern](../../heimspeicher/heimspeicher-entladung-deaktivieren/)
 
 ## Automatisierungen
 

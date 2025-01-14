@@ -17,7 +17,7 @@ Für die Automatisierungen muss folgender Helper angelegt werden:
 
 ## Abhängigkeiten
 
-- [Heimspeicher: Aus Netz laden](../../shared/heimspeicher/heimspeicher-aus-netz-laden)
+- [Heimspeicher: Aus Netz laden](../heimspeicher-aus-netz-laden/)
 - 
 
 ## Automatisierungen
