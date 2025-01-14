@@ -37,11 +37,7 @@ Fange am besten mit der Dokumentation in [diesem Ordner](./installation/) an.
 
 ### use-cases
 
-Anwendungsfälle für Automatisierungen. Nachdem Dein Home Assistant aufgesetzt ist, findest Du hier alles um Dein System smarter zu machen.
-
-### shared
-
-Geteilte Artefakte, die von use-cases verwendet werden. Falls eine Anwendungsfall ein solches Artefakt voraussetzt wird dort darauf hingewiesen.
+Anwendungsfälle für Automatisierungen. Nachdem Dein Home Assistant und EVCC aufgesetzt ist, findest Du [hier](./use-cases/) alles um Dein System smarter zu machen.
 
 
 ## Grundlagen

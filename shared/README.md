@@ -1,1 +1,0 @@
-Die Puzzleteilchen, die mit Hilfe von entsprechenden Helpern, die Aktionen auf den entsprechenden Geräten ausführen.
