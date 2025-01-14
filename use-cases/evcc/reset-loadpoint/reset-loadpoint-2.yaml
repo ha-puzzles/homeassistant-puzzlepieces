@@ -1,0 +1,23 @@
+alias: "EVCC: LP2: Reset nach ausstecken"
+description: ""
+triggers:
+  - entity_id:
+      - binary_sensor.evcc_lp_2_connected
+    to: "off"
+    from: "on"
+    trigger: state
+conditions: []
+actions:
+  - metadata: {}
+    data:
+      value: "0.20"
+    target:
+      entity_id: number.evcc_lp_2_smart_cost_limit
+    action: number.set_value
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: pv
+    target:
+      entity_id: select.evcc_lp_2_mode
+mode: single

@@ -131,3 +131,14 @@ mqtt:
       min: -5000
       max: +5000
       unit_of_measurement: "W"
+
+    - name: evcc_site_battery_grid_charge_limit
+      unique_id: uniqueid__battery_grid_charge_limit
+      icon: mdi:currency-eur
+      state_topic: "evcc/site/batteryGridChargeLimit"
+      command_topic: "evcc/site/batteryGridChargeLimit/set"
+      availability_topic: "evcc/status"
+      unit_of_measurement: "€"
+      min: -0.05
+      max: 0.445
+      step: 0.005
