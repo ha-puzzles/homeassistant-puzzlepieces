@@ -7,7 +7,13 @@ Details wie man den Wechselrichter mit EVCC und Home Assistant verbindet findet 
 Wie empfehlen die Verbindung mit einem LSE-3 Ethernet Logger Stick, welcher den standardmäßigen LSW-3 Wifi Stick durch einen per Ethernet Kabel verbundenen Logger Stick ersetzt. Der große Vorteil des LSE-3 ist, dass er schon ModBus TCP (das Protokoll mit dem der Wechselrichter mit EVCC und HomeAssistant spricht) von sich aus beherrscht, was der LSW-3 leider nicht kann.
 
 > [!NOTE]
-> Weise dem LSE-3 Loggerstick in Deinem Router unbedingt eine feste IP Adresse zu. Diese IP Adresse wirst Du mehrfach brauchen.
+> Weise dem LSE-3 Loggerstick in Deinem Router unbedingt eine feste IP Adresse zu. Diese IP Adresse wirst Du mehrfach brauchen. Die IP Adresse muss unbedingt fest per DHCP vom Router zugewiesen werden. Eine festeingestellte IP Adresse im Loggerstick wird zu Problemen in der Kommunikation führen
+
+> [!NOTE]
+> Die Firmware Version des Loggersticks muss die Version `ME_0D_270A_1.09` sein. Eine ältere Version kann Probleme bereiten. Neuere Versionen, speziell die Version `ME_0D_270A_1.11` führt zu Time Outs. Wurde Dein Loggerstick auf diese Version aktualisiert, kontaktiere den SolarMan Support und bitte sie einen Downgrade auf die Version `ME_0D_270A_1.09` zu machen.
+
+> [!NOTE]
+> Zu häufige Abfragen werden den Loggerstick überlasten und es wird ebenfalls zu Time Outs kommen. Getested wurde hier mit einem 30s Intervall bei EVCC und den unten genannten Intervallen von Home Assistant. Wenn Du diese Intervalle unterschreitest kann es zu Problemen kommen.
 
 ## Wechselrichter in EVCC einbinden
 
