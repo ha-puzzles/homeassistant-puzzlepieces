@@ -113,17 +113,19 @@ mqtt:
 
     - name: evcc_lp_1_session_price
       unique_id: uniqueid__evcc_lp_1_session_price
-      icon: mdi:currency-eur
+      icon: mdi:home-lightning-bolt-outline
       state_topic: "evcc/loadpoints/1/sessionPrice"
       state_class: total
+      icon: mdi:currency-eur
       unit_of_measurement: "€"
       availability_topic: "evcc/status"
 
     - name: evcc_lp_1_session_price_per_kwh
       unique_id: uniqueid__evcc_lp_1_session_price_per_kwh
-      icon: mdi:currency-eur
+      icon: mdi:home-lightning-bolt-outline
       state_topic: "evcc/loadpoints/1/sessionPricePerKWh"
       state_class: total
+      icon: mdi:currency-eur
       unit_of_measurement: "€"
       availability_topic: "evcc/status"
 
@@ -204,7 +206,7 @@ mqtt:
 
     - name: evcc_lp_1_smart_cost_limit
       unique_id: uniqueid__evcc_lp_1_smart_cost_limit
-      icon: mdi:label-percent-outline
+      icon: mdi:currency-eur
       state_topic: "evcc/loadpoints/1/smartCostLimit"
       command_topic: "evcc/loadpoints/1/smartCostLimit/set"
       availability_topic: "evcc/status"
@@ -212,4 +214,14 @@ mqtt:
       max: 0.445
       step: 0.005
       unit_of_measurement: "€"
+
+    - name: evcc_lp_1_priority
+      unique_id: uniqueid__evcc_lp_1_priority
+      icon: mdi:priority-high
+      state_topic: "evcc/loadpoints/1/priority"
+      command_topic: "evcc/loadpoints/1/priority/set"
+      availability_topic: "evcc/status"
+      min: 0
+      max: 10
+      step: 1
 
