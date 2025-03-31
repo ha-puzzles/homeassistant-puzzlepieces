@@ -1,0 +1,15 @@
+sequence:
+  - action: button.press
+    metadata: {}
+    data: {}
+    target:
+      entity_id: button.<fahrzeug_id>_wake
+  - action: homeassistant.update_entity
+    metadata: {}
+    data:
+      entity_id:
+        - sensor.<fahrzeug_id>_battery_level
+        - sensor.<fahrzeug_id>_inside_temperature
+        - switch.<fahrzeug_id>_charge
+alias: "Tesla: Update Entities "
+description: ""
