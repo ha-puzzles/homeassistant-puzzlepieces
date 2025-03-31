@@ -23,6 +23,7 @@ views:
       - type: entities
         entities:
           - entity: sensor.evcc_lp_1_active_phases
+          - entity: switch.evcc_lp_1_battery_boost
           - entity: sensor.evcc_lp_1_charge_current_l1
           - entity: sensor.evcc_lp_1_charge_current_l2
           - entity: sensor.evcc_lp_1_charge_current_l3
@@ -49,6 +50,7 @@ views:
       - type: entities
         entities:
           - entity: sensor.evcc_lp_2_active_phases
+          - entity: switch.evcc_lp_2_battery_boost
           - entity: sensor.evcc_lp_2_charge_current_l1
           - entity: sensor.evcc_lp_2_charge_current_l2
           - entity: sensor.evcc_lp_2_charge_current_l3

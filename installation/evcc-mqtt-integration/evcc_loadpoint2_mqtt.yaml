@@ -221,7 +221,27 @@ mqtt:
       state_topic: "evcc/loadpoints/2/priority"
       command_topic: "evcc/loadpoints/2/priority/set"
       availability_topic: "evcc/status"
-      min: 0
+      min: 1
       max: 10
       step: 1
+
+  switch:
+
+    - name: evcc_lp_2_battery_boost
+      unique_id: uniqueid__evcc_lp_2_battery_boost
+      icon: mdi:home-battery
+      state_topic: "evcc/loadpoints/2/batteryBoost"
+      state_on: "true"
+      state_off: "false"
+      command_topic: "evcc/loadpoints/2/batteryBoost/set"
+      payload_on: "true"
+      payload_off: "false"
+      entity_category: "config"
+      availability:
+        - topic: "evcc/loadpoints/2/mode"
+          value_template: "{{value == 'pv' or value == 'minpv'}}"
+          payload_available: True
+          payload_not_available: False
+        - topic: "evcc/status"
+      availability_mode: "all"
 
