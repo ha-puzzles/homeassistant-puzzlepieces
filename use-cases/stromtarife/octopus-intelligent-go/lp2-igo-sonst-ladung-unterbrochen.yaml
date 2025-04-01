@@ -1,0 +1,33 @@
+alias: "LP2: iGo: Sonstige Zeit: Ladevorgang unterbrochen"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.evcc_lp_2_charging
+    from: "on"
+    to: "off"
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+conditions:
+  - condition: state
+    entity_id: binary_sensor.evcc_lp_2_connected
+    state: "on"
+  - condition: state
+    entity_id: binary_sensor.evcc_lp_2_enabled
+    state: "on"
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.helper_lp2_octopus_intelligent_go_active
+        state: "off"
+      - condition: time
+        after: "05:00:00"
+        before: "23:55:00"
+    alias: Intelligent Go ist aus oder ausserhalb der Intelligent Go Zeit
+actions:
+  - action: script.tesla_ladevorgang_starten
+    metadata: {}
+    data: {}
+mode: single
