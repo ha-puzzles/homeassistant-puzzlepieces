@@ -1,0 +1,18 @@
+alias: "LP1: iGo: Ladevorgang zurücksetzen um 5:00"
+description: ""
+triggers:
+  - trigger: time
+    at: "05:00:00"
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_lp1_octopus_intelligent_go_active
+    state: "on"
+    enabled: true
+actions:
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: pv
+    target:
+      entity_id: select.evcc_lp_1_mode
+mode: single

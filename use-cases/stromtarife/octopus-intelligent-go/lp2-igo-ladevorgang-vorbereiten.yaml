@@ -1,0 +1,36 @@
+alias: "LP1: iGo: Ladevorgang vorbereiten für 0:00"
+description: ""
+triggers:
+  - trigger: time
+    at: "23:55:00"
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_lp1_octopus_intelligent_go_active
+    state: "on"
+actions:
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: now
+    target:
+      entity_id: select.evcc_lp_1_mode
+  - alias: Warte auf Start von Ladevorgang
+    wait_for_trigger:
+      - trigger: state
+        entity_id:
+          - binary_sensor.evcc_lp_1_charging
+        to: "on"
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 30
+    continue_on_timeout: true
+    timeout:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - action: script.tesla_ladevorgang_pausieren
+    metadata: {}
+    data: {}
+mode: single
