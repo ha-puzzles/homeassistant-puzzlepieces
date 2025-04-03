@@ -14,6 +14,10 @@ Die Konfiguration der Tesla Fleet Integration wird im Detail auf der [Tesla Flee
 
 Viel Glück bei der Einrichtung.
 
+> [!WARNING]
+> Fleetkey.cc speichert keine Daten. Bei jedem Aufruf wird eine neue URL erzeugt. Während der Einrichtung die die Fleetkey.cc Seite unbedingt offen lassen und nicht neu laden, bis ALLE Schritte, einschließlich dem Registrieren des virtuellen Schlüssels mittels QR Code ganz am Ende, abgeschlossen worden sind und die Integration erfolgreich getestet worden ist.
+
+
 Nach der Einrichtung bitte einmal testen, ob Befehle ausgeführt werden können:
 1. Mittels der Integration den Tesla aufwecken.
 2. Mittels der Integration einen Befehl schicken (zum Beispiel Kofferraum öffnen)
