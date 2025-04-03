@@ -14,6 +14,10 @@ Die Konfiguration der Tesla Fleet Integration wird im Detail auf der [Tesla Flee
 
 Viel Glück bei der Einrichtung.
 
+Nach der Einrichtung bitte einmal testen, ob Befehle ausgeführt werden können:
+1. Mittels der Integration den Tesla aufwecken.
+2. Mittels der Integration einen Befehl schicken (zum Beispiel Kofferraum öffnen)
+
 Wenn die Tesla Fleet Integration dann endlich korrekt aufgesetzt ist, empfehle ich die automatische Abfrage von Änderungen wegen dem hohen Datenaufkommen zu deaktivieren. Dazu unter 'Geräte und Dienste' die 'Tesla Fleet' Integration öffnen und mit folgenden Schritten die automatische Abfrage von Änderungen deaktivieren:
 
 ![Abfrage von Änderungen deaktivieren](./img/abfrage-deaktivieren.png)
