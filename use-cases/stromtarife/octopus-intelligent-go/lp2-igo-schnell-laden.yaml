@@ -11,9 +11,9 @@ conditions:
       - condition: state
         entity_id: input_boolean.helper_lp2_octopus_intelligent_go_active
         state: "off"
-      - condition: time
-        after: "05:00:00"
-        before: "23:55:00"
+      - condition: state
+        entity_id: sensor.octopus_intelligent_dispatching_a_<octopus_kunden_nummer>
+        state: "off"
     alias: Intelligent Go ist aus oder ausserhalb der Intelligent Go Zeit
 actions:
   - action: script.tesla_ladevorgang_starten

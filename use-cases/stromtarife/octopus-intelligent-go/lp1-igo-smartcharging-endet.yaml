@@ -1,0 +1,27 @@
+alias: "LP1: iGo: Smartcharging endet."
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.octopus_intelligent_dispatching_a_<octopus_kunden_nummer>
+    to: "off"
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_lp1_octopus_intelligent_go_active
+    state: "on"
+actions:
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: pv
+    target:
+      entity_id: select.evcc_lp_1_mode
+  - action: notify.mobile_app_<companion_app_device_name>
+    metadata: {}
+    data:
+      title: "iGo: Ladevorgang beendet"
+      message: Die Zeit für Smartcharging wurde beendet.
+      data:
+        notification_icon: mdi:car-electric
+        tag: igo-charging
+mode: single
