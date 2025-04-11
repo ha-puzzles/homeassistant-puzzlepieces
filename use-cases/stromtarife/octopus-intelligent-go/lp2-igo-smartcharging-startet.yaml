@@ -1,0 +1,27 @@
+alias: "LP2: iGo: Smartcharging startet"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.octopus_intelligent_dispatching_a_<octopus_kunden_nummer>
+    to: "on"
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_lp2_octopus_intelligent_go_active
+    state: "on"
+actions:
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: now
+    target:
+      entity_id: select.evcc_lp_2_mode
+  - action: notify.mobile_app_<companion_app_device_name>
+    metadata: {}
+    data:
+      title: "iGo: Smartcharging gestartet"
+      data:
+        notification_icon: mdi:car-electric
+        tag: igo-charging
+      message: Smartcharging wurde gestartet.
+mode: single
