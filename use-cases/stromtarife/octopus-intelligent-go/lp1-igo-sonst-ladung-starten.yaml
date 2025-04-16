@@ -1,4 +1,4 @@
-alias: "LP2: iGo: Tagsüber: Überprüfe ob Ladevorgang gestartet wurde"
+alias: "LP1: iGo: Tagsüber: Überprüfe ob Ladevorgang gestartet wurde"
 description: ""
 triggers:
   - trigger: state
