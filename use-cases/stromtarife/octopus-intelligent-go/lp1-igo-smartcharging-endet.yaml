@@ -1,14 +1,16 @@
-alias: "LP1: iGo: Smartcharging endet."
+alias: "LP2: iGo: Smartcharging endet."
 description: ""
 triggers:
   - trigger: state
     entity_id:
-      - sensor.octopus_intelligent_dispatching_a_<octopus_kunden_nummer>
+      - sensor.octopus_a_<octopus_id>_intelligent_dispatching
     to: "off"
+    alias: Die Zeit für Smartes Laden endet.
 conditions:
   - condition: state
-    entity_id: input_boolean.helper_lp1_octopus_intelligent_go_active
+    entity_id: input_boolean.helper_intelligent_go
     state: "on"
+    alias: Der 'Intelligent Go' Helfer in Home Assistant ist eingeschaltet
 actions:
   - action: select.select_option
     metadata: {}
@@ -16,6 +18,7 @@ actions:
       option: pv
     target:
       entity_id: select.evcc_lp_1_mode
+    alias: Lademodus des Ladepunktes zurück auf Überschussladen.
   - action: notify.mobile_app_<companion_app_device_name>
     metadata: {}
     data:
@@ -24,4 +27,5 @@ actions:
       data:
         notification_icon: mdi:car-electric
         tag: igo-charging
+    alias: Sende eine Benachrichtigung an die Companion App
 mode: single

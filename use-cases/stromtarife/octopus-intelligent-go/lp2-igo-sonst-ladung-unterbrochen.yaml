@@ -1,4 +1,4 @@
-alias: "LP2: iGo: Sonstige Zeit: Ladevorgang unterbrochen"
+alias: "LP2: iGo: Tagsüber: Ladevorgang unterbrochen"
 description: ""
 triggers:
   - trigger: state
@@ -10,23 +10,46 @@ triggers:
       hours: 0
       minutes: 3
       seconds: 0
+    alias: Aktiver Ladevorgang wird für mindestens 3 Minuten unterbrochen.
 conditions:
   - condition: state
     entity_id: binary_sensor.evcc_lp_2_connected
     state: "on"
+    alias: Ein Fahrzeug ist am Ladepunkt verbunden
   - condition: state
     entity_id: binary_sensor.evcc_lp_2_enabled
     state: "on"
-  - alias: Intelligent Go ist aus oder ausserhalb der Intelligent Go Zeit
+    alias: Der Ladepunkt is aktiviert und sollte eigentlich laden.
+  - alias: Der Lademodus ist entweder Überschussladen oder Schnell
     condition: or
     conditions:
       - condition: state
-        entity_id: input_boolean.helper_lp2_octopus_intelligent_go_active
-        state: "off"
+        entity_id: select.evcc_lp_2_mode
+        state: pv
       - condition: state
-        entity_id: sensor.octopus_intelligent_dispatching_a_<octopus_kunden_nummer>
+        entity_id: select.evcc_lp_2_mode
+        state: minpv
+      - condition: state
+        entity_id: select.evcc_lp_2_mode
+        state: now
+  - alias: >-
+      'Intelligent Go' Helfer ist aus oder es ist tagsüber und wir wollen nur
+      per Überschuss laden.
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.helper_intelligent_go
         state: "off"
+      - condition: sun
+        before: sunset
+        after: sunrise
 actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+    alias: Stelle sicher, dass Smartes Laden von Octopus ausgeschaltet ist.
   - action: script.tesla_ladevorgang_starten
     metadata: {}
     data: {}
@@ -38,4 +61,29 @@ actions:
       data:
         notification_icon: mdi:car-electric
         tag: igo-charging
+    alias: Sende eine Benachrichtigung an die Companion App
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - alias: Überprüfe ob Smart Laden wirklich ausgeschaltet wurde.
+    if:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+            state: "off"
+    then:
+      - alias: Sende eine Benachrichtigung an die Companion App
+        action: notify.mobile_app_<companion_app_device_name>
+        metadata: {}
+        data:
+          title: "iGo: Smart Laden konnte nicht ausgeschaltet werden."
+          message: >-
+            Es ist etwas schief gelaufen. Smart Laden konnte nicht ausgeschaltet
+            werden.
+          data:
+            notification_icon: mdi:car-electric
+            color: red
 mode: single
