@@ -1,0 +1,43 @@
+alias: "iGo: Sonnenuntergang: Smartes Laden einschalten, falls gewünscht"
+description: ""
+triggers:
+  - trigger: sun
+    event: sunset
+    offset: 0
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_intelligent_go
+    state: "on"
+    alias: Wenn der 'Intelligent Go' Helper in Home Assistant eingeschaltet ist.
+actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+    alias: Smartes Laden bei Octopus aktivieren
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - alias: Überprüfe ob Smart Laden wirklich eingeschaltet wurde.
+    if:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+            state: "on"
+    then:
+      - alias: Sende eine Benachrichtigung an die Companion App
+        action: notify.mobile_app_<companion_app_device_name>
+        metadata: {}
+        data:
+          title: "iGo: Smart Laden konnte nicht eingeschaltet werden."
+          message: >-
+            Es ist etwas schief gelaufen. Smart Laden konnte nicht eingeschaltet
+            werden.
+          data:
+            notification_icon: mdi:car-electric
+            color: red
+mode: single

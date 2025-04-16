@@ -1,35 +1,17 @@
-alias: "LP2: iGo: EVCC auf 'Schnell': Sofort starten"
+alias: "iGo: Sonnenaufgang: Smartes Laden ausschalten"
 description: ""
 triggers:
-  - trigger: state
-    entity_id:
-      - select.evcc_lp_2_mode
-    to: now
-    alias: Der Lademodus des Ladepunktes wird auf 'Schnell' geschaltet.
-conditions:
-  - alias: >-
-      'Intelligent Go" Helfer ist aus oder tagsüber (nachts bei aktiviertem
-      Smarten Laden laufen wir in Konflikt mit Intelligent Go)
-    condition: or
-    conditions:
-      - condition: state
-        entity_id: input_boolean.helper_intelligent_go
-        state: "off"
-      - condition: sun
-        before: sunset
-        after: sunrise
+  - trigger: sun
+    event: sunrise
+    offset: "00:30:00"
+conditions: []
 actions:
   - action: switch.turn_off
     metadata: {}
     data: {}
     target:
       entity_id: switch.octopus_a_<octopus_id>_device_smart_control
-    alias: >-
-      Sicherstellen, dass Smartes Laden bei Octopus aus ist und uns nicht
-      dazwischenpfuscht.
-  - action: script.tesla_ladevorgang_starten
-    metadata: {}
-    data: {}
+    alias: Smartes Laden bei Octopus deaktivieren
   - delay:
       hours: 0
       minutes: 1
