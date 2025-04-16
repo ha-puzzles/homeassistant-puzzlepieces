@@ -37,7 +37,7 @@ Da man die Schalter später sicher auf einem Dashboard anzeigen will, empfiehlt 
 
 ## Automatisierungen
 
-Es gibt jeweils ein Satz für Ladepunkt 1 (YAML Datei startet mit `lp1_`) und Ladepunkt 2 (YAML Datei startet mit `lp2_`). Entweder die Automatisierungen für beide Ladepunkts anlegen oder nur für den Ladepunkt an dem das von Octopus Intelligent Go gesteuerte Fahrzeug normalerweise hängt.
+Es gibt allgemeine Automationen, die ihr immer braucht (YAML Datei beginnt mit `igo-`) und jeweils ein Satz für Ladepunkt 1 (YAML Datei beginnt mit `lp1-igo-`) und Ladepunkt 2 (YAML Datei startet mit `lp2-igo-`). Entweder die Automatisierungen für beide Ladepunkts anlegen oder nur für den Ladepunkt an dem das von Octopus Intelligent Go gesteuerte Fahrzeug normalerweise hängt.
 
 Folgende Automatisierungen sind mit Hilfe der YAML Dateien anlegen. 
 
