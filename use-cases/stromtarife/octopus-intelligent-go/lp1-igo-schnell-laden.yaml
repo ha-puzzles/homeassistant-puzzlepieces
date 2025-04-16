@@ -1,4 +1,4 @@
-alias: "LP2: iGo: EVCC auf 'Schnell': Sofort starten"
+alias: "LP1: iGo: EVCC auf 'Schnell': Sofort starten"
 description: ""
 triggers:
   - trigger: state

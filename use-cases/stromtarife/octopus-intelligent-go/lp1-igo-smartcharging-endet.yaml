@@ -1,4 +1,4 @@
-alias: "LP2: iGo: Smartcharging endet."
+alias: "LP1: iGo: Smartcharging endet."
 description: ""
 triggers:
   - trigger: state

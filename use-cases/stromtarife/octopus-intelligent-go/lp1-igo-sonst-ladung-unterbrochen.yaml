@@ -1,4 +1,4 @@
-alias: "LP2: iGo: Tagsüber: Ladevorgang unterbrochen"
+alias: "LP1: iGo: Tagsüber: Ladevorgang unterbrochen"
 description: ""
 triggers:
   - trigger: state
