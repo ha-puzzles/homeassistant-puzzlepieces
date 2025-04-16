@@ -130,8 +130,6 @@ Wenn außerhalb der nächtlichen Zeit ein Ladepunkt für mindestens 5 Minuten ak
 
 [`./lp1-igo-sonst-ladung-unterbrochen.yaml`](./lp1-igo-sonst-ladung-unterbrochen.yaml) / [`./lp2-igo-sonst-ladung-unterbrochen.yaml`](./lp2-igo-sonst-ladung-unterbrochen.yaml)
 
-*Scriptaufruf zum Starten des fahrzeugseitigen Ladevorgangs muss ggf. angepasst werden.*
-
 Wenn außerhalb der nächtlichen Zeit der Ladevorgang an einem Ladepunkt unterbrochen wird, aber der Ladepunkt immer noch aktiviert ist, gehen wir davon aus, dass die Ladevorgang fahrzeugseitig von Octopus Intelligent Go unterbrochen worden ist. Dann wird fahrzeugseitig der Ladevorgang gestartet.
 
 #### Notwendige Anpassungen
