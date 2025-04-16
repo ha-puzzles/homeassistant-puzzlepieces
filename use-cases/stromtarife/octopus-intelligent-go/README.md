@@ -25,7 +25,7 @@ Ein paar grundlegende Eigenschaften und Einschränkungen:
 
 ## Helfer
 
-Für die Automatisierungen in den Unterordnern muss der folgende [Helper](../../../README.md#helfer) angelegt werden:
+Für die Automatisierungen muss der folgende [Helper](../../../README.md#helfer) angelegt werden:
 
 - Typ: Schalter
 - Name:  `helper_intelligent_go`
