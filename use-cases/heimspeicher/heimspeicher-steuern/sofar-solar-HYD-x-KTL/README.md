@@ -1,4 +1,4 @@
-# Heimspeicher steuern
+# Heimspeicher steuern (Sofar Solar HYX x KTL)
 
 Der Sofar Solar Wechselrichter hat verschiedene [Energy Storage Modes](https://homeassistant-solax-modbus.readthedocs.io/en/latest/sofar-energy-storage-modes/). Für unsere Zwecke schalten die Skripte den Wechselrichter in den Passive Mode. In diesem kann der Wechselrichter beliebig gesteuert werden. Es wird dann auch nicht in den Eingenutzungsmodus (Self-Use) zurückgeschaltet. Diesen Modus emulieren wir auch im Passive Mode. Der Vorteil hierbei: Das Umsetzen des Energy Storage Mode wird jedesmal ins EEPROM des Wechselrichters geschrieben, welcher eine begrenzte Anzahl von Schreibzugriffen hat. Daher beschränken wir uns auf das setzen der Leistungswerte, welche nur im Speicher vorgehalten werden.
 
