@@ -1,14 +1,21 @@
-alias: "Speicher: Erhaltungsladung stoppen"
+alias: "Heimspeicher: Erhaltungsladung stoppen"
 description: ""
 triggers:
   - trigger: numeric_state
     entity_id:
-      - sensor.sofar_battery_capacity_total
+      - sensor.sofar_battery_1_1_soc
+      - sensor.sofar_battery_1_2_soc
     above: 20
 conditions:
   - condition: state
     entity_id: input_boolean.helper_pv_battery_mincharge_active
     state: "on"
+  - condition: numeric_state
+    entity_id: sensor.sofar_battery_1_1_soc
+    above: 20
+  - condition: numeric_state
+    entity_id: sensor.sofar_battery_1_2_soc
+    above: 20
 actions:
   - action: input_boolean.turn_off
     metadata: {}
@@ -16,5 +23,11 @@ actions:
     target:
       entity_id:
         - input_boolean.helper_pv_battery_mincharge_active
-        - input_boolean.helper_home_battery_manual_charging
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: Automatisches Laden und Entladen
+    target:
+      entity_id: input_select.helper_pv_battery_mode
+    alias: Heimspeicher Modus wieder auf Automatik stellen.
 mode: single

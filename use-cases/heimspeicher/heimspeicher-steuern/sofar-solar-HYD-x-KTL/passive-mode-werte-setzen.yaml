@@ -1,0 +1,70 @@
+sequence:
+  - alias: Stelle sicher, dass der Passive Mode gesetzt ist
+    if:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: select.sofar_charger_use_mode
+            state: Passive Mode
+        alias: Wenn Energy Storage Mode nicht im Passive Mode ist.
+    then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Passive Mode
+        target:
+          entity_id: select.sofar_charger_use_mode
+      - delay:
+          hours: 0
+          minutes: 2
+          seconds: 0
+          milliseconds: 0
+      - alias: >-
+          Überprüfe ob der Storage Mode wirklich geändert wurde. Ansonsten
+          schicke eine Benachrichtgung
+        if:
+          - condition: not
+            conditions:
+              - condition: state
+                entity_id: select.sofar_charger_use_mode
+                state: Passive Mode
+            alias: Wenn Energy Storage Mode nicht im Passive Mode ist.
+        then:
+          - action: notify.mobile_app_<companion_app_device_name>
+            metadata: {}
+            data:
+              data:
+                notification_icon: mdi:home-battery
+                color: red
+              title: Fehler beim Setzen des Energy Storage Mode
+              message: >-
+                Der Energy Storage Mode konnte nicht auf Passive gewechselt
+                werden. Bitte überprüfen.
+          - stop: Failed to set the Energy Storage Mode to 'Passive Mode'
+            error: true
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: "{{ desired_grid_power }}"
+    target:
+      entity_id: number.sofar_passive_mode_grid_power
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: "{{ battery_max_power }}"
+    target:
+      entity_id: number.sofar_passive_mode_battery_power_max
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: "{{ battery_min_power }}"
+    target:
+      entity_id: number.sofar_passive_mode_battery_power_min
+  - action: button.press
+    metadata: {}
+    data: {}
+    target:
+      entity_id: button.sofar_passive_mode_battery_charge_discharge
+mode: restart
+alias: "Heimspeicher: Passive Mode Werte setzen"
+description: ""

@@ -5,6 +5,10 @@ triggers:
     entity_id:
       - sensor.sofar_battery_capacity_total
     below: 35
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
   - trigger: time
     at: "00:00:00"
 conditions:
@@ -24,11 +28,12 @@ conditions:
     entity_id: sensor.sofar_battery_capacity_total
     below: 35
 actions:
-  - alias: Speicherentladung deaktiviert
-    action: input_boolean.turn_on
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: Nur Laden
     target:
-      entity_id:
-        - input_boolean.helper_home_battery_discharge_disabled
-        - input_boolean.helper_nightly_battery_saver
-    data: {}
+      entity_id: input_select.helper_pv_battery_mode
+    alias: Heimspeicher Entladung deaktivieren.
 mode: single
+
