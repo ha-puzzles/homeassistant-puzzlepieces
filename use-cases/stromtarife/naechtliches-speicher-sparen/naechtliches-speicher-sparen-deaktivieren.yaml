@@ -3,7 +3,7 @@ description: ""
 triggers:
   - alias: Morgens um 6:30
     trigger: time
-    at: "06:00:00"
+    at: "06:30:00"
 conditions:
   - condition: state
     entity_id: input_boolean.helper_nightly_battery_saver
@@ -20,4 +20,11 @@ actions:
     target:
       entity_id: input_boolean.helper_home_battery_discharge_disabled
     alias: Speicher aktivieren
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: Automatisches Laden und Entladen
+    target:
+      entity_id: input_select.helper_pv_battery_mode
+    alias: Heimspeicher Modus wieder auf Automatik
 mode: single

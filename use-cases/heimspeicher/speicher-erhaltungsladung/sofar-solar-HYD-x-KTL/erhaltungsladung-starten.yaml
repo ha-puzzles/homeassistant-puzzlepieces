@@ -1,10 +1,15 @@
-alias: "Speicher: Erhaltungsladung starten"
+alias: "Heimspeicher: Erhaltungsladung starten"
 description: ""
 triggers:
   - trigger: numeric_state
     entity_id:
-      - sensor.sofar_battery_capacity_total
-    below: 10
+      - sensor.sofar_battery_1_1_soc
+      - sensor.sofar_battery_1_2_soc
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    below: 8
 conditions: []
 actions:
   - action: input_boolean.turn_on
@@ -12,10 +17,36 @@ actions:
     data: {}
     target:
       entity_id:
-        - input_boolean.helper_home_battery_manual_charging
         - input_boolean.helper_pv_battery_mincharge_active
-  - action: notify.mobile_app_handy_carsten
+  - if:
+      - condition: numeric_state
+        entity_id: input_number.helper_pv_battery_target_soc
+        below: 30
+    then:
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: 30
+        target:
+          entity_id: input_number.helper_pv_battery_target_soc
+    alias: >-
+      Stelle sicher, dass der Ziel SOC beim Netzladen ausreichend hoch
+      eingestellt ist, um die einzelnen Module hoch genug zu laden.
+  - action: input_select.select_option
+    metadata: {}
     data:
-      title: Erhaltungsladung gestartet.
-      message: Der SOC des Heimspeichers ist zu niedrig. Erhaltungsladung gestartet.
+      option: Netzladen
+    target:
+      entity_id: input_select.helper_pv_battery_mode
+    alias: Starte Netzladen
+  - action: notify.mobile_app_<companion_app_device_name>
+    metadata: {}
+    data:
+      title: Niedriger Speicher SOC.
+      message: >-
+        Der SoC eines Speichermodules ist unter 8% gefallen. Speichermodul 1: {{
+        states('sensor.sofar_battery_1_1_soc') }}%. Speichermodul 2: {{
+        states('sensor.sofar_battery_1_2_soc') }}%. Starte Erhaltungsladung.
+      data:
+        notification_icon: mdi:battery-10
 mode: single
