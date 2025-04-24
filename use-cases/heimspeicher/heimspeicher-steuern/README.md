@@ -24,7 +24,7 @@ Für die Automatisierungen und Skripte in den Unterordnern müssen folgende Helf
   - Netzladen
   - Aus
 
-Nachdem er gespeichert angelegt wurde und die Entity ID vergeben wurde, empfehle ich den Helfer nochmals aufzumachen um ihm dann einen Benutzerfreundlicheren Namen und Icon zu geben:
+Nachdem er gespeichert und angelegt und die Entity ID vergeben wurde, empfehle ich den Helfer nochmals aufzumachen um ihm dann einen Benutzerfreundlicheren Namen und Icon zu geben:
 
 ![Battery Mode Helper](./img/battery-mode-helper.png)
 
