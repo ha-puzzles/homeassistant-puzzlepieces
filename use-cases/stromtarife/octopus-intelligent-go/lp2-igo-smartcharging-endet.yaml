@@ -3,7 +3,7 @@ description: ""
 triggers:
   - trigger: state
     entity_id:
-      - sensor.octopus_a_<octopus_id>_intelligent_dispatching
+      - binary_sensor.octopus_a_<octopus_id>_intelligent_dispatching
     to: "off"
     alias: Die Zeit für Smartes Laden endet.
 conditions:
