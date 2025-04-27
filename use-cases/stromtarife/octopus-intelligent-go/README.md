@@ -1,12 +1,12 @@
 > [!NOTE]  
-> Neues Update, das vorherige Probleme hoffentlich löst. Es muss ein anderer Helper angelegt werden. Die vorherigen können gelöscht werden. Außerdem müssen die existierenden automatisierungen aktualisiert werden und es gibt weitere automatisierungen.
+> Neues Update, das vorherige Probleme hoffentlich löst. Es muss ein anderer Helper angelegt werden. Die vorherigen können gelöscht werden. Außerdem müssen die existierenden Automatisierungen aktualisiert werden und es gibt weitere Automatisierungen.
 
 # Octopus Intelligent Go mit EVCC
 
 Mit diesen Satz von Automatisierungen kann die aktive Steuerung des angemeldeten Fahrzeuges per Octopus App bei Octopus Intelligent Go einfach eingeschaltet bleiben. Die Automatisierungen verhindern, dass Octopus der Steuerung von EVCC in the Quere kommt und umgekehrt.
 
 Ein paar grundlegende Eigenschaften und Einschränkungen:
-- PV Überschuss wird immer dem Laden per Octopus Go vorgezogen. Daher wird tagsüber Smartes Laden von Octopus deaktiviert und erst nach Sonnenuntergang wieder eingeschaltet. Smarte Ladezeiten tagsüber werden mit diesen automatisierungen ignoriert.
+- PV Überschuss wird immer dem Laden per Octopus Go vorgezogen. Daher wird tagsüber Smartes Laden von Octopus deaktiviert und erst nach Sonnenuntergang wieder eingeschaltet. Smarte Ladezeiten tagsüber werden mit diesen Automatisierungen ignoriert.
 - Hier wird der Fall abgehandelt, dass Octopus Intelligent Go das Fahrzeug steuert, nicht eine von Octopus Intelligent Go unterstützte Wallbox.
 - Die Automatisierungen benötigen Zugriff auf die fahrzeugseitige Steuerung und sind beispielhaft für einen Tesla implementiert. Diese fahrzeugabhängigen Teile sind aber in Scripte ausgelagert, die leicht durch eigene Scripte ersetzt werden können. Beispiele der Scripte für [Tesla: Ladung starten/stoppen](../../fahrzeuge/Tesla/ladung-starten-stoppen/).
 - Da bei Tesla die API Aufrufe ab Februar 2025 kostenpflichtig geworden sind wird versucht - wann immer möglich - überflüssige Aufrufe zu vermeiden. Bei anderen Fahrzeugen gibt es eventuell andere Limits für die Anzahl der Aufrufe pro Tag.
