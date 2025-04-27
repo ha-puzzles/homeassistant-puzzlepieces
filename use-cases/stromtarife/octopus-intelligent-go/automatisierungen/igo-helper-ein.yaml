@@ -1,0 +1,21 @@
+alias: "iGo: Helper ein: Nachts Smartes Laden einschalten"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_boolean.helper_intelligent_go
+    from: "off"
+    to: "on"
+    alias: "'Intelligent Go' Helper wird in Home Assistant eingeschaltet."
+conditions:
+  - condition: sun
+    before: sunrise
+    after: sunset
+    alias: >-
+      In der Nacht machen wir sofort weiter. Am Tag warten wir bis
+      Sonnenuntergang.
+actions:
+  - action: script.igo_smartes_laden_einschalten
+    metadata: {}
+    data: {}
+mode: single

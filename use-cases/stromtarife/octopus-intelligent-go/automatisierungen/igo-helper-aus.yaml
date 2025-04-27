@@ -1,0 +1,16 @@
+alias: "iGo: Helper aus: Smartes Laden ausschalten"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_boolean.helper_intelligent_go
+    from: "on"
+    to: "off"
+    alias: "'Intelligent Go' Helper wird in Home Assistant ausgeschaltet"
+conditions: []
+actions:
+  - action: script.igo_smartes_laden_ausschalten
+    metadata: {}
+    data: {}
+mode: single
+

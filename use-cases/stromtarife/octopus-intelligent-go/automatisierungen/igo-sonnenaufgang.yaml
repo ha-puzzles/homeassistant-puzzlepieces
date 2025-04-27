@@ -1,0 +1,12 @@
+alias: "iGo: Sonnenaufgang: Smartes Laden ausschalten"
+description: ""
+triggers:
+  - trigger: sun
+    event: sunrise
+    offset: "00:30:00"
+conditions: []
+actions:
+  - action: script.igo_smartes_laden_ausschalten
+    metadata: {}
+    data: {}
+mode: single
