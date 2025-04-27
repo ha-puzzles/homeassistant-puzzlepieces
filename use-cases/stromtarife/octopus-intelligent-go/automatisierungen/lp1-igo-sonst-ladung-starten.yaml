@@ -44,16 +44,14 @@ conditions:
         before: sunset
         after: sunrise
 actions:
-  - action: switch.turn_off
+  - action: script.igo_smartes_laden_ausschalten
     metadata: {}
     data: {}
-    target:
-      entity_id: switch.octopus_a_<octopus_id>_device_smart_control
-    alias: Stelle sicher, dass Smartes Laden von Octopus ausgeschaltet ist.
   - action: script.tesla_ladevorgang_starten
     metadata: {}
     data: {}
-  - action: notify.mobile_app_<companion_app_device_name>
+  - alias: Sende eine Benachrichtigung an die Companion App
+    action: notify.mobile_app_<companion_app_device_name>
     metadata: {}
     data:
       title: "iGo: Ladevorgang nicht gestartet"
@@ -63,29 +61,6 @@ actions:
       data:
         notification_icon: mdi:car-electric
         tag: igo-charging
-    alias: Sende eine Benachrichtigung an die Companion App
-  - delay:
-      hours: 0
-      minutes: 1
-      seconds: 0
-      milliseconds: 0
-  - alias: Überprüfe ob Smart Laden wirklich ausgeschaltet wurde.
-    if:
-      - condition: not
-        conditions:
-          - condition: state
-            entity_id: switch.octopus_a_<octopus_id>_device_smart_control
-            state: "off"
-    then:
-      - alias: Sende eine Benachrichtigung an die Companion App
-        action: notify.mobile_app_<companion_app_device_name>
-        metadata: {}
-        data:
-          title: "iGo: Smart Laden konnte nicht ausgeschaltet werden."
-          message: >-
-            Es ist etwas schief gelaufen. Smart Laden konnte nicht ausgeschaltet
-            werden.
-          data:
-            notification_icon: mdi:car-electric
-            color: red
+        group: igo-charging
 mode: single
+

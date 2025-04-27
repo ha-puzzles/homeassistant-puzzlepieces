@@ -1,11 +1,11 @@
-alias: "LP2: iGo: Smartcharging startet"
+alias: "LP1: iGo: Smartcharging startet"
 description: ""
 triggers:
-  - trigger: state
+  - alias: Die Zeit für Smartes Laden startet.
+    trigger: state
     entity_id:
       - binary_sensor.octopus_a_<octopus_id>_intelligent_dispatching
     to: "on"
-    alias: Die Zeit für Smartes Laden startet.
 conditions:
   - condition: state
     entity_id: input_boolean.helper_intelligent_go
@@ -19,15 +19,16 @@ actions:
     data:
       option: now
     target:
-      entity_id: select.evcc_lp_2_mode
+      entity_id: select.evcc_lp_1_mode
     alias: "Gebe das Laden von EVCC frei: Lademodus des Ladepunktes auf 'Schnell'."
-  - action: notify.mobile_app_<companion_app_device_name>
+  - alias: Sende eine Benachrichtigung an die Companion App.
+    action: notify.mobile_app_<companion_app_device_name>
     metadata: {}
     data:
       title: "iGo: Smartcharging gestartet"
       data:
         notification_icon: mdi:car-electric
         tag: igo-charging
+        group: igo-charging
       message: Smartcharging wurde gestartet.
-    alias: Sende eine Benachrichtigung an die Companion App.
 mode: single

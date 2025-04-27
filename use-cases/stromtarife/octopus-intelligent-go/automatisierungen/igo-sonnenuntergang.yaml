@@ -1,0 +1,16 @@
+alias: "iGo: Sonnenuntergang: Smartes Laden einschalten, falls gewünscht"
+description: ""
+triggers:
+  - trigger: sun
+    event: sunset
+    offset: 0
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_intelligent_go
+    state: "on"
+    alias: Wenn der 'Intelligent Go' Helper in Home Assistant eingeschaltet ist.
+actions:
+  - action: script.igo_smartes_laden_einschalten
+    metadata: {}
+    data: {}
+mode: single

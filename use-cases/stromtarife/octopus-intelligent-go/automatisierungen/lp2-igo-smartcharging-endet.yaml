@@ -1,11 +1,11 @@
-alias: "LP1: iGo: Smartcharging endet."
+alias: "LP2: iGo: Smartcharging endet."
 description: ""
 triggers:
-  - trigger: state
+  - alias: Die Zeit für Smartes Laden endet.
+    trigger: state
     entity_id:
       - binary_sensor.octopus_a_<octopus_id>_intelligent_dispatching
     to: "off"
-    alias: Die Zeit für Smartes Laden endet.
 conditions:
   - condition: state
     entity_id: input_boolean.helper_intelligent_go
@@ -17,9 +17,10 @@ actions:
     data:
       option: pv
     target:
-      entity_id: select.evcc_lp_1_mode
+      entity_id: select.evcc_lp_2_mode
     alias: Lademodus des Ladepunktes zurück auf Überschussladen.
-  - action: notify.mobile_app_<companion_app_device_name>
+  - alias: Sende eine Benachrichtigung an die Companion App
+    action: notify.mobile_app_<companion_app_device_name>
     metadata: {}
     data:
       title: "iGo: Ladevorgang beendet"
@@ -27,5 +28,6 @@ actions:
       data:
         notification_icon: mdi:car-electric
         tag: igo-charging
-    alias: Sende eine Benachrichtigung an die Companion App
+        group: igo-charging
 mode: single
+

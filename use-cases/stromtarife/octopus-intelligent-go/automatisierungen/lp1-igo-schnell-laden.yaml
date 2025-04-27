@@ -1,0 +1,28 @@
+alias: "LP1: iGo: EVCC auf 'Schnell': Sofort starten"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - select.evcc_lp_1_mode
+    to: now
+    alias: Der Lademodus des Ladepunktes wird auf 'Schnell' geschaltet.
+conditions:
+  - alias: >-
+      'Intelligent Go" Helfer ist aus oder tagsüber (nachts bei aktiviertem
+      Smarten Laden laufen wir in Konflikt mit Intelligent Go)
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.helper_intelligent_go
+        state: "off"
+      - condition: sun
+        before: sunset
+        after: sunrise
+actions:
+  - action: script.tesla_ladevorgang_starten
+    metadata: {}
+    data: {}
+  - action: script.igo_smartes_laden_ausschalten
+    metadata: {}
+    data: {}
+mode: single
