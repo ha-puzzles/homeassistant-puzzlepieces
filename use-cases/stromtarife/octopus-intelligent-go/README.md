@@ -1,5 +1,5 @@
 > [!NOTE]  
-> Neues Update, das vorherige Probleme hoffentlich löst. Es muss ein anderer Helper angelegt werden. Die vorherigen können gelöscht werden. Außerdem müssen die existierenden Automatisierungen aktualisiert werden und es gibt weitere Automatisierungen.
+> 2025-04-27: Es sind 2 neue Skripte hinzugekommen. Die Automatisierungen nutzen nun diese Skripte und müssen ebenfalls aktualisiert werden.
 
 # Octopus Intelligent Go mit EVCC
 
