@@ -18,7 +18,7 @@ TBD
 
 ### Installation auf einem Linux System
 
-Vielleicht habt ihr schonen einen Raspberry PI am laufen und wollt nun nicht alles neu mit HAOS aufsetzen. Oder ihr bevorzugt einfach ein normales Linux auf dem ihr Euch frei entfalten könnt, da HAOS doch auf die Möglichkeiten seiner Add Ons beschränkt ist.
+Vielleicht habt ihr schon einen Raspberry PI am laufen und wollt nun nicht alles neu mit HAOS aufsetzen. Oder ihr bevorzugt einfach ein normales Linux auf dem ihr Euch frei entfalten könnt, da HAOS doch auf die Möglichkeiten seiner Add Ons beschränkt ist.
 
 #### Linux: Raspberry Pi OS
 
