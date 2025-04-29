@@ -13,7 +13,7 @@ Ein paar grundlegende Eigenschaften und Einschränkungen:
 
 
 ## Abhängigkeiten
-- Die [octopus-germany](https://github.com/thecem/octopus_germany) Integration von @thecem in mindestens der Version 0.0.33.
+- Die [octopus-germany](https://github.com/thecem/octopus_germany) Integration von @thecem in mindestens der Version 0.0.52.
 - Die [Sonne](https://www.home-assistant.io/integrations/sun) Integration von Home Assistant muss konfiguriert sein über den Standort des Wohnortes.
 - Unsere [EVCC MQTT Entities](../../../installation/evcc-mqtt-integration/), damit die Entities von EVCC passen.
 - Für Tesla Fahrzeuge:
