@@ -22,7 +22,7 @@ Vielleicht habt ihr schon einen Raspberry PI am laufen und wollt nun nicht alles
 
 #### Linux: Raspberry Pi OS
 
-Da das System die ganze Zeit laufen muss bietet sichfür ein stromsparender [Raspberry PI](https://www.raspberrypi.com/products/) an. Auf diesem installiert man dann mit Raspberry Pi OS ein Linux System.
+Da das System die ganze Zeit laufen muss bietet sich dafür ein stromsparender [Raspberry PI](https://www.raspberrypi.com/products/) an. Auf diesem installiert man dann mit Raspberry Pi OS ein Linux System.
 
 1. [Raspberry Pi Imager](https://www.raspberrypi.com/software/) herunterladen und das image für die SD Karte erstellen. Als Image reicht das 'Raspberry Pi OS Lite' ohne Desktop völlig aus.
 2. Nachdem das Image auf der SD Karte eingerichtet ist, die Karte im Raspberry PI eingesteckt ist und der Raspberry gebootet ist, solltet ihr mit SSH drauf kommen. Details dazu: https://www.raspberrypi.com/do…ters/getting-started.html
@@ -33,31 +33,31 @@ Da das System die ganze Zeit laufen muss bietet sichfür ein stromsparender [Ras
 
 Ich habe Home Assistant via Docker Container installiert.
 
-Zunächst mal Docker installieren via apt-get install docker docker-compose.
+1. Zunächst mal Docker installieren via apt-get install docker docker-compose.
 
-Legt ein Verzeichnis für die Installation an, zum Beispiel ~/docker/homeassistant.
+2. Legt ein Verzeichnis für die Installation an, zum Beispiel ~/docker/homeassistant.
 
-Legt eine Datei compose.yml in diesem Verzeichnis an mit folgendem Inhalt:
+3. Legt eine Datei compose.yml in diesem Verzeichnis an mit folgendem Inhalt:
 
-```yaml
-version: '3'
-services:
-  homeassistant:
-    container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:stable"
-    volumes:
-      - /home/<user>/docker/homeassistant/config:/config
-      - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
-```
-\<user\> muss hier durch Euren Usernamen ersetzt werden. Dann folgendes ausführen:
+   ```yaml
+   version: '3'
+   services:
+     homeassistant:
+       container_name: homeassistant
+       image: "ghcr.io/home-assistant/home-assistant:stable"
+       volumes:
+         - /home/<user>/docker/homeassistant/config:/config
+         - /etc/localtime:/etc/localtime:ro
+       restart: unless-stopped
+       privileged: true
+       network_mode: host
+   ```
+   \<user\> muss hier durch Euren Usernamen ersetzt werden. Dann folgendes ausführen:
 
-```
-sudo docker-compose pull
-sudo docker-compose up -d
-```
+4. ```
+   sudo docker-compose pull
+   sudo docker-compose up -d
+   ```
 
 #### EVCC
 
