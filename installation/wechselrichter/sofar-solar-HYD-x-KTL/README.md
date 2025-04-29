@@ -4,7 +4,9 @@
 
 Details wie man den Wechselrichter mit EVCC und Home Assistant verbindet findet man hier: https://homeassistant-solax-modbus.readthedocs.io/en/latest/sofar-installation/
 
-Wie empfehlen die Verbindung mit einem LSE-3 Ethernet Logger Stick, welcher den standardmäßigen LSW-3 Wifi Stick durch einen per Ethernet Kabel verbundenen Logger Stick ersetzt. Der große Vorteil des LSE-3 ist, dass er schon ModBus TCP (das Protokoll mit dem der Wechselrichter mit EVCC und HomeAssistant spricht) von sich aus beherrscht, was der LSW-3 leider nicht kann.
+Wie empfehlen die Verbindung mit einem RS-485 Adapter, da dies aktuell die deutlich zuverlässigere Lösung zu sein scheint. Der Installationsaufwand ist jedoch etwas höher.
+
+Einfacher geht es mit dem LSE-3 Ethernet Logger Stick, welcher den standardmäßigen LSW-3 Wifi Stick durch einen per Ethernet Kabel verbundenen Logger Stick ersetzt. Der Vorteil des LSE-3 ist, dass er schon ModBus TCP (das Protokoll mit dem der Wechselrichter mit EVCC und HomeAssistant spricht) von sich aus beherrscht, was der LSW-3 leider nicht kann und einfach eingesteckt werden kann. Jedoch hat der LSE-3 auch mit einigen Nachteilen zu kämpfen.
 
 > [!NOTE]
 > Weise dem LSE-3 Loggerstick in Deinem Router unbedingt eine feste IP Adresse zu. Diese IP Adresse wirst Du mehrfach brauchen. Die IP Adresse muss unbedingt fest per DHCP vom Router zugewiesen werden. Eine festeingestellte IP Adresse im Loggerstick wird zu Problemen in der Kommunikation führen
