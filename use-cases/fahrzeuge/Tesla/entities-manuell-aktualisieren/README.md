@@ -15,8 +15,7 @@ Die Konfiguration der Tesla Fleet Integration wird im Detail auf der [Tesla Flee
 Viel Glück bei der Einrichtung.
 
 > [!WARNING]
-> Fleetkey.cc speichert keine Daten. Bei jedem Aufruf wird eine neue URL erzeugt. Während der Einrichtung die die Fleetkey.cc Seite unbedingt offen lassen und nicht neu laden, bis ALLE Schritte, einschließlich dem Registrieren des virtuellen Schlüssels mittels QR Code ganz am Ende, abgeschlossen worden sind und die Integration erfolgreich getestet worden ist.
-
+> Fleetkey.cc speichert keine Daten. Bei jedem Aufruf wird eine neue URL erzeugt. Während der Einrichtung die Fleetkey.cc Seite unbedingt offen lassen und nicht neu laden, bis **alle** Schritte, einschließlich dem Registrieren des virtuellen Schlüssels mittels QR Code ganz am Ende, abgeschlossen worden sind und im Anschluss die Integration erfolgreich getestet worden ist.
 
 Nach der Einrichtung bitte einmal testen, ob Befehle ausgeführt werden können:
 1. Mittels der Integration den Tesla aufwecken.
@@ -33,7 +32,8 @@ Nun werden keine Entitäten mehr automatisch aktualisiert.
 Hier kommt nun das [Update Entities Script](./update-entities.yaml) zum Einsatz. Immer wenn man in einer Automatisierung bestimmte Werte von Entities abfragen muss, ruft man einfach dieses Script vorher auf.
 
 Das Script
-1. Weckt den Tesla auf
+1. Weckt den Tesla auf, falls notwendig.
 2. Aktualisiert die Entities, die man braucht. Diese Liste ist je nach Automatisierung um die Entities aus der Tesla Fleet API zu erweitern, die man in den Automatisierungen abfragt um sicher zu gehen, dass alle Entities aktualisiert worden sind.
 
+### Anpassungen
 Im Script sind generell alle Entities durch den Namen Eures Tesla anzupassen. Ersetzt `<fahrzeug_id>` durch den Namen, den die Tesla Fleet Integration für Euren Tesla vergeben hat.
