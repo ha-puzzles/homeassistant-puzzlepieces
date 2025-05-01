@@ -1,0 +1,39 @@
+alias: "LP1: Bei Bedarf Fahrzeugladegrenze erhöhen"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.evcc_lp_1_effective_limit_soc
+      - sensor.evcc_lp_1_vehicle_name
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{ states('sensor.evcc_vehicle_1_name') ==
+              states('sensor.evcc_lp_1_vehicle_name') }}
+            alias: Tesla (Vehicle 1) ist mit LP1 verbunden.
+        sequence:
+          - action: script.tesla_ladegrenze_bei_bedarf_erhohen
+            metadata: {}
+            data:
+              desired_limit_soc: "{{ states('sensor.evcc_lp_1_effective_limit_soc') }}"
+        alias: Passe Ladegrenze von Tesla an.
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{ states('sensor.evcc_vehicle_2_name') ==
+              states('sensor.evcc_lp_1_vehicle_name') }}
+            alias: Hyundai (Vehicle 2) ist mit LP1 verbunden.
+        sequence:
+          - action: script.hyundai_ladegrenze_bei_bedarf_erhohen
+            metadata: {}
+            data:
+              desired_limit_soc: "{{ states('sensor.evcc_lp_1_effective_limit_soc') }}"
+        alias: Passe Ladegrenze von Hyundai an.
+mode: single
