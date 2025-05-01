@@ -1,4 +1,13 @@
 sequence:
+  - alias: Überprüfe, dass der Paramter 'desired_grid_power' definiert ist.
+    condition: template
+    value_template: "{{ desired_grid_power is defined }}"
+  - alias: Überprüfe, dass der Paramter 'battery_max_power' definiert ist.
+    condition: template
+    value_template: "{{ battery_max_power is defined }}"
+  - alias: Überprüfe, dass der Paramter 'battery_min_power' definiert ist.
+    condition: template
+    value_template: "{{ battery_min_power is defined }}"
   - alias: Stelle sicher, dass der Passive Mode gesetzt ist
     if:
       - condition: not
