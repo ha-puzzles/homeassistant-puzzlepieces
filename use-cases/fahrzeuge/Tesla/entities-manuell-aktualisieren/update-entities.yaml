@@ -11,5 +11,6 @@ sequence:
         - sensor.<fahrzeug_id>_battery_level
         - sensor.<fahrzeug_id>_inside_temperature
         - switch.<fahrzeug_id>_charge
+        - number.<fahrzeug_id>_charge_limit
 alias: "Tesla: Update Entities "
 description: ""
