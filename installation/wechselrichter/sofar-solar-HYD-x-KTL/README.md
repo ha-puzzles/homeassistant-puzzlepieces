@@ -1,14 +1,5 @@
 # Sofar HYD x KTL Einrichtung
 
-## Verbindung
-
-Details wie man den Wechselrichter mit EVCC und Home Assistant verbindet findet man hier: https://homeassistant-solax-modbus.readthedocs.io/en/latest/sofar-installation/
-
-Wie empfehlen die Verbindung mit einem LSE-3 Ethernet Logger Stick, welcher den standardmäßigen LSW-3 Wifi Stick durch einen per Ethernet Kabel verbundenen Logger Stick ersetzt. Der große Vorteil des LSE-3 ist, dass er schon ModBus TCP (das Protokoll mit dem der Wechselrichter mit EVCC und HomeAssistant spricht) von sich aus beherrscht, was der LSW-3 leider nicht kann.
-
-> [!NOTE]
-> Weise dem LSE-3 Loggerstick in Deinem Router unbedingt eine feste IP Adresse zu. Diese IP Adresse wirst Du mehrfach brauchen.
-
 ## Wechselrichter in EVCC einbinden
 
 Siehe die Dokumentation von EVCC: https://docs.evcc.io/docs/devices/meters#hyd-520k-3ph
@@ -39,12 +30,20 @@ Danach einmal Home Assistant neu starten (am besten auf Entwicklerwerkzeuge und 
 
 ### Den Wechselrichter verbinden
 
-Gehe auf Einstellungen > Geräte & Dienste. Dort sollte nun ein neues Geräte 'SolaX Inverter Modbus' zu finden sein. Klicke darauf und dann auf Konfigurieren.
+Details wie man den Wechselrichter mit EVCC und Home Assistant verbindet findet man hier: https://homeassistant-solax-modbus.readthedocs.io/en/latest/sofar-installation/
 
-Erste Seite:
+Wie empfehlen die Verbindung entweder über den Working Mode 'Transparency' wie dort beschrieben oder aber mit einem RS-485 Adapter.
+
+> [!NOTE]
+> Weise dem LSE-3 Loggerstick in Deinem Router unbedingt eine feste IP Adresse zu. Diese IP Adresse wirst Du mehrfach brauchen. Die IP Adresse muss unbedingt fest per DHCP vom Router zugewiesen werden. Eine festeingestellte IP Adresse im Loggerstick wird zu Problemen in der Kommunikation führen
+
+> [!NOTE]
+> Zu häufige Abfragen werden den Loggerstick überlasten und es wird ebenfalls zu Time Outs kommen. Getested wurde hier mit einem 30s Intervall bei EVCC und in HomeAssistant mit den Intervallen 60/30/15s. Wenn Du diese Intervalle unterschreitest kann es zu Problemen kommen.
+
+**Erste Seite:**
 
 - Name: "sofar" (Bei einem anderen Namen werden die Entitynamen aller Entitites des Wechselrichters anders lauten und müssen dann in unserem Automationen entsprechend angepasst werden - wir empfehlen also sehr diesen Namen zu verwenden, falls Du unsere Automationen nutzen willst)
-- Schnittstelle: TCP/Ethernet
+- Schnittstelle: TCP/Ethernet (alternativ Seriell, wenn Du Dich direkt über einen RS-485 USB Adapter verbindest)
 - Modbus Adresse: 1
 - Wechselrichter Typ: sofar
 - Abfragefrequenz: 60 Sekunden (oder länger, aber nicht kürzer)
@@ -58,15 +57,19 @@ Setze die Checkboxen je nachdem welche Features Dein Wechselrichter unterstützt
 
 Auf 'Bestätigen' klicken. Nun muss die TCP/IP Schnittstelle für ModBus TCP konfiguriert werden:
 
-- Gebe die IP Adresse des LSE-3 Loggersticks an.
+**Zweite Seite:**
+
+- Gebe die IP Adresse des Loggersticks oder eines Modbus TCP server an.
 - Port: 8899
 - Modbus TCP
 
 ![Zweite Seite der Konfiguration](./img/setup-page2.png)
 
-Und 'Bestätigen' klicken. Nun kann man noch wählen ob man das Auslesen der Batteriemodule deaktivieren will. Dies ist notwendig und kann deaktiviert bleiben. Nochmals auf 'Bestätigen' klicken.
+**Dritte Seite:**
 
-Nun sollte unter der Integration ein Gerät auftauchen. Klicke mal darauf.
+Nun kann man noch wählen ob man das Auslesen der Batteriemodule aktivieren will. Dies ist für manche Automatisierungen notwendig und sollte aktiviert bleiben. Nochmals auf 'Bestätigen' klicken.
+
+Nun sollte unter der Integration 1 Gerät für den Wechselrichter und jeweils ein Gerät pro Batteriemodul auftauchen. Klicke mal darauf.
 
 Wenn die Steuerelemente und Entities noch nicht mit Werten gefüllt sind, habe etwas Geduld. Das kann dauern. Weiter unten unter 'Sensoren' werden dann irgendwann auch mal jede Menge Werte des Wechselrichters angezeigt.
 
