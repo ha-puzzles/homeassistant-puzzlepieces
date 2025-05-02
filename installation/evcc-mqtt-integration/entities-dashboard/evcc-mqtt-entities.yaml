@@ -3,8 +3,12 @@ views:
     cards:
       - type: entities
         entities:
-          - entity: sensor.evcc_site_battery_power
           - entity: sensor.evcc_site_battery_soc
+          - entity: sensor.evcc_site_battery_power
+          - entity: sensor.evcc_site_battery_discharge_control
+          - entity: sensor.evcc_site_battery_mode
+          - entity: sensor.evcc_site_battery_grid_charge_active
+          - entity: number.evcc_site_battery_grid_charge_limit
           - entity: number.evcc_site_buffer_soc
           - entity: sensor.evcc_site_grid_power
           - entity: sensor.evcc_site_home_power
@@ -19,6 +23,7 @@ views:
       - type: entities
         entities:
           - entity: sensor.evcc_lp_1_active_phases
+          - entity: switch.evcc_lp_1_battery_boost
           - entity: sensor.evcc_lp_1_charge_current_l1
           - entity: sensor.evcc_lp_1_charge_current_l2
           - entity: sensor.evcc_lp_1_charge_current_l3
@@ -34,6 +39,7 @@ views:
           - entity: number.evcc_lp_1_min_current
           - entity: select.evcc_lp_1_mode
           - entity: select.evcc_lp_1_phases
+          - entity: number.evcc_lp_1_priority
           - entity: sensor.evcc_lp_1_session_price
           - entity: sensor.evcc_lp_1_session_price_per_kwh
           - entity: binary_sensor.evcc_lp_1_smart_cost_active
@@ -44,6 +50,7 @@ views:
       - type: entities
         entities:
           - entity: sensor.evcc_lp_2_active_phases
+          - entity: switch.evcc_lp_2_battery_boost
           - entity: sensor.evcc_lp_2_charge_current_l1
           - entity: sensor.evcc_lp_2_charge_current_l2
           - entity: sensor.evcc_lp_2_charge_current_l3
@@ -59,6 +66,7 @@ views:
           - entity: number.evcc_lp_2_min_current
           - entity: select.evcc_lp_2_mode
           - entity: select.evcc_lp_2_phases
+          - entity: number.evcc_lp_2_priority
           - entity: sensor.evcc_lp_2_session_price
           - entity: sensor.evcc_lp_2_session_price_per_kwh
           - entity: binary_sensor.evcc_lp_2_smart_cost_active
@@ -66,6 +74,15 @@ views:
           - entity: sensor.evcc_lp_2_vehicle_name
           - entity: sensor.evcc_lp_2_vehicle_soc
         title: Loadpoint 2
+      - type: entities
+        entities:
+          - entity: input_number.helper_evcc_lp_1_vehicle_min_soc
+          - entity: input_text.helper_evcc_lp_1_vehicle_title
+          - entity: sensor.helper_lp1_summary_text
+          - entity: input_number.helper_evcc_lp_2_vehicle_min_soc
+          - entity: input_text.helper_evcc_lp_2_vehicle_title
+          - entity: sensor.helper_lp2_summary_text
+        title: Helpers
       - type: entities
         entities:
           - entity: sensor.evcc_vehicle_1_capacity
@@ -82,12 +99,3 @@ views:
           - entity: sensor.evcc_vehicle_2_name
           - entity: sensor.evcc_vehicle_2_title
         title: Vehicle 2
-      - type: entities
-        entities:
-          - entity: input_number.helper_evcc_lp_1_vehicle_min_soc
-          - entity: input_text.helper_evcc_lp_1_vehicle_title
-          - entity: sensor.helper_lp1_summary_text
-          - entity: input_number.helper_evcc_lp_2_vehicle_min_soc
-          - entity: input_text.helper_evcc_lp_2_vehicle_title
-          - entity: sensor.helper_lp2_summary_text
-        title: Helpers

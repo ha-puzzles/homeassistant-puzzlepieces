@@ -1,0 +1,69 @@
+sequence:
+  - condition: state
+    entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+    state: "off"
+    alias: Wenn Smartes Laden gerade ausgeschaltet ist.
+  - condition: not
+    conditions:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+            attribute: status
+            state: SMART_CONTROL_CAPABLE
+          - condition: state
+            entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+            attribute: status
+            state: SMART_CONTROL_IN_PROGRESS
+    alias: iGo Status prüfen, ob Smartes Laden nicht schon korrekt eingeschaltet ist.
+  - action: script.tesla_update_entities
+    metadata: {}
+    data: {}
+    alias: >-
+      Tesla aufwecken, damit Octopus den aktuellen Status nach dem Einschalten
+      lesen kann.
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+    alias: Smartes Laden bei Octopus aktivieren
+  - delay:
+      hours: 0
+      minutes: 2
+      seconds: 0
+      milliseconds: 0
+  - alias: Überprüfe ob Smart Laden wirklich eingeschaltet wurde.
+    if:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+            state: "on"
+          - condition: or
+            conditions:
+              - condition: state
+                entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+                attribute: status
+                state: SMART_CONTROL_CAPABLE
+              - condition: state
+                entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+                attribute: status
+                state: SMART_CONTROL_IN_PROGRESS
+    then:
+      - alias: Sende eine Benachrichtigung an die Companion App
+        action: notify.mobile_app_<companion_app_device_name>
+        metadata: {}
+        data:
+          title: "iGo: Smart Laden konnte nicht eingeschaltet werden."
+          message: >-
+            Es ist etwas schief gelaufen. Smart Laden konnte nicht eingeschaltet
+            werden. Status: {{
+            state_attr('switch.octopus_a_<octopus_id>_device_smart_control',    
+            'status') }}
+          data:
+            notification_icon: mdi:car-electric
+            color: red
+            group: igo-charging
+alias: "iGo: Smartes Laden einschalten"
+description: ""

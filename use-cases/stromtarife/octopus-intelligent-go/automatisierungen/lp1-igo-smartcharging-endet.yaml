@@ -1,0 +1,33 @@
+alias: "LP1: iGo: Smartcharging endet."
+description: ""
+triggers:
+  - alias: Die Zeit für Smartes Laden endet.
+    trigger: state
+    entity_id:
+      - binary_sensor.octopus_a_<octopus_id>_intelligent_dispatching
+    to: "off"
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_intelligent_go
+    state: "on"
+    alias: Der 'Intelligent Go' Helfer in Home Assistant ist eingeschaltet
+actions:
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: pv
+    target:
+      entity_id: select.evcc_lp_1_mode
+    alias: Lademodus des Ladepunktes zurück auf Überschussladen.
+  - alias: Sende eine Benachrichtigung an die Companion App
+    action: notify.mobile_app_<companion_app_device_name>
+    metadata: {}
+    data:
+      title: "iGo: Ladevorgang beendet"
+      message: Die Zeit für Smartcharging wurde beendet.
+      data:
+        notification_icon: mdi:car-electric
+        tag: igo-charging
+        group: igo-charging
+mode: single
+

@@ -1,0 +1,12 @@
+sequence:
+  - action: script.tesla_update_entities
+    metadata: {}
+    data: {}
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.<fahrzeug_id>_charge
+alias: "Tesla: Ladevorgang pausieren"
+description: ""
+icon: mdi:pause-circle-outline

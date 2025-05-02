@@ -1,0 +1,45 @@
+sequence:
+  - condition: template
+    value_template: "{{ desired_limit_soc is defined }}"
+    alias: Überprüfe, dass der Parameter 'desired_limit_soc' definiert ist.
+  - variables:
+      default_car_limit_soc: 90
+  - action: kia_uvo.force_update
+    metadata: {}
+    data: {}
+  - choose:
+      - conditions:
+          - alias: >-
+              Aktuelle Fahrzeugladegrenze ist unterhalb der gewünschten
+              Ladegrenze
+            condition: template
+            value_template: >-
+              {{ states('number.ioniq_5_ac_charging_limit') | int <
+              desired_limit_soc }}
+        sequence:
+          - action: number.set_value
+            metadata: {}
+            data:
+              value: "{{ ((desired_limit_soc / 10) | round(0, 'ceil')) * 10 }}"
+            target:
+              entity_id: number.ioniq_5_ac_charging_limit
+            alias: Setze Fahrzeugladegrenze auf gewünschte Ladegrenze
+      - conditions:
+          - condition: template
+            value_template: "{{ desired_limit_soc < default_car_limit_soc }}"
+            alias: Gewünschte Ladegrenze ist unterhalb der Default Ladegrenze
+          - alias: Aktuelle Fahrzeuggrenze ist nicht die Default Ladegrenze
+            condition: template
+            value_template: >-
+              {{ states('number.ioniq_5_ac_charging_limit') !=
+              default_car_limit_soc }}
+        sequence:
+          - action: number.set_value
+            metadata: {}
+            data:
+              value: "{{ ((default_car_limit_soc / 10) | round(0, 'ceil')) * 10 }}"
+            target:
+              entity_id: number.ioniq_5_ac_charging_limit
+            alias: Setze Fahrzeugladegrenze auf Default Ladegrenze
+alias: "Hyundai: Ladegrenze bei Bedarf erhöhen"
+description: ""

@@ -1,0 +1,39 @@
+alias: "Heimspeicher: Nächtliches Speichersparen aktivieren"
+description: ""
+triggers:
+  - trigger: numeric_state
+    entity_id:
+      - sensor.sofar_battery_capacity_total
+    below: 35
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - trigger: time
+    at: "00:00:00"
+conditions:
+  - alias: Zwischen 0:00 und 6:30
+    condition: time
+    after: "00:00:00"
+    before: "06:00:00"
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+  - condition: numeric_state
+    entity_id: sensor.sofar_battery_capacity_total
+    below: 35
+actions:
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: Nur Laden
+    target:
+      entity_id: input_select.helper_pv_battery_mode
+    alias: Heimspeicher Entladung deaktivieren.
+mode: single
+

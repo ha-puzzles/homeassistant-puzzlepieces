@@ -1,0 +1,66 @@
+alias: "LP2: iGo: Tagsüber: Überprüfe ob Ladevorgang gestartet wurde"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.evcc_lp_2_enabled
+    from: "off"
+    to: "on"
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+    alias: Der Ladevorgang wurde vor mehr als 3 Minuten am Ladepunkt gestartet.
+conditions:
+  - condition: state
+    entity_id: binary_sensor.evcc_lp_2_connected
+    state: "on"
+    alias: Ein Fahrzeug ist mit dem Ladepunkt verbunden.
+  - condition: state
+    entity_id: binary_sensor.evcc_lp_2_charging
+    state: "off"
+    alias: Das Fahrzeug hat jedoch immer noch nicht mit dem Laden begonnen.
+  - alias: Der Lademodus ist entweder Überschussladen oder Schnell
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: select.evcc_lp_2_mode
+        state: pv
+      - condition: state
+        entity_id: select.evcc_lp_2_mode
+        state: minpv
+      - condition: state
+        entity_id: select.evcc_lp_2_mode
+        state: now
+  - alias: >-
+      'Intelligent Go' Helfer ist aus oder es ist tagsüber und wir wollen nur
+      per Überschuss laden.
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.helper_intelligent_go
+        state: "off"
+      - condition: sun
+        before: sunset
+        after: sunrise
+actions:
+  - action: script.igo_smartes_laden_ausschalten
+    metadata: {}
+    data: {}
+  - action: script.tesla_ladevorgang_starten
+    metadata: {}
+    data: {}
+  - alias: Sende eine Benachrichtigung an die Companion App
+    action: notify.mobile_app_<companion_app_device_name>
+    metadata: {}
+    data:
+      title: "iGo: Ladevorgang nicht gestartet"
+      message: >-
+        Der Ladevorgang ist nicht automatisch gestartet. Wurde nochmals im Tesla
+        gestartet.
+      data:
+        notification_icon: mdi:car-electric
+        tag: igo-charging
+        group: igo-charging
+mode: single
+

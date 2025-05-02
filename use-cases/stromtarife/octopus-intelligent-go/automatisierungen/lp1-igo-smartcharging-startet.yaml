@@ -1,0 +1,34 @@
+alias: "LP1: iGo: Smartcharging startet"
+description: ""
+triggers:
+  - alias: Die Zeit für Smartes Laden startet.
+    trigger: state
+    entity_id:
+      - binary_sensor.octopus_a_<octopus_id>_intelligent_dispatching
+    to: "on"
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_intelligent_go
+    state: "on"
+    alias: >-
+      'Intelligent Go" Helfer in Home Assistant ist an und erlaubt Smartes
+      Laden.
+actions:
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: now
+    target:
+      entity_id: select.evcc_lp_1_mode
+    alias: "Gebe das Laden von EVCC frei: Lademodus des Ladepunktes auf 'Schnell'."
+  - alias: Sende eine Benachrichtigung an die Companion App.
+    action: notify.mobile_app_<companion_app_device_name>
+    metadata: {}
+    data:
+      title: "iGo: Smartcharging gestartet"
+      data:
+        notification_icon: mdi:car-electric
+        tag: igo-charging
+        group: igo-charging
+      message: Smartcharging wurde gestartet.
+mode: single

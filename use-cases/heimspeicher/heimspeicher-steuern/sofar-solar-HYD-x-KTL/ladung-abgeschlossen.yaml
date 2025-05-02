@@ -1,0 +1,32 @@
+alias: "Heimspeicher: Manuelle Ladung abgeschlossen"
+description: ""
+triggers:
+  - entity_id:
+      - sensor.sofar_battery_capacity_total
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    above: input_number.helper_pv_battery_target_soc
+    trigger: numeric_state
+conditions:
+  - condition: state
+    entity_id: input_select.helper_pv_battery_mode
+    state: Netzladen
+actions:
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: Automatisches Laden und Entladen
+    target:
+      entity_id: input_select.helper_pv_battery_mode
+  - action: notify.mobile_app_<companion_app_device_name>
+    metadata: {}
+    data:
+      data:
+        notification_icon: mdi:home-battery
+      title: Heimspeicher Ladung fertig.
+      message: >-
+        Die Ladung des Heimspeichers wurde bei einem Speicherstand von {{
+        states('sensor.sofar_battery_capacity_total') }}% abgeschlossen.
+mode: single

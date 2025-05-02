@@ -1,0 +1,46 @@
+sequence:
+  - condition: template
+    value_template: "{{ desired_limit_soc is defined }}"
+    alias: Überprüfe, dass der Parameter 'desired_limit_soc' definiert ist.
+  - variables:
+      default_car_limit_soc: 85
+  - action: script.tesla_update_entities
+    metadata: {}
+    data: {}
+    enabled: true
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{ states('number.<fahrzeug_id>_charge_limit') | int <
+              desired_limit_soc }}
+            alias: >-
+              Aktuelle Fahrzeugladegrenze ist unterhalb der gewünschten
+              Ladegrenze
+        sequence:
+          - action: number.set_value
+            metadata: {}
+            data:
+              value: "{{ desired_limit_soc }}"
+            target:
+              entity_id: number.<fahrzeug_id>_charge_limit
+            alias: Setze Fahrzeugladegrenze auf gewünschte Ladegrenze
+      - conditions:
+          - condition: template
+            value_template: "{{ desired_limit_soc < default_car_limit_soc }}"
+            alias: Gewünschte Ladegrenze ist unterhalb der Default Ladegrenze
+          - alias: Aktuelle Fahrzeuggrenze ist nicht die Default Ladegrenze
+            condition: template
+            value_template: >-
+              {{ states('number.<fahrzeug_id>_charge_limit') != default_car_limit_soc
+              }}
+        sequence:
+          - action: number.set_value
+            metadata: {}
+            data:
+              value: "{{ default_car_limit_soc }}"
+            target:
+              entity_id: number.<fahrzeug_id>_charge_limit
+            alias: Setze Fahrzeugladegrenze auf Default Ladegrenze
+alias: "Tesla: Ladegrenze bei Bedarf erhöhen"
+description: ""

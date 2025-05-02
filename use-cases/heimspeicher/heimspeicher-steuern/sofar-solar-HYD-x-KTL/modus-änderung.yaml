@@ -1,0 +1,65 @@
+alias: "Heimspeicher: Modus geändert"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_select.helper_pv_battery_mode
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: input_select.helper_pv_battery_mode
+            state: Automatisches Laden und Entladen
+        sequence:
+          - action: script.heimspeicher_passive_mode_werte_setzen
+            metadata: {}
+            data:
+              desired_grid_power: 0
+              battery_max_power: 20000
+              battery_min_power: -20000
+      - conditions:
+          - condition: state
+            entity_id: input_select.helper_pv_battery_mode
+            state: Nur Entladen
+        sequence:
+          - action: script.heimspeicher_passive_mode_werte_setzen
+            metadata: {}
+            data:
+              desired_grid_power: 0
+              battery_max_power: 0
+              battery_min_power: -20000
+      - conditions:
+          - condition: state
+            entity_id: input_select.helper_pv_battery_mode
+            state: Nur Laden mit Überschuss
+        sequence:
+          - action: script.heimspeicher_passive_mode_werte_setzen
+            metadata: {}
+            data:
+              desired_grid_power: 0
+              battery_max_power: 20000
+              battery_min_power: 0
+      - conditions:
+          - condition: state
+            entity_id: input_select.helper_pv_battery_mode
+            state: Netzladen
+        sequence:
+          - action: script.heimspeicher_passive_mode_werte_setzen
+            metadata: {}
+            data:
+              desired_grid_power: 20000
+              battery_max_power: 20000
+              battery_min_power: 0
+      - conditions:
+          - condition: state
+            entity_id: input_select.helper_pv_battery_mode
+            state: Aus
+        sequence:
+          - action: script.heimspeicher_passive_mode_werte_setzen
+            metadata: {}
+            data:
+              desired_grid_power: 0
+              battery_max_power: 0
+              battery_min_power: 0
+mode: single
