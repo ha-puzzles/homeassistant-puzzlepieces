@@ -1,0 +1,84 @@
+alias: "Heimspeicher: Modus erneut setzen bei unerwarteten Änderungen am Passive Mode"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - number.sofar_passive_mode_grid_power
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  - trigger: state
+    entity_id:
+      - number.sofar_passive_mode_battery_power_max
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  - trigger: state
+    entity_id:
+      - number.sofar_passive_mode_battery_power_min
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  - trigger: state
+    entity_id:
+      - select.sofar_charger_use_mode
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_battery_updating_passive_mode
+    state: "off"
+actions:
+  - variables:
+      old_desired_grid_power: "{{ states('number.sofar_passive_mode_grid_power') }}"
+      old_battery_max_power: "{{ states('number.sofar_passive_mode_battery_power_max') }}"
+      old_battery_min_power: "{{ states('number.sofar_passive_mode_battery_power_min') }}"
+      old_use_mode: "{{ states('select.sofar_charger_use_mode') }}"
+  - action: script.heimspeicher_modus_setzen
+    metadata: {}
+    data: {}
+    response_variable: return_values
+  - if:
+      - condition: template
+        value_template: "{{ return_values.values_updated == true }}"
+    then:
+      - action: notify.mobile_app_<companion_app_device_name>
+        metadata: {}
+        data:
+          title: Passive Mode Werte wurden unerwartet geändert.
+          message: >-
+            Die gewünschten Werte wurden wieder hergestellt. 
+
+            Desired Grid Power: {{ old_desired_grid_power }} -> {{
+            states('number.sofar_passive_mode_grid_power') }} 
+
+            Max Battery Power: {{ old_battery_max_power }} -> {{
+            states('number.sofar_passive_mode_battery_power_max') }} 
+
+            Min Battery Power: {{ old_battery_min_power }} -> {{
+            states('number.sofar_passive_mode_battery_power_min') }}
+          data:
+            notification_icon: mdi:home-battery
+            color: red
+  - if:
+      - condition: template
+        value_template: "{{ return_values.energy_storage_mode_changed == true }}"
+    then:
+      - action: notify.mobile_app_<companion_app_device_name>
+        metadata: {}
+        data:
+          title: Energy Storage Mode wurde unerwartet geändert.
+          message: >-
+            Passive mode wurde wieder gesetzt. 
+
+            Änderung: {{ old_use_mode }} -> {{
+            states('select.sofar_charger_use_mode') }}
+          data:
+            notification_icon: mdi:home-battery
+            color: red
+mode: single

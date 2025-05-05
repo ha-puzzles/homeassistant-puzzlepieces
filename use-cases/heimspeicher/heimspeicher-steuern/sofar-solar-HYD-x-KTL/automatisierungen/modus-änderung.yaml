@@ -1,0 +1,17 @@
+alias: "Heimspeicher: Modus geändert"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_select.helper_pv_battery_mode
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+conditions: []
+actions:
+  - action: script.heimspeicher_modus_setzen
+    metadata: {}
+    data: {}
+mode: single
+

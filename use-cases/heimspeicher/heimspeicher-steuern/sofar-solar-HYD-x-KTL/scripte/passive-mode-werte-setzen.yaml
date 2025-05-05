@@ -1,11 +1,15 @@
 sequence:
-  - alias: Überprüfe, dass der Paramter 'desired_grid_power' definiert ist.
+  - variables:
+      return_values:
+        values_updated: false
+        energy_storage_mode_changed: false
+  - alias: Überprüfe, dass der Parameter 'desired_grid_power' definiert ist.
     condition: template
     value_template: "{{ desired_grid_power is defined }}"
-  - alias: Überprüfe, dass der Paramter 'battery_max_power' definiert ist.
+  - alias: Überprüfe, dass der Parameter 'battery_max_power' definiert ist.
     condition: template
     value_template: "{{ battery_max_power is defined }}"
-  - alias: Überprüfe, dass der Paramter 'battery_min_power' definiert ist.
+  - alias: Überprüfe, dass der Parameter 'battery_min_power' definiert ist.
     condition: template
     value_template: "{{ battery_min_power is defined }}"
   - alias: Stelle sicher, dass der Passive Mode gesetzt ist
@@ -23,6 +27,10 @@ sequence:
           option: Passive Mode
         target:
           entity_id: select.sofar_charger_use_mode
+      - variables:
+          return_values:
+            values_updated: "{{ return_values.values_updated }}"
+            energy_storage_mode_changed: true
       - delay:
           hours: 0
           minutes: 2
@@ -51,6 +59,41 @@ sequence:
                 werden. Bitte überprüfen.
           - stop: Failed to set the Energy Storage Mode to 'Passive Mode'
             error: true
+  - alias: Mindestens einer der gewünschten Werte ist aktuell nicht gesetzt.
+    condition: not
+    conditions: []
+  - alias: Stoppen, wenn alle gewünschten Werte bereits gesetzt sind.
+    if:
+      - condition: and
+        conditions:
+          - condition: template
+            value_template: >-
+              {{ desired_grid_power | int ==
+              states('number.sofar_passive_mode_grid_power') | int }}
+            alias: desired_grid_power ist bereits gesetzt.
+          - condition: template
+            value_template: >-
+              {{ battery_max_power | int ==
+              states('number.sofar_passive_mode_battery_power_max') | int }}
+            alias: battery_max_power ist bereits gesetzt.
+          - condition: template
+            value_template: >-
+              {{ battery_min_power | int ==
+              states('number.sofar_passive_mode_battery_power_min') | int }}
+            alias: battery_min_power ist bereits gesetzt.
+        alias: Alle 3 Werte sind bereits aktuell gesetzt.
+    then:
+      - variables:
+          return_values:
+            values_updated: false
+            energy_storage_mode_changed: "{{ return_values.energy_storage_mode_changed }}"
+      - stop: Alle Werte sind bereits gesetzt.
+        response_variable: return_values
+  - action: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.helper_battery_updating_passive_mode
   - action: number.set_value
     metadata: {}
     data:
@@ -74,6 +117,22 @@ sequence:
     data: {}
     target:
       entity_id: button.sofar_passive_mode_battery_charge_discharge
-mode: restart
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.helper_battery_updating_passive_mode
+  - variables:
+      return_values:
+        values_updated: true
+        energy_storage_mode_changed: "{{ return_values.energy_storage_mode_changed }}"
+  - stop: Passive Mode Werte erfolgreich gesetzt
+    response_variable: return_values
+mode: single
 alias: "Heimspeicher: Passive Mode Werte setzen"
 description: ""
