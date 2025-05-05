@@ -10,7 +10,7 @@ Der Sofar Solar Wechselrichter hat verschiedene [Energy Storage Modes](https://h
 Die Helfer wie im [übergeordneten Ordner beschrieben](../README.md) anlegen.
 
 
-## Skript 
+## Skripte
 
 ### Passive Mode Werte Setzen
 
