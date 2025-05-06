@@ -2,7 +2,7 @@
 
 Viele Wechselrichter haben für den Heimspeicher einen Schutz gegen Tiefentladung. Ab einem bestimmten Ladestand wird der Speicher aus dem Netz aufgeladen.
 
-Mit dieser Automation kann dies flexibler gemacht werden. Der Batteriestand wann diese Ladung beginnt und bis zu welchem Stand aufgeladen wird kann frei gewählt werden. Zudem verlässt sich diese Automation nicht auf den Gesamtspeicherstand, sondern liest die einzelnen Module aus und reagiert schon, wenn nur ein Modul zu tief entladen wird.
+Mit dieser Automation kann dies flexibler gemacht werden. Der Batteriestand wann diese Ladung beginnt und bis zu welchem Stand aufgeladen wird kann frei gewählt werden. Zudem verlässt sich diese Automation nicht auf den Gesamtspeicherstand wie es manche Wechselrichter tun, sondern liest die Speicherstände der einzelnen Module aus und reagiert schon, wenn nur ein Modul zu tief entladen wird.
 
 Eine bereits im Wechselrichter eingebaut Schutzfunktion muss eventuell deaktiviert werden, wenn diese den Speicher schon früher auflädt.
 
