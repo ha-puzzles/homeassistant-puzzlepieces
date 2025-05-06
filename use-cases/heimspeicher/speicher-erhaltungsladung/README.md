@@ -17,7 +17,7 @@ Für die Automatisierungen muss folgender Helper angelegt werden, welcher nur al
 
 ## Abhängigkeiten
 
-- [Heimspeicher steuernn](../heimspeicher-steuern)
+- [Heimspeicher steuern](../heimspeicher-steuern)
 
 Außerdem muss das Auslesen der Batteriemodule in der homeassistant-solax-modbus Integration aktiviert sein. Die einzelnen Batteriemodule tauchen dann als einzelne Geräte auf.
 
