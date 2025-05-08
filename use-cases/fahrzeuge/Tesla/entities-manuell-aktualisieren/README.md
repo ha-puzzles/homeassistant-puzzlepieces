@@ -36,4 +36,5 @@ Das Script
 2. Aktualisiert die Entities, die man braucht. Diese Liste ist je nach Automatisierung um die Entities aus der Tesla Fleet API zu erweitern, die man in den Automatisierungen abfragt um sicher zu gehen, dass alle Entities aktualisiert worden sind.
 
 ### Anpassungen
-Im Script sind generell alle Entities durch den Namen Eures Tesla anzupassen. Ersetzt `<fahrzeug_id>` durch den Namen, den die Tesla Fleet Integration für Euren Tesla vergeben hat.
+- Im Script sind generell alle Entities durch den Namen Eures Tesla anzupassen. Ersetzt `<fahrzeug_id>` durch den Namen, den die Tesla Fleet Integration für Euren Tesla vergeben hat.
+- Fügt die Entities der Tesla Fleet Integration hinzu, die ihr nach Aufruf abfragen wollt.
