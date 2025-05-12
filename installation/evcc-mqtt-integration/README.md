@@ -34,9 +34,10 @@ Falls noch nicht getan, muss in HomeAssistant noch das `packages` Verzeichnis ko
    2. Klicke oben rechts auf 'Download raw file'.
 2. Wenn Du nur eine Wallbox hast, lösche `evcc_loadpoint2_mqtt.yaml`. 
 3. Kopiere diese Dateien in das oben erstellte `packages` Verzeichnis.
-4. Öffne `evcc_vehicle1_mqtt.yaml` und ersetze dort alle Vorkommen des Fahrzeugnamens (nicht der Titel) durch den Namen Deines Fahrzeuges, wie in Deiner `evcc.yaml` angegeben.
+4. Öffne `evcc_vehicle1_mqtt.yaml` und ersetze dort alle Vorkommen des Fahrzeugnamens (nicht der Titel) durch den Namen Deines Fahrzeuges, wie in Deiner `evcc.yaml` angegeben oder durch die DB bei UI Konfiguration vergeben wurde.
 5. Wiederhole das für die `evcc_vehicle2_mqtt.yaml` falls Du ein zweites Fahrzeug hast. Falls nein, lösche diese Datei.
-6. Starte Home Assistant neu.
+6. Für weitere Fahrzeuge erstelle nach demselben Schema weitere YAML Dateien pro Fahrzeug.
+7. Starte Home Assistant neu.
    1. In HomeAssistant öffne die 'Entwicklerwerkzeuge'
    2. Klicke auf 'NEU STARTEN'
 
