@@ -12,6 +12,12 @@ triggers:
       seconds: 0
     alias: Der Ladevorgang wurde vor mehr als 3 Minuten am Ladepunkt gestartet.
 conditions:
+  - alias: >-
+      Bei 100% wird der Ladevorgang Fahrzeugseitig unterbrochen. Dies darf diese
+      Automation nicht triggern.
+    condition: numeric_state
+    entity_id: sensor.evcc_lp_1_vehicle_soc
+    below: 100
   - condition: state
     entity_id: binary_sensor.evcc_lp_1_connected
     state: "on"
