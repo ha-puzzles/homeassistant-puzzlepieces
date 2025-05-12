@@ -1,4 +1,6 @@
-> [!NOTE]  
+> [!NOTE]
+> 2025-05-12: Es wurde ein Fehler beim Laden auf 100% behoben. Siehe issue https://github.com/ha-puzzles/homeassistant-puzzlepieces/issues/44.
+> 
 > 2025-04-27: Es sind 2 neue Skripte hinzugekommen. Die Automatisierungen nutzen nun diese Skripte und müssen ebenfalls aktualisiert werden.
 
 # Octopus Intelligent Go mit EVCC
