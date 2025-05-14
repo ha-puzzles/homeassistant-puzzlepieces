@@ -33,6 +33,16 @@ conditions:
   - condition: state
     entity_id: input_boolean.helper_battery_updating_passive_mode
     state: "off"
+    alias: Die Werte werden gerade durch das Script geändert.
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.evcc_site_battery_discharge_control
+        state: "false"
+      - condition: state
+        entity_id: sensor.evcc_site_battery_grid_charge_active
+        state: "false"
+    alias: EVCC hat derzeit keine Kontrolle über die Batterieladung
 actions:
   - variables:
       old_desired_grid_power: "{{ states('number.sofar_passive_mode_grid_power') }}"
@@ -47,7 +57,7 @@ actions:
       - condition: template
         value_template: "{{ return_values.values_updated == true }}"
     then:
-      - action: notify.mobile_app_<companion_app_device_name>
+      - action: notify.mobile_app_pixel_8
         metadata: {}
         data:
           title: Passive Mode Werte wurden unerwartet geändert.
@@ -65,11 +75,12 @@ actions:
           data:
             notification_icon: mdi:home-battery
             color: red
+    alias: Benachrichtige, wenn sich die Leistungswerte geändert haben.
   - if:
       - condition: template
         value_template: "{{ return_values.energy_storage_mode_changed == true }}"
     then:
-      - action: notify.mobile_app_<companion_app_device_name>
+      - action: notify.mobile_app_pixel_8
         metadata: {}
         data:
           title: Energy Storage Mode wurde unerwartet geändert.
@@ -81,4 +92,5 @@ actions:
           data:
             notification_icon: mdi:home-battery
             color: red
+    alias: Benachrichtige, wenn sich der Storage Mode geändert hat.
 mode: single
