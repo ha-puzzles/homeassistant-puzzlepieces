@@ -8,10 +8,26 @@ triggers:
       hours: 0
       minutes: 0
       seconds: 3
-conditions: []
+  - trigger: state
+    entity_id:
+      - sensor.evcc_site_battery_discharge_control
+    to: "false"
+  - trigger: state
+    entity_id:
+      - sensor.evcc_site_battery_grid_charge_active
+    to: "false"
+conditions:
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.evcc_site_battery_discharge_control
+        state: "false"
+      - condition: state
+        entity_id: sensor.evcc_site_battery_grid_charge_active
+        state: "false"
+    alias: EVCC hat derzeit keine Kontrolle über die Batterieladung
 actions:
   - action: script.heimspeicher_modus_setzen
     metadata: {}
     data: {}
 mode: single
-
