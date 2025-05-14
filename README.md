@@ -29,7 +29,7 @@ Wir setzen hier folgendes voraus:
 
 ## Updates
 
-Immer wieder gibt es Updates und Fehlerbehebungen. Da wir hier keine Releases machen, wir hier in GitHub einen Custom Watch auf 'Pull Requests' einzurichten. Dann bekommt ihr mit sobald sich was ändert.
+Immer wieder gibt es Updates und Fehlerbehebungen. Da wir hier keine Releases machen, empfehlen wir hier in GitHub einen Custom Watch auf 'Pull Requests' einzurichten. Dann bekommt ihr mit sobald sich was ändert.
 
 ## Unterordner
 
