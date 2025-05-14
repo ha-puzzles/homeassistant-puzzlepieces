@@ -27,6 +27,10 @@ Wir setzen hier folgendes voraus:
 - Falls Du eine Wallbox einbinden willst, gehen wir davon aus, dass Du diese mit EVCC steuerst: https://evcc.io/.
   In EVCC steckt enorm viel Wissen und Know How. Wir sehen hier keinen Grund dieses Wissen in Home Assistant nachzubauen, erst recht bei der enormen Vielzahl der unterstützten Geräte von EVCC: https://docs.evcc.io/docs/devices/chargers
 
+## Updates
+
+Immer wieder gibt es Updates und Fehlerbehebungen. Da wir hier keine Releases machen, wir hier in GitHub einen Custom Watch auf 'Pull Requests' einzurichten. Dann bekommt ihr mit sobald sich was ändert.
+
 ## Unterordner
 
 ### installation
@@ -42,7 +46,7 @@ Anwendungsfälle für Automatisierungen. Nachdem Dein Home Assistant und EVCC au
 
 ## Grundlagen
 
-Ein paar Grundlagen zum Umgang mit den Puzzle Teilen
+Ein paar Grundlagen zum Umgang mit den Puzzle Teilen.
 
 ### Dateien von GitHub herunterladen
 
