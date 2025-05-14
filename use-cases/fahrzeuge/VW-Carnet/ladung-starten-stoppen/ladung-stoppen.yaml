@@ -1,0 +1,12 @@
+sequence:
+  - action: script.vw_carnet_update_entities
+    metadata: {}
+    data: {}
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.<fahrzeug_id>_charging
+alias: "e-Golf: Ladevorgang pausieren"
+description: ""
+icon: mdi:pause-circle-outline

@@ -1,0 +1,14 @@
+sequence:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.<fahrzeug_id>_force_data_refresh
+  - action: homeassistant.update_entity
+    metadata: {}
+    data:
+      entity_id:
+        - sensor.<fahrzeug_id>_battery_level
+        - switch.<fahrzeug_id>_charging
+alias: "VW Carnet: Update Entities "
+description: ""
