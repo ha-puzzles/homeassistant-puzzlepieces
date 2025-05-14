@@ -1,4 +1,4 @@
-# Hyundai Ioniq 5: Fahrzeugladegrenze bei Bedarf erhöhen
+# Hyundai / Kia: Fahrzeugladegrenze bei Bedarf erhöhen
 
 Script um die Fahrzeugladegrenze im Bedarfsfall zu erhöhen.
 
@@ -16,7 +16,7 @@ Um diesen Aufruf zu automatisieren gibt es hier eine [Automatisierung für EVCC]
 
 ## Script
 
-[`ioniq5-ladegrenze-erhöhen.yaml`](./ioniq5-ladegrenze-erhöhen.yaml)
+[`ladegrenze-erhöhen.yaml`](./ladegrenze-erhöhen.yaml)
 
 Beim Aufruf muss die Variable `desired_limit_soc` übergeben werden, welche den gewünschten Ladelimit setzt.
 

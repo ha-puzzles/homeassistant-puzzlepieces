@@ -41,5 +41,5 @@ sequence:
             target:
               entity_id: number.ioniq_5_ac_charging_limit
             alias: Setze Fahrzeugladegrenze auf Default Ladegrenze
-alias: "Hyundai: Ladegrenze bei Bedarf erhöhen"
+alias: "Hyundai/Kia: Ladegrenze bei Bedarf erhöhen"
 description: ""

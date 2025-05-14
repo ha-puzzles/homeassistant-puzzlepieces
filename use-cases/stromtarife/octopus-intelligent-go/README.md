@@ -22,6 +22,11 @@ Ein paar grundlegende Eigenschaften und Einschränkungen:
   - Eine funktionsfähig konfigurierte [Tesla Fleet Integration](https://www.home-assistant.io/integrations/tesla_fleet/#configuration) mit der Befehle ausgeführt werden können.
   - [Tesla: Entities manuell aktualisieren](../../fahrzeuge/Tesla/entities-manuell-aktualisieren/)
   - [Tesla: Ladung starten/stoppen](../../fahrzeuge/Tesla/ladung-starten-stoppen/)
+- Für Hyundai/Kia Fahrzeuge:
+  - [Hyundai: Ladung starten/stoppen](../../fahrzeuge/Hyundai-Kia/ladung-starten-stoppen/)
+- Für VW Fahrzeuge:
+  - [VW Carnet: Entities aktualisieren](../../fahrzeuge/VW-Carnet/entities-aktualisieren/)
+  - [VW Carnet: Ladung starten/stoppen](../../fahrzeuge/VW-Carnet/ladung-starten-stoppen/)
 - Für alle anderen Fahrzeuge: Jeweils ein Script, das die Ladung auf Fahrzeugseite stoppt, ein Script, das die Ladung auf Fahrzeugseite startet und ein Script zum aufwecken des Fahrzeuges. 
   - Contributions für Scripte anderer Hersteller sind sehr willkommen (YAML Dateien der Scripte und ein kleines README.md mit einer kurzen Beschreibung, idealerweise als Pull Request im [`fahrzeuge` Ordner](../../fahrzeuge/)).
 

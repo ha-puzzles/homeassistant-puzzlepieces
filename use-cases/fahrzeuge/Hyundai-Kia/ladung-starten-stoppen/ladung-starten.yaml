@@ -1,0 +1,7 @@
+sequence:
+  - action: kia_uvo.start_charge
+    metadata: {}
+    data:
+      device_id: <device_id>
+alias: "Hyundai/Kia: Ladevorgang starten"
+description: ""
