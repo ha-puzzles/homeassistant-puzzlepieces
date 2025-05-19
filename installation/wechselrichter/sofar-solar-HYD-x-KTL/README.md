@@ -1,3 +1,6 @@
+> [!WARNING]
+> Muss aktualisiert werden. Es hat sich einiges getan
+
 # Sofar HYD x KTL Einrichtung
 
 ## Wechselrichter in EVCC einbinden
