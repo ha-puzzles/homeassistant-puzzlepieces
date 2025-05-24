@@ -1,11 +1,33 @@
-> [!WARNING]
-> Muss aktualisiert werden. Es hat sich einiges getan
-
 # Sofar HYD x KTL Einrichtung
+
+## Den Wechselrichter verbinden
+
+Die einzige Verbindung, die wir wirklich empfehlen können ist die Verbindung mit einem RS-485 Adapter - entweder seriell direkt an USB oder einen RS485 zu Modbus TCP Adapter. Die Details wie man den Wechselrichter mit EVCC und Home Assistant verbindet findet man hier: https://homeassistant-solax-modbus.readthedocs.io/en/latest/sofar-installation/.
+
+LSE oder LSW sind mit Einschränkungen im 'Transparency' Working Mode auch möglich, jedoch nach unserer Erfahrung längst nicht so zuverlässig wie die direkte RS-485 Verbindung. Der LSE im 'Data Collection' Working Mode können wir inzwischen nicht mehr empfehlen, da hier nach Firmware Upgrades immer wieder Probleme auftauchen und auch die Kommunikation vom Standard abweicht, was immer wieder zu Problemen in Home Assistant führt.
+
+Solltest Du dennoch den Loggerstick vorziehen, beachte bitte unbedingt die Hinweise in der [FAQ](https://homeassistant-solax-modbus.readthedocs.io/en/latest/sofar-faq/).
+
 
 ## Wechselrichter in EVCC einbinden
 
-Siehe die Dokumentation von EVCC: https://docs.evcc.io/docs/devices/meters#hyd-520k-3ph
+Siehe die Dokumentation von EVCC: https://docs.evcc.io/docs/devices/meters#hyd-520k-3ph. Mittlerweile kann die Konfiguration über die Benutzeroberfläche interaktiv erfolgen, wenn man in EVCC die Experimental Features aktiviert.
+
+Bei der Benutzung eines seriellen USB Adapters empfehlen wir in in EVCC einen [ModBus Proxy einzurichten](https://docs.evcc.io/docs/reference/configuration/modbusproxy) (bei einem Modbus TCP Adapter übernimmt die Adapter diese Rolle). Für eine serielle USB Verbindung kann die Konfiguration dann zum Beispiel so aussehen:
+
+```yaml
+modbusproxy:
+  - port: 5021
+    device: /dev/ttyUSB0
+    comset: 8N1
+    baudrate: 9600
+```
+
+Wichtig ist nun, dass die EVCC Meter Konfiguration UND HomeAssistant beide sich auf diesen ModBus Proxy von EVCC verbinden, damit der ModBus Proxy bei parallelen Zugriffen zwischen den beiden zugreifenden Diensten vermitteln kann. In EVCC wird die Verbindung im UI dann so konfiguriert:
+
+![EVCC Modbus Proxy Konfiguration](./img/evcc-modbus-proxy-config.png)
+
+Die IP Adresse ist dabei durch die Adresse des Gerätes auf dem EVCC mit dem ModBus Proxy läuft, zu ersetzen.
 
 
 ## Wechselrichter in Home Assistant einbinden
@@ -31,46 +53,37 @@ Im HomeAssistant sollte nun links ein neuer Menüpunkt 'HACS' auftauchen.
 
 Danach einmal Home Assistant neu starten (am besten auf Entwicklerwerkzeuge und auf der ersten Seite findet ihr schon den roten Link zum Neustart).
 
-### Den Wechselrichter verbinden
-
-Details wie man den Wechselrichter mit EVCC und Home Assistant verbindet findet man hier: https://homeassistant-solax-modbus.readthedocs.io/en/latest/sofar-installation/
-
-Wie empfehlen die Verbindung entweder über den Working Mode 'Transparency' wie dort beschrieben oder aber mit einem RS-485 Adapter.
-
-> [!NOTE]
-> Weise dem LSE-3 Loggerstick in Deinem Router unbedingt eine feste IP Adresse zu. Diese IP Adresse wirst Du mehrfach brauchen. Die IP Adresse muss unbedingt fest per DHCP vom Router zugewiesen werden. Eine festeingestellte IP Adresse im Loggerstick wird zu Problemen in der Kommunikation führen
-
-> [!NOTE]
-> Zu häufige Abfragen werden den Loggerstick überlasten und es wird ebenfalls zu Time Outs kommen. Getested wurde hier mit einem 30s Intervall bei EVCC und in HomeAssistant mit den Intervallen 60/30/15s. Wenn Du diese Intervalle unterschreitest kann es zu Problemen kommen.
+### Einrichtung
 
 **Erste Seite:**
 
-- Name: "sofar" (Bei einem anderen Namen werden die Entitynamen aller Entitites des Wechselrichters anders lauten und müssen dann in unserem Automationen entsprechend angepasst werden - wir empfehlen also sehr diesen Namen zu verwenden, falls Du unsere Automationen nutzen willst)
-- Schnittstelle: TCP/Ethernet (alternativ Seriell, wenn Du Dich direkt über einen RS-485 USB Adapter verbindest)
+- Schnittstelle: TCP/Ethernet
 - Modbus Adresse: 1
 - Wechselrichter Typ: sofar
 - Abfragefrequenz: 60 Sekunden (oder länger, aber nicht kürzer)
-- Medium polling interval: 30 Sekunden
+- Medium polling interval: 30 Sekunden (eigentlich egal, da es keine Entities für Sofar gibt, die das Medium polling interval nutzen)
 - Fast polling interval: 15 Sekunden
 - Namenszusatz für den Wechselrichter: Kann beliebig gewählt werden, sollte aber möglichst kurz sein oder leer.
 
-Setze die Checkboxen je nachdem welche Features Dein Wechselrichter unterstützt - ist für unseren Fall aber alles optional.
+Setze die Checkboxen, je nachdem welche Features Dein Wechselrichter unterstützt - ist für unseren Fall aber alles optional.
 
 ![Erste Seite der Konfiguration](./img/setup-page1.png)
 
-Auf 'Bestätigen' klicken. Nun muss die TCP/IP Schnittstelle für ModBus TCP konfiguriert werden:
+Auf 'OK' klicken. Nun muss die TCP/IP Schnittstelle für ModBus TCP konfiguriert werden:
 
 **Zweite Seite:**
 
-- Gebe die IP Adresse des Loggersticks oder eines Modbus TCP server an.
-- Port: 8899
-- Modbus TCP
+- Gebe die IP Adresse und Port an.
+  - EVCC Modbus Proxy: Die IP Adresse des Gerätes auf dem EVCC installiert ist und den Port des Modbus Proxy (z.B. 5021).
+  - RS485-Modbus TCP Adapter: IP Adresse des Adapters und den entsprechenden Port.
+  - LSW/LSE Loggerstick im Transparency Working Mode: IP Adresse des Loggersticks und Port 8899.
+- "Modbus TCP" oder beim Loggerstick im Transparency Mode: "Modbus RTU over TCP"
 
 ![Zweite Seite der Konfiguration](./img/setup-page2.png)
 
 **Dritte Seite:**
 
-Nun kann man noch wählen ob man das Auslesen der Batteriemodule aktivieren will. Dies ist für manche Automatisierungen notwendig und sollte aktiviert bleiben. Nochmals auf 'Bestätigen' klicken.
+Nun kann man noch wählen ob man das Auslesen der Batteriemodule aktivieren will. Dies ist für manche Automatisierungen notwendig und sollte aktiviert bleiben. Nochmals auf 'OK' klicken.
 
 Nun sollte unter der Integration 1 Gerät für den Wechselrichter und jeweils ein Gerät pro Batteriemodul auftauchen. Klicke mal darauf.
 
