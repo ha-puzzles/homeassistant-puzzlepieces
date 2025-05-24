@@ -23,6 +23,15 @@ modbusproxy:
     baudrate: 9600
 ```
 
+Will man den LSW oder LSE im 'Transparency' Working Mode nutzen, muss sogar unbedingt ein Modbus Proxy verwendet werden, da Modbus RTU keine parallelen Zugriffe erlaubt. Es wird sonst zu Konflikten kommen. Die Konfiguration des Modbus Proxy kann dann z.B. so aussehen (IP Adresse ist durch die IP des Logger Sticks zu ersetzen):
+
+```yaml
+modbusproxy:
+  - port: 5021
+    uri: 192.168.158.13:8899
+    rtu: true
+```
+
 Wichtig ist nun, dass die EVCC Meter Konfiguration UND HomeAssistant beide sich auf diesen ModBus Proxy von EVCC verbinden, damit der ModBus Proxy bei parallelen Zugriffen zwischen den beiden zugreifenden Diensten vermitteln kann. In EVCC wird die Verbindung im UI dann so konfiguriert:
 
 ![EVCC Modbus Proxy Konfiguration](./img/evcc-modbus-proxy-config.png)
@@ -76,8 +85,7 @@ Auf 'OK' klicken. Nun muss die TCP/IP Schnittstelle für ModBus TCP konfiguriert
 - Gebe die IP Adresse und Port an.
   - EVCC Modbus Proxy: Die IP Adresse des Gerätes auf dem EVCC installiert ist und den Port des Modbus Proxy (z.B. 5021).
   - RS485-Modbus TCP Adapter: IP Adresse des Adapters und den entsprechenden Port.
-  - LSW/LSE Loggerstick im Transparency Working Mode: IP Adresse des Loggersticks und Port 8899.
-- "Modbus TCP" oder beim Loggerstick im Transparency Mode: "Modbus RTU over TCP"
+- tcp_type: Modbus TCP
 
 ![Zweite Seite der Konfiguration](./img/setup-page2.png)
 
