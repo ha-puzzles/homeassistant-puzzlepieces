@@ -78,10 +78,8 @@ views:
         entities:
           - entity: input_number.helper_evcc_lp_1_vehicle_min_soc
           - entity: input_text.helper_evcc_lp_1_vehicle_title
-          - entity: sensor.helper_lp1_summary_text
           - entity: input_number.helper_evcc_lp_2_vehicle_min_soc
           - entity: input_text.helper_evcc_lp_2_vehicle_title
-          - entity: sensor.helper_lp2_summary_text
         title: Helpers
       - type: entities
         entities:
