@@ -1,125 +1,49 @@
-iGo: Smartes Laden ausschalten
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
-⌄
 sequence:
   - alias: iGo Status prüfen, ob Smartes Laden nicht schon ausgeschaltet ist.
     condition: not
     conditions:
       - condition: state
-        entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+        entity_id: switch.octopus_a_25b16d91_device_smart_control
         attribute: status
         state: SMART_CONTROL_OFF
   - alias: Wenn Smartes Laden gerade eingeschaltet ist.
     condition: state
-    entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+    entity_id: switch.octopus_a_25b16d91_device_smart_control
     state: "on"
   - action: switch.turn_off
     metadata: {}
     data: {}
     target:
-      entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+      entity_id: switch.octopus_a_25b16d91_device_smart_control
     alias: Smartes Laden bei Octopus ausschalten
   - delay:
       hours: 0
       minutes: 2
       seconds: 0
       milliseconds: 0
-  - alias: Überprüfe ob Smart Laden wirklich eingeschaltet wurde.
+  - alias: Überprüfe ob Smart Laden wirklich ausgeschaltet wurde.
     if:
       - condition: not
         conditions:
           - condition: and
             conditions:
               - condition: state
-                entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+                entity_id: switch.octopus_a_25b16d91_device_smart_control
                 state: "off"
               - condition: state
-                entity_id: switch.octopus_a_<octopus_id>_device_smart_control
+                entity_id: switch.octopus_a_25b16d91_device_smart_control
                 attribute: status
                 state: SMART_CONTROL_OFF
     then:
       - alias: Sende eine Benachrichtigung an die Companion App
-        action: notify.mobile_app_<companion_app_device_name>
+        action: notify.mobile_app_pixel_8
         metadata: {}
         data:
           title: "iGo: Smart Laden konnte nicht ausgeschaltet werden."
           message: >-
             Es ist etwas schief gelaufen. Smart Laden konnte nicht ausgeschaltet
             werden. Status: {{
-            state_attr('switch.octopus_a_<octopus_id>_device_smart_control',
+            state_attr('switch.octopus_a_25b16d91_device_smart_control',
             'status') }}
           data:
             notification_icon: mdi:car-electric
@@ -127,4 +51,3 @@ sequence:
             group: igo-charging
 alias: "iGo: Smartes Laden ausschalten"
 description: ""
-
