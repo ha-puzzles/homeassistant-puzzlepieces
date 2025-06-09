@@ -27,7 +27,9 @@ Ein paar grundlegende Eigenschaften und Einschränkungen:
 - Für VW Fahrzeuge:
   - [VW Carnet: Entities aktualisieren](../../fahrzeuge/VW-Carnet/entities-aktualisieren/)
   - [VW Carnet: Ladung starten/stoppen](../../fahrzeuge/VW-Carnet/ladung-starten-stoppen/)
-- Für alle anderen Fahrzeuge: Jeweils ein Script, das die Ladung auf Fahrzeugseite stoppt, ein Script, das die Ladung auf Fahrzeugseite startet und ein Script zum aufwecken des Fahrzeuges. 
+- Für alle anderen Fahrzeuge:
+  - Ein Script, das die Ladung auf Fahrzeugseite startet.
+  - Falls notwendig ein Script zum aufwecken des Fahrzeuges und zum aktualisieren der Entities der Fahrzeugintegration. Die meisten Fahrzeuge benötigen dieses aber nicht unbedingt. Es kann aber den Start des Ladevorganges etwas beschleunigen und sicherstellen, dass die Integration die aktuellsten Werte vom Fahzeug übernimmt.
   - Contributions für Scripte anderer Hersteller sind sehr willkommen (YAML Dateien der Scripte und ein kleines README.md mit einer kurzen Beschreibung, idealerweise als Pull Request im [`fahrzeuge` Ordner](../../fahrzeuge/)).
 
 ## Helfer
@@ -53,7 +55,7 @@ Die folgenden Skripte werden von den unten stehenden Automatisierungen aufgerufe
 Schaltet das Smarte Laden ein und überprüft ob dies erfolgreich erfolgt ist.
 
 #### Notwendige Anpassungen
-- Scriptaufruf zum aufwecken des Fahrzeuges.
+- Scriptaufruf (beispielhaft für einen Tesla) zum Aufwecken des Fahrzeuges für die eigene Fahrzeugmarke anpassen, falls das Fahrzeug dieses benötigt. Ansonsten den Scriptaufruf löschen.
 - `<octopus_id>` ist durch die von der Integration vergebene ID zu ersetzen. Du findest diese im Name der Entitäten der Octopus Germany Integration.
 - `<companion_app_device_name>` Der Gerätename Deines Smartphones auf dem die Companion App läuft um Benachrichtigungen zu erhalten.
 
@@ -129,7 +131,7 @@ Wenn außerhalb der nächtlichen Zeit das Auto schnell geladen wird und dazu der
 Diese Automatisierung ist optional, da die nächste Automatisierung ebenfalls sicher stellt, dass der Ladevorgang startet - jedoch ggf. mit einer Zeitverzögerung von etwa 5 Minuten.
 
 #### Notwendige Anpassungen
-- Scriptaufruf zum Starten des fahrzeugseitigen Ladevorgangs
+- Scriptaufruf (beispielhaft für einen Tesla) zum Starten des fahrzeugseitigen Ladevorgangs für die eigene Fahrzeugmarke anpassen.
 
 ### Sonstige Zeit: Überprüfen ob Ladevorgang gestartet wurde.
 
@@ -138,7 +140,7 @@ Diese Automatisierung ist optional, da die nächste Automatisierung ebenfalls si
 Wenn außerhalb der nächtlichen Zeit ein Ladepunkt für mindestens 5 Minuten aktiviert wird (egal ob im Modus 'PV' oder 'schnell') und dann immer noch kein aktiver Ladevorgang erkannt worden ist, gehen wir davon aus, dass das Laden vermutlich fahrzeugseitig gestoppt wurde. Dann wird fahrzeugseitig der Ladevorgang gestartet.
 
 #### Notwendige Anpassungen
-- Scriptaufruf zum Starten des fahrzeugseitigen Ladevorgangs
+- Scriptaufruf (beispielhaft für einen Tesla) zum Starten des fahrzeugseitigen Ladevorgangs für die eigene Fahrzeugmarke anpassen.
 - `<companion_app_device_name>` Der Gerätename Deines Smartphones auf dem die Companion App läuft um Benachrichtigungen zu erhalten.
 
 # Sonstige Zeit: Ladevorgang unterbrochen
@@ -148,5 +150,5 @@ Wenn außerhalb der nächtlichen Zeit ein Ladepunkt für mindestens 5 Minuten ak
 Wenn außerhalb der nächtlichen Zeit der Ladevorgang an einem Ladepunkt unterbrochen wird, aber der Ladepunkt immer noch aktiviert ist, gehen wir davon aus, dass die Ladevorgang fahrzeugseitig von Octopus Intelligent Go unterbrochen worden ist. Dann wird fahrzeugseitig der Ladevorgang gestartet.
 
 #### Notwendige Anpassungen
-- Scriptaufruf zum Starten des fahrzeugseitigen Ladevorgangs
+- Scriptaufruf (beispielhaft für einen Tesla) zum Starten des fahrzeugseitigen Ladevorgangs für die eigene Fahrzeugmarke anpassen.
 - `<companion_app_device_name>` Der Gerätename Deines Smartphones auf dem die Companion App läuft um Benachrichtigungen zu erhalten.
