@@ -1,0 +1,9 @@
+sequence:
+  - action: button.press
+    metadata: {}
+    data: {}
+    target:
+      entity_id: button.<fahrzeug_id>_stop_charging
+alias: "<fahrzeug_Name>: Ladevorgang pausieren"
+description: ""
+icon: mdi:pause-circle-outline
