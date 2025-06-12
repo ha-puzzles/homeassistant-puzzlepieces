@@ -13,3 +13,5 @@ Scripte mit Hilfe der YAML Dateien anlegen. In den Scripten sind alle Entities d
 In den Alias könnt ihr ebenfalls den Namen eures Fahrzeugs eintragen, dieser ist in den YAML Dateien mit "<fahrzeug_Name>" hinterlegt.
 
 ## Vielen Dank
+
+Vielen Dank an ]@theadnut](https://github.com/theadnut) für die Contribution.
