@@ -14,4 +14,4 @@ In den Alias könnt ihr ebenfalls den Namen eures Fahrzeugs eintragen, dieser is
 
 ## Vielen Dank
 
-Vielen Dank an ]@theadnut](https://github.com/theadnut) für die Contribution.
+Vielen Dank an [@theadnut](https://github.com/theadnut) für die Contribution.
