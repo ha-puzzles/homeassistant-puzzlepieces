@@ -11,8 +11,12 @@ sequence:
             metadata: {}
             data:
               desired_grid_power: 0
-              battery_max_power: 20000
-              battery_min_power: -20000
+              battery_max_power: >-
+                {{ states ('input_number.helper_pv_battery_max_charge_power') |
+                float }}
+              battery_min_power: >-
+                {{ states ('input_number.helper_pv_battery_max_discharge_power')
+                | float * -1 }}
             response_variable: return_values
       - conditions:
           - condition: state
@@ -24,7 +28,9 @@ sequence:
             data:
               desired_grid_power: 0
               battery_max_power: 0
-              battery_min_power: -20000
+              battery_min_power: >-
+                {{ states ('input_number.helper_pv_battery_max_discharge_power')
+                | float *  -1 }}
             response_variable: return_values
       - conditions:
           - condition: state
@@ -35,7 +41,9 @@ sequence:
             metadata: {}
             data:
               desired_grid_power: 0
-              battery_max_power: 20000
+              battery_max_power: >-
+                {{ states ('input_number.helper_pv_battery_max_charge_power') |
+                float }}
               battery_min_power: 0
             response_variable: return_values
       - conditions:
@@ -46,9 +54,15 @@ sequence:
           - action: script.heimspeicher_passive_mode_werte_setzen
             metadata: {}
             data:
-              desired_grid_power: 20000
-              battery_max_power: 20000
-              battery_min_power: 0
+              desired_grid_power: >-
+                {{ states ('input_number.helper_pv_battery_max_charge_power') |
+                float }}
+              battery_max_power: >-
+                {{ states ('input_number.helper_pv_battery_max_charge_power') |
+                float }}
+              battery_min_power: >-
+                {{ states ('input_number.helper_pv_battery_max_charge_power') |
+                float }}
             response_variable: return_values
       - conditions:
           - condition: state
@@ -66,4 +80,4 @@ sequence:
     response_variable: return_values
 alias: "Heimspeicher: Modus setzen"
 description: ""
-mode: single
+mode: restart

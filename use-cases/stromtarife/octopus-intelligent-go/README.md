@@ -37,7 +37,7 @@ Ein paar grundlegende Eigenschaften und Einschränkungen:
 Für die Automatisierungen muss der folgende [Helper](../../../README.md#helfer) angelegt werden:
 
 - Typ: Schalter
-- Name:  `helper_intelligent_go`
+- Name beim Anlegen/Entitäts-ID:  `helper_intelligent_go`
 - Icon: `mdi:battery-clock-outline`
 
 Mit diesen Schaltern kann man steuern ob man Octopus erlaubt nachts einen Ladevorgang zu starten: Ein: Intelligent Go darf nachts einen Ladevorgang starten. Aus: Ladevorgänge nur über EVCC gesteuert.

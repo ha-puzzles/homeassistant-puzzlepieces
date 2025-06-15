@@ -3,6 +3,19 @@ sequence:
       return_values:
         values_updated: false
         energy_storage_mode_changed: false
+  - alias: Stoppen, wenn EVCC derzeit die Batterieladung kontrolliert
+    if:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: sensor.evcc_site_battery_discharge_control
+            state: "true"
+          - condition: state
+            entity_id: sensor.evcc_site_battery_grid_charge_active
+            state: "true"
+    then:
+      - stop: EVCC steuert gerade die Batterie
+        response_variable: return_values
   - alias: Überprüfe, dass der Parameter 'desired_grid_power' definiert ist.
     condition: template
     value_template: "{{ desired_grid_power is defined }}"
@@ -47,7 +60,7 @@ sequence:
                 state: Passive Mode
             alias: Wenn Energy Storage Mode nicht im Passive Mode ist.
         then:
-          - action: notify.mobile_app_<companion_app_device_name>
+          - action: notify.mobile_app_pixel_8
             metadata: {}
             data:
               data:
@@ -133,6 +146,6 @@ sequence:
         energy_storage_mode_changed: "{{ return_values.energy_storage_mode_changed }}"
   - stop: Passive Mode Werte erfolgreich gesetzt
     response_variable: return_values
-mode: single
+mode: restart
 alias: "Heimspeicher: Passive Mode Werte setzen"
 description: ""

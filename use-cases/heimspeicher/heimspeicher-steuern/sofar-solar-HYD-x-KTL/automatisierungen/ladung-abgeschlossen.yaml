@@ -1,26 +1,38 @@
 alias: "Heimspeicher: Manuelle Ladung abgeschlossen"
 description: ""
 triggers:
-  - entity_id:
-      - sensor.sofar_battery_capacity_total
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
-    above: input_number.helper_pv_battery_target_soc
-    trigger: numeric_state
+  - trigger: template
+    value_template: >-
+      {{ states ('sensor.sofar_battery_capacity_total') | float >=
+      states('input_number.helper_pv_battery_target_soc') | float }}
+    alias: SoC ist gleich oder über Ziel SoC
 conditions:
   - condition: state
     entity_id: input_select.helper_pv_battery_mode
     state: Netzladen
 actions:
+  - alias: >-
+      Falls der Ziel SoC 100% beträgt, verzögere um 15 Minuten um der Batterie
+      noch die Zeit zu geben komplett aufzuladen und alle Zellen
+      auszubalanzieren.
+    if:
+      - condition: template
+        value_template: >-
+          {{ states ('input_number.helper_pv_battery_target_soc') | float == 100
+          }}
+    then:
+      - delay:
+          hours: 0
+          minutes: 15
+          seconds: 0
+          milliseconds: 0
   - action: input_select.select_option
     metadata: {}
     data:
       option: Automatisches Laden und Entladen
     target:
       entity_id: input_select.helper_pv_battery_mode
-  - action: notify.mobile_app_<companion_app_device_name>
+  - action: notify.mobile_app_pixel_8
     metadata: {}
     data:
       data:
