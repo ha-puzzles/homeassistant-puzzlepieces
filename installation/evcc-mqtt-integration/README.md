@@ -42,7 +42,7 @@ Falls noch nicht getan, muss in HomeAssistant noch das `packages` Verzeichnis ko
 7. Wiederhole das für die `evcc_vehicle2_mqtt.yaml` falls Du ein zweites Fahrzeug hast. Falls nein, lösche diese Datei.
 8. Für weitere Fahrzeuge erstelle nach demselben Schema weitere YAML Dateien pro Fahrzeug.
 9. Starte Home Assistant neu.
-   1. In HomeAssistant öffne die 'Entwicklerwerkzeuge'
+   1. In Home Assistant öffne die 'Entwicklerwerkzeuge'
    2. Klicke auf 'NEU STARTEN'
 
 Wenn jetzt Home Assistant neu gestartet ist, solltest Du neue Entitäten sehen. Gehe auf 'Einstellungen > Geräte und Dienste', klicke auf den Tab 'Entitäten' und gebe EVCC in der Suche ein.
@@ -62,17 +62,17 @@ Kurze Story: Um dieses Problem zu lösen installieren wir ein paar Helfer, deren
 Lege die Folgenden Helfer an:
 
 - Typ: Nummer
-  - Name: helper_evcc_lp_1_vehicle_min_soc
+  - Name beim Anlegen/Entitäts-ID: helper_evcc_lp_1_vehicle_min_soc
   - Minimaler Wert:0
   - Maximaler Wert: 100
 - Typ: Text
-  - Name: helper_evcc_lp_1_vehicle_title
+  - Name beim Anlegen/Entitäts-ID: helper_evcc_lp_1_vehicle_title
 - Typ: Nummer
-  - Name: helper_evcc_lp_2_vehicle_min_soc
+  - Name beim Anlegen/Entitäts-ID: helper_evcc_lp_2_vehicle_min_soc
   - Minimaler Wert:0
   - Maximaler Wert: 100
 - Typ: Text
-  - Name: helper_evcc_lp_2_vehicle_title
+  - Name beim Anlegen/Entitäts-ID: helper_evcc_lp_2_vehicle_title
 
 
 #### Automationen um die Helper zu synchronisieren

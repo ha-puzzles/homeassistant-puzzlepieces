@@ -1,4 +1,6 @@
 > [!NOTE]  
+> 2025-06-15: Neu: Maximale Lade- und Entladeströme festlegen. Zu aktualisieren sind alle Scripte und Automationen mit Ausnahme von `werte-überwachen-neu-setzen.yaml`
+>
 > 2025-05-14: Berücksichtigung der EVCC Speichersteuerung.
 > 
 > 2025-05-05: Da sich bei mir der Passive Mode immer wieder geändert hat - warum auch immer, habe ich nun eine Automatisierung geschrieben, die die Werte überwacht und sicherstellt, dass die aktuellen Werte immer zur aktuellen Einstellung des Helfers passen. Dies zog weitreichende Änderungen nach sich. Bitte alle Skripte und Automatisierungen aktualisieren.

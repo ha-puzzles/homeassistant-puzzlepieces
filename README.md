@@ -84,9 +84,12 @@ Um einen Helper zu erstellen...
 2. Öffne oben den Tab 'Helfer'.
 3. Klicke unten rechts auf 'HELFER ERSTELLEN'
 4. Wähle den entsprechenden Helfer Typ aus wie in der jeweiligen Dokumentation beschreiben.
-5. Gebe den Namen **exakt** so ein, wie in der Dokumentation beschrieben.
-6. Optional: Gebe ein beliebiges Symbol an
-7. Gebe die restlichen Attribute, wie beschrieben an und klicke auf 'ERSTELLEN'.
+5. Gebe den Namen **exakt** so ein, wie in der Dokumentation beschrieben. Beim Anlegen wird aus dem Namen die Entitäts-ID abgleitet. Diese muss zu den Referenzen in den Scripten später passen.
+6. Gebe die restlichen Attribute, wie beschrieben an und klicke auf 'ERSTELLEN'.
+7. Optional nach dem Anlegen: 
+   1. Öffne die gerade angelegte Helfer-Entität noch einmal.
+   2. Vergebe einen beliebigen besser lesbaren Namen - dieser kann nun frei gewählt werden - er wirkt sich nicht mehr auf die bereits oben in Schritt 5 angelegte Entitäts-ID aus.
+   3. Wähle ein beliebiges Symbol aus.
 
 ---
 

@@ -12,7 +12,7 @@ Eine bereits im Wechselrichter eingebaut Schutzfunktion muss eventuell deaktivie
 Für die Automatisierungen muss folgender Helper angelegt werden, welcher nur als internes Flag für die Logik der Automatisierungen dient:
 
 - Typ: Schalter
-- Name:  `helper_pv_battery_mincharge_active`
+- Name beim Anlegen/Entitäts-ID:  `helper_pv_battery_mincharge_active`
 
 
 ## Abhängigkeiten

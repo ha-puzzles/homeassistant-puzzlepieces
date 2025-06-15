@@ -4,6 +4,8 @@ triggers:
   - trigger: state
     entity_id:
       - input_select.helper_pv_battery_mode
+      - input_number.helper_pv_battery_max_discharge_power
+      - input_number.helper_pv_battery_max_charge_power
     for:
       hours: 0
       minutes: 0
@@ -30,4 +32,4 @@ actions:
   - action: script.heimspeicher_modus_setzen
     metadata: {}
     data: {}
-mode: single
+mode: restart
