@@ -111,6 +111,12 @@ mqtt:
       state_topic: "evcc/loadpoints/2/vehicleName"
       availability_topic: "evcc/status"
 
+    - name: evcc_lp_2_vehicle_title
+      unique_id: uniqueid__evcc_lp_2_vehicle_title
+      icon: mdi:car-electric
+      state_topic: "evcc/loadpoints/2/vehicleTitle"
+      availability_topic: "evcc/status"
+
     - name: evcc_lp_2_session_price
       unique_id: uniqueid__evcc_lp_2_session_price
       icon: mdi:home-lightning-bolt-outline

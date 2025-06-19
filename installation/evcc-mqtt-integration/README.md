@@ -1,3 +1,6 @@
+> [!NOTE]  
+> 2025-06-19: Ab EVCC 0.204.3 wird der Fahrzeugtitle wieder am Loadpoint angezeigt. Daher können die Helfer für den Title und die Automatisierung zum aktualisieren des Title entfallen.
+
 # EVCC MQTT Integration für Home Assistant
 
 Konfigurationsdateien für eine MQTT Integration, welche die Basis für alle anderen Puzzleteile ist, welche auf EVCC Entities zugreifen.
@@ -65,23 +68,18 @@ Lege die Folgenden Helfer an:
   - Name beim Anlegen/Entitäts-ID: helper_evcc_lp_1_vehicle_min_soc
   - Minimaler Wert:0
   - Maximaler Wert: 100
-- Typ: Text
-  - Name beim Anlegen/Entitäts-ID: helper_evcc_lp_1_vehicle_title
 - Typ: Nummer
   - Name beim Anlegen/Entitäts-ID: helper_evcc_lp_2_vehicle_min_soc
   - Minimaler Wert:0
   - Maximaler Wert: 100
-- Typ: Text
-  - Name beim Anlegen/Entitäts-ID: helper_evcc_lp_2_vehicle_title
 
 
 #### Automationen um die Helper zu synchronisieren
 
 [Grundlagen um Automatisierungen zu erstellen](../../README.md#home-assistant-artefakte).
 
-Installiere diese Automatisierungen:
+Installiere diese Automatisierung:
 - [EVCC: Aktualisere Min Soc des Fahrzeuges am Loadpoint](./automatisierungen/evcc%20-%20aktualisiere%20min%20soc%20des%20fahrzeuges%20am%20loadpoint.yaml)
-- [EVCC: Aktualisiere Titel des Fahrzeuges am Loadpoint](./automatisierungen/evcc%20-%20aktualisiere%20titel%20des%20fahrzeuges%20am%20loadpoint.yaml)
 
 ### EVCC MQTT Entities Dashboard
 

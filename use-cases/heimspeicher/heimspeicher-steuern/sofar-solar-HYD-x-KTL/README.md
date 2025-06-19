@@ -33,6 +33,8 @@ Nutzt das obige Script, um den aktuell im Helfer eingestellten Modus zu setzen.
 
 ## Automatisierungen
 
+[Grundlagen um Automatisierungen zu erstellen](../../README.md#home-assistant-artefakte).
+
 ### Modus Änderung
 
 [`modus-änderung.yaml`](./automatisierungen/modus-änderung.yaml)
