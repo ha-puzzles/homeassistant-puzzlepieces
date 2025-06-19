@@ -12,4 +12,6 @@ Die Entladeschwelle von 35% sowie die Zeiten in den Automatisierungen sind an di
 
 ## Automatisierungen
 
+[Grundlagen um Automatisierungen zu erstellen](../../README.md#home-assistant-artefakte).
+
 Automatisierungen mit Hilfe der YAML Dateien für die nächtliche Deaktivierung aus den entsprechenden Unterordnern für den passenden Wechselrichter und aus diesem Ordner für die morgendliche Aktivierung anlegen.

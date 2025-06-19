@@ -12,6 +12,7 @@ Erlaubt es den Heimspeicher zu steuern:
 
 ## Helfer
 
+[Grundlagen zu Helfern](../../README.md#helfer).
 
 Für die Automatisierungen und Skripte in den Unterordnern müssen folgende Helfer angelegt werden:
 
@@ -68,6 +69,8 @@ Auch hier empfiehlt es sich nach dem ersten Anlegen den Helfer nochmals zu öffn
   - Maßeinheit: W
 
 ## Automatisierungen & Skripte
+
+[Grundlagen um Automatisierungen zu erstellen](../../README.md#home-assistant-artefakte).
 
 Automatisierungen mit Hilfe der YAML Dateien aus den entsprechenden Unterordnern für den passenden Wechselrichter anlegen.
 
