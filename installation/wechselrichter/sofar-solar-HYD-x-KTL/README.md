@@ -12,7 +12,8 @@ Solltest Du dennoch den Loggerstick vorziehen, beachte bitte unbedingt die Hinwe
 
 - **Anschluss über RS-485 USB Adapter**: Günstigste Lösung, wenn der Rechner oder der Raspberry PI in der Nähe des Wechselrichters aufgestellt werden kann.
 - **Anschluss über RS-485 Modbus TCP Adapter**: Wenn mehrere Geräte gleichzeitig auf den Wechselrichter zugreifen sollen und die Daten über das existierende lokale Netzwerk (LAN oder WLAN, je nach Adapter) gelesen werden sollen. Hier muss der Rechner oder der Raspberry PI auf dem EVCC und HomeAssistant läuft nur irgendwo im selben Netzwerk sein. Die Adapter haben oft auch schon eine sehr gute, eingebaute Fehlerkorrektur.
-- **LSW-3 oder LSE-3 Logger Stick**: Am einfachsten einzurichten, da keine spezielle Verdrahtung notwendig. Jedoch einige Nachteile.
+- **LSW-3 oder LSE-3 Logger Stick über Transparency Working Mode**: Am einfachsten einzurichten, da keine spezielle Verdrahtung notwendig. Jedoch einige Nachteile. Funktioniert mit neuerer Firmware nicht mehr.
+- **LSW-3 mit Modbus TCP**: Funktioniert nur ab einer bestimmten Firmware version von Wechselrichter und LSW. Siehe https://homeassistant-solax-modbus.readthedocs.io/en/latest/sofar-installation/
 
 
 ## Wechselrichter in EVCC einbinden
