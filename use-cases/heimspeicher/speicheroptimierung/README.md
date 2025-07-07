@@ -5,8 +5,13 @@ Ziele dieser Speicheroptimierung sind:
 - Verlängerung der Batterielebensdauer durch reduzierte 100% Zeiten:
   - Verzögertes Aufladen, damit der Speicher nicht schon am Morgen voll ist und nur auf den Abend wartet um entladen zu werden.
   - An Tagen mit ausreichend Ertrag wird der maximalen Ladestand limitiert. Dabei wird jedoch sichergestellt, dass nach einigen Tagen doch wieder auf 100% geladen wird damit das Batterie Management des Speichers den Ladestand wieder kalibrieren kann und die Zellen ausbalanciert werden. Dies ist besonders für Lithium Eisenphosphat (LFP) Batterien wichtig, wegen ihrer sehr flachen Spannungskurve.
+- EVCC wird während dessen so gesteuert, dass parallel mit Überschuss ladende Fahrzeuge optimal geladen werden.
 - Ein etwas netzdienlicheres Verhalten. Morgens kann noch eingespeist werden. Erst zum späten Nachmittag wird der Speicher geladen - dann wenn die meisten anderen PV Anlagen einspeisen.
-- Dabei wird EVCC so gesteuert, dass parallel mit Überschuss ladende Fahrzeuge optimal geladen werden.
+- Optionale Begrenzung der maximalen Lade- und Entladeleistungen (siehe [Heimspeicher steuern](../heimspeicher-steuern/README.md)).
+
+Was diese Steuerung (derzeit noch) nicht kann:
+- Regelung nach Stromspitzengesetz: Überschuss über mehr als 60 Prozent in den Speicher laden.
+- Laden bei negativen Strombörsenpreisen.
 
 ## Beschreibung
 
@@ -26,7 +31,7 @@ Die Einstellungen im Einzelnen:
 | Parameter | Beschreibung |
 | --------- | ------------ |
 | Speicheroptimierung aktiv | Wenn an, wird die Speicherladung optimiert. |
-| Guter Tag ab Prognose     | Der Ertrag in kWh, ab wann von einem ausreichend guten Tag reden kann, der einen guten Autarkiegrad ergibt. Anhand dieses Wertes wird entschieden ob eine verzögerte Speicherladung überhaupt gestartet wird, oder ob das Wetter eher zu unbeständig ist um die Ladung zu verzögern. Es könnte ja sein, das früh am morgen zwar die Sonne scheint, später das Wetter jedoch umschlägt. Dann würde der Speicher nicht mehr voll werden. Außerdem wird die Ladestandsbegrenzung ignoriert, wenn die Prognose für den nächsten Tag darunter liegt, den man wird womöglich am nächsten Tag jede kWh aus dem Speicher benötigen. |
+| Guter Tag ab Prognose     | Der Ertrag in kWh, ab wann man von einem ausreichend guten Tag reden kann, der einen guten Autarkiegrad ergibt, während der Speicher noch sicher vollgeladen wird.<br>Anhand dieses Wertes wird entschieden ob eine verzögerte Speicherladung an diesem Tag überhaupt durchgeführt wird, oder ob das Wetter eher zu unbeständig ist. Es könnte ja sein, das früh am morgen zwar die Sonne scheint, später das Wetter jedoch umschlägt. Dann würde der Speicher nicht mehr voll werden.<br>Darüber hinaus wird die Ladestandsbegrenzung ignoriert, wenn die Prognose für den nächsten Tag unter diesem Wert liegt, denn man wird womöglich am nächsten Tag jede kWh aus dem Speicher benötigen. |
 | Laden verzögert ab SoC    | Ab diesem Ladestand wird verzögert. Ist der Ladestand bei Sonnenaufgang darüber wird die weitere Ladung deaktiviert. Ist der Ladestand bei Sonnenaufgang noch darunter wird zunächst auf diesen Ladestand geladen. Er sollte hoch genug gewählt sein, damit der Speicher eventuelle Verbrauchsspitzen, die nicht von der PV ausgeglichen werden können (z.B. Kochen am Mittag) abdecken kann. |
 | Laden erlaubt ab SoC      | Sollte während das Laden noch verzögert wird, der Speicher zu startk abfallen, wird die Speicherladung ab diesem Ladestand wieder erlaubt. Dann wird wieder bis zum 'Laden verzögert ab SoC' Ladestand geladen. Entsprechend muss dieser Ladestand niedriger gewählt werden. Er sollte etwas über der Entladegrenze des Speichers liegen (zum Beispiel, wenn die Entladegrenze bei 20% liegt, dann sollte dieser Wert bei mindestens 25% liegen) |
 | Start ab PV Restprognose  | Ab dieser restlichen Prognose würde die Ladung des Speicher gestartet werden, wenn er von 0% auf 100% geladen werden würde. Der Wert sollte also so gewählt werden, dass neben der Speicherladung auch noch der Hausverbrauch locker abgedeckt wird. Hierbei sollte man vom Worst Case ausgehen, also zum Beispiel es wird gebacken, während Spülmaschine, Waschmschine und Trockner läuft. Dieser Wert lässt sich am besten durch probieren herausfinden. Am besten startet man als Faustregel mit 2.5 x Speicherkapazität (bei einem 10 kWh Speicher, also 25 kWh Restprognose) und reduziert dann wenn man merkt, dass der Speicher auch später geladen werden könnte.<br>Desto höher der Ladestand ist, desto mehr wird der Start automatisch anteilhaft verzögert. Muss der Speicher also z.B. nur um 50% geladen werden, wird die Ladung erst ab einer kleineren Restprognose gestartet.|
@@ -35,11 +40,14 @@ Die Einstellungen im Einzelnen:
 | Maximaler Ladestand       | Der Ladestand auf den der Speicher maximal geladen werden soll, vorausgesetzt der nächste Tag hat eine ausreichend gute Prognose. |
 | Vollladen nach Tagen      | Nach dieser Anzahl an Tagen wird der Speicher mindestens einmal auf 100% geladen, damit das Batteriemanagement wieder den Ladestand der LFP Zellen kalibrieren kann. Dies kann gerade im Sommer während vieler guten Sonnentage in Folge vorkommen.<br>Im Winter kann nun das Gegenteil eintreten. Gerade nach den Tagen mit begrenzter Ladung schlägt das Wetter um und der Speicher wird nicht mehr voll. Dann wird spätestens nach 30 Tagen eine Vollladung aus dem Netz erzwungen. |
 
+Weiterhin lassen sich die maximalen Lade- und Entladeleistungen begrenzen (siehe [Heimspeicher steuern](../heimspeicher-steuern/README.md)). Ich begrenze so die maximalen Ladeleistung auf 4 kW um EVCC bei guter Abendsonne parallel noch zu erlauben ein angeschlossenes Auto mit Überschuss zu laden, da sonst recht häufig die Mindestleistung für das Autoladen von 1.4 kW nicht erreicht wird und dann während der Batterieladung eingespeist wird.
 
 ## Abhängigkeiten
 
 - [Heimspeicher steuern](../heimspeicher-steuern)
 - [Solcast PV Prognose](https://github.com/BJReplay/ha-solcast-solar) (Die Forecast.Solar Integration von Home Assistant liefert viel zu schlechte Prognosen)
+- Home Assistant Companion App auf dem Smartphone, um Benachrichtigungen zu erhalten.
+- Optional: [EVCC MQTT Integration](../../../installation/evcc-mqtt-integration/)
 
 ## Helfer
 
@@ -189,7 +197,7 @@ Um diese Karte zu erstellen sind folgende Schritte durchzuführen:
 3. Ersetze den Inhalt der Markdown-Karte durch untenstehenden Code.
 
 ```markdown
-### Aktueller Plan 
+## Aktueller Plan 
 {% if states('input_boolean.helper_speicheroptimierung_ein') == "on" %}
   {% if states('sensor.solcast_pv_forecast_forecast_today') | float >= states('input_number.helper_speicheroptimierung_limit_guter_tag_prognose') | float %}
       {% if states('sensor.solcast_pv_forecast_forecast_remaining_today') | float >= states('sensor.helper_speicheroptimierung_restenergie_aktuell') | float %}
@@ -210,7 +218,7 @@ Um diese Karte zu erstellen sind folgende Schritte durchzuführen:
 - ⛔️ Morgen besteht eine schlechte Ertragsprognose. Der Speicher wird auf 100% geladen.
     {% endif %}
     {% if states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | float < states('input_number.helper_speicheroptimierung_batterie_ladelimit_max_tage') | float %}
-- ✅ Der Speicher wurde seit {{ states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) nicht mehr vollgeladen. In {{ states('input_number.helper_speicheroptimierung_batterie_ladelimit_max_tage') | int - states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) wird die Speicherstandsbegrenzung deaktiviert um den Ladestand des Speichers wieder neu zu kalibrieren. Spätestens in {{ 30 - states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) wird der Speicher einmal aus dem Netz geladen.
+- ✅ Der Speicher wurde seit {{ states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) nicht mehr vollgeladen. In {{ states('input_number.helper_speicheroptimierung_batterie_ladelimit_max_tage') | int - states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) wird die Speicherstandsbegrenzung deaktiviert um den Ladestand des Speichers wieder neu zu kalibrieren.
     {% else %}
 - ⛔️ Da der Speicher seit {{ states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tagen nicht mehr vollgeladen wurde, ist die Speicherstandsbegrenzung nun deaktiviert damit die Zellen wieder ausbalanziert werden und der Ladestand kalibriert wird. Spätestens in {{ 30 - states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) wird der Speicher einmal aus dem Netz geladen, wenn er bis dahin nicht voll geworden ist.
     {% endif %}
