@@ -20,11 +20,11 @@ Moderne Energiemanagementsysteme nutzen zum Teil KI und Machine Learning um den 
 - Hausverbrauch und typisches Verbrauchsverhalten der Bewohner.
 - Verhältnis von PV Leistung zu Speichergröße, sowie die Ausrichtung der PV Anlage.
 
-Um die Parameter einzustellen wird hier eine [Karte](#steuerung) bereitgestellt, um alle Parameter bequem einstellen zu können.
+Um die Parameter einzustellen wird hier eine [Karte für Home Assistant Dashboards](#steuerung) bereitgestellt, um alle Parameter bequem einstellen zu können.
 
 ![Speicheroptimierung Karte](./img/karte-speicheroptimierung.png)
 
-Hier sieht man Beispielsweise meine Einstellungen für eine PV Anlage mit 9,84 kWp, die nach Süden ausgerichtet ist mit einem Speicher von 10 kWh, der auf eine Entladegrenze von 10% eingestellt ist. Mit diesen Einstellungen wurde bisher mein Speicher jeden einzelnen Tag rechtzeitig voll. Wie sich dies im Winter bewährt, wird sich noch sehen lassen.
+Hier sieht man Beispielsweise meine Einstellungen für eine PV Anlage mit 9,84 kWp, welche nach Süden ausgerichtet ist mit einem Speicher von 10 kWh, der auf eine Entladegrenze von 10% eingestellt ist. Mit diesen Einstellungen wurde bisher mein Speicher jeden einzelnen Tag rechtzeitig voll. Wie sich dies im Winter bewährt, wird sich noch sehen lassen.
 
 Die Einstellungen im Einzelnen:
 
@@ -34,8 +34,8 @@ Die Einstellungen im Einzelnen:
 | Guter Tag ab Prognose     | Der Ertrag in kWh, ab wann man von einem ausreichend guten Tag reden kann, der einen guten Autarkiegrad ergibt, während der Speicher noch sicher vollgeladen wird.<br>Anhand dieses Wertes wird entschieden ob eine verzögerte Speicherladung an diesem Tag überhaupt durchgeführt wird, oder ob das Wetter eher zu unbeständig ist. Es könnte ja sein, das früh am morgen zwar die Sonne scheint, später das Wetter jedoch umschlägt. Dann würde der Speicher nicht mehr voll werden.<br>Darüber hinaus wird die Ladestandsbegrenzung ignoriert, wenn die Prognose für den nächsten Tag unter diesem Wert liegt, denn man wird womöglich am nächsten Tag jede kWh aus dem Speicher benötigen. |
 | Laden verzögert ab SoC    | Ab diesem Ladestand wird verzögert. Ist der Ladestand bei Sonnenaufgang darüber wird die weitere Ladung deaktiviert. Ist der Ladestand bei Sonnenaufgang noch darunter wird zunächst auf diesen Ladestand geladen. Er sollte hoch genug gewählt sein, damit der Speicher eventuelle Verbrauchsspitzen, die nicht von der PV ausgeglichen werden können (z.B. Kochen am Mittag) abdecken kann. |
 | Laden erlaubt ab SoC      | Sollte während das Laden noch verzögert wird, der Speicher zu stark abfallen, wird die Speicherladung ab diesem Ladestand wieder erlaubt. Dann wird wieder bis zum 'Laden verzögert ab SoC' Ladestand geladen. Entsprechend muss dieser Ladestand niedriger gewählt werden. Er sollte etwas über der Entladegrenze des Speichers liegen (zum Beispiel, wenn die Entladegrenze bei 20% liegt, dann sollte dieser Wert bei mindestens 25% liegen) |
-| Start ab PV Restprognose  | Ab dieser restlichen Prognose würde die Ladung des Speicher gestartet werden, wenn er von 0% auf 100% geladen werden würde. Der Wert sollte also so gewählt werden, dass neben der Speicherladung auch noch der Hausverbrauch locker abgedeckt wird. Hierbei sollte man vom Worst Case ausgehen, also zum Beispiel es wird gebacken, während Spülmaschine, Waschmschine und Trockner läuft. Dieser Wert lässt sich am besten durch probieren herausfinden. Am besten startet man als Faustregel mit 2.5 x Speicherkapazität (bei einem 10 kWh Speicher, also 25 kWh Restprognose) und reduziert dann wenn man merkt, dass der Speicher auch später geladen werden könnte.<br>Desto höher der Ladestand ist, desto mehr wird der Start automatisch anteilhaft verzögert. Muss der Speicher also z.B. nur um 50% geladen werden, wird die Ladung erst ab einer kleineren Restprognose gestartet.|
-| Benachrichtigungen aktiv  | Während man die Werte noch einstellt kann man sich zur besseren Überwachung Benachrichtungen über die Home Assistant Companion App schicken lassen. Wenn die Werte einmal gut eingestellt sind, kann man diese Benachrichtigungen mit diesem Schalter abschalten |
+| Start ab PV Restprognose  | Ab dieser restlichen Prognose würde die Ladung des Speicher gestartet werden, wenn er von 0% auf 100% geladen werden würde. Der Wert sollte also so gewählt werden, dass neben der Speicherladung auch noch der Hausverbrauch locker abgedeckt wird. Hierbei sollte man vom Worst Case ausgehen, also zum Beispiel es wird gebacken, während Spülmaschine, Waschmschine und Trockner läuft. Dieser Wert lässt sich am besten durch probieren herausfinden. Am besten startet man als Faustregel mit 2.5 x Speicherkapazität (bei einem 10 kWh Speicher, also 25 kWh Restprognose) und reduziert dann wenn man merkt, dass der Speicher auch später geladen werden könnte.<br>Desto höher der Ladestand ist, desto mehr wird der Start automatisch anteilhaft verzögert. Muss der Speicher also z.B. nur um 50% von 40% auf 90% geladen werden, wird die Ladung erst ab einer kleineren Restprognose gestartet.|
+| Benachrichtigungen aktiv  | Während man die Werte noch einstellt kann man sich zur besseren Überwachung Benachrichtungen über die Home Assistant Companion App auf's Smartphone schicken lassen. Wenn die Werte einmal gut eingestellt sind, kann man diese Benachrichtigungen mit diesem Schalter abschalten |
 | Begrenzung aktiv          | Aktiviert die Ladestandsbegrenzung zum eingestellten Wert. Wenn abgeschaltet wird immer auf 100% geladen |
 | Maximaler Ladestand       | Der Ladestand auf den der Speicher maximal geladen werden soll, vorausgesetzt der nächste Tag hat eine ausreichend gute Prognose. |
 | Vollladen nach Tagen      | Nach dieser Anzahl an Tagen wird der Speicher mindestens einmal auf 100% geladen, damit das Batteriemanagement wieder den Ladestand der LFP Zellen kalibrieren kann. Dies kann gerade im Sommer während vieler guten Sonnentage in Folge vorkommen.<br>Im Winter kann nun das Gegenteil eintreten. Gerade nach den Tagen mit begrenzter Ladung schlägt das Wetter um und der Speicher wird nicht mehr voll. Dann wird spätestens nach 30 Tagen eine Vollladung aus dem Netz erzwungen. |
@@ -46,13 +46,13 @@ Weiterhin lassen sich die maximalen Lade- und Entladeleistungen begrenzen (siehe
 
 ![Beispiel: Leistungen der PV](./img/beispiel-1-leistung.png)
 
-Kein perfekter Tag. Morgens noch relativ viel Sonne, am Abend sind jedoch dunkle Wolken aufgezogen. Entsprechend ist die restliche Ertragsprognose früher abgefallen und der Ladevorgang des Speichers wurde etwas früher um ca. 14:50 Uhr als an einem schönen Sonnentag gestartet.
+Kein perfekter PV Tag im Juli. Morgens noch relativ viel Sonne, am Abend sind jedoch dunkle Wolken aufgezogen. Entsprechend ist die restliche Ertragsprognose früher abgefallen und der Ladevorgang des Speichers wurde etwas früher um ca. 14:50 Uhr als an einem schönen Sonnentag gestartet.
 
 Auch sieht man schön, dass wir an diesem Tag sehr spät gekocht haben - etwa um 15:00 Uhr. Dank der höheren Restprognose zum Laden bestand aber mehr als ausreichend Reserve, damit die Ladegrenze noch vor den dunklen Wolken am Abend erreicht wurde. Hätte ja sein können, dass die Spülmaschine noch laufen gemusst hätte.
 
 ![Beispiel: Ladestand des Speichers](./img/beispiel-1-soc.png)
 
-Ohne dieser Optimierung wäre der Speicher jedoch schon locker um 11:00 Uhr auf 100% geladen gewesen und der Speicher wäre fast den ganzen Tag auf 100% voll gewesen ohne gebraucht zu werden. Und das Netz freut sich über die Einspeisung am morgen, wenn alle anderen PV Speicher noch laden.
+Ohne diese Optimierung wäre der Speicher jedoch um 11:00 Uhr auf 100% geladen gewesen und der Speicher wäre fast den ganzen Tag auf 100% voll gestanden ohne gebraucht zu werden. Währenddessen freut sich das Netz über die Einspeisung am Vormittag, wenn alle anderen PV Speicher noch laden.
 
 Die Grafiken stammen aus den [evcc-grafana-dashboards](https://github.com/ha-puzzles/evcc-grafana-dashboards).
 
@@ -156,13 +156,13 @@ Ein interner Zähler, der die Tage zählt seit dem der Speicher zum letzten Mal 
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_ein`
 - Anzeigename: `Speicheroptimierung aktiv`
 
-### Speicheroptimierung: Benachrichtigungen
+### Benachrichtigungen
 
 - Typ: Schalter
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_benachrichtigungen`
 - Anzeigename: `Speicheroptimierung: Benachrichtigungen`
 
-### Speicheroptimierung: Ertragslimit eines guten Tages
+### Ertragslimit eines guten Tages
 
 - Typ: Zahlenwert-Eingabe
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_limit_guter_tag_prognose`
@@ -175,7 +175,7 @@ Ein interner Zähler, der die Tage zählt seit dem der Speicher zum letzten Mal 
   - Schrittweite: 1
   - Maßeinheit: kWh
 
-### Speicheroptimierung: Ladelimit
+### Ladelimit
 
 - Typ: Zahlenwert-Eingabe
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_limit_soc_grenze`
@@ -189,7 +189,7 @@ Ein interner Zähler, der die Tage zählt seit dem der Speicher zum letzten Mal 
   - Maßeinheit: %
 
 
-### Speicheroptimierung: Laden einschalten bei min SoC
+### Laden einschalten bei min SoC
 
 - Typ: Zahlenwert-Eingabe
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_min_soc_laden_aktivieren`
@@ -202,13 +202,13 @@ Ein interner Zähler, der die Tage zählt seit dem der Speicher zum letzten Mal 
   - Schrittweite: 5
   - Maßeinheit: %
 
-### Speicheroptimierung: Ladestandsbegrenzung aktiv
+### Ladestandsbegrenzung aktiv
 
 - Typ: Schalter
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_limit_ein`
 - Anzeigename: `Speicheroptimierung: Ladestandsbegrenzung aktiv`
 
-### Speicheroptimierung: PV Restenergie
+### PV Restenergie
 
 - Typ: Zahlenwert-Eingabe
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_pv_restenergie_kwh`
@@ -221,7 +221,7 @@ Ein interner Zähler, der die Tage zählt seit dem der Speicher zum letzten Mal 
   - Schrittweite: 1
   - Maßeinheit: kWh
 
-### Speicheroptimierung: SoC Laden deaktivieren
+### SoC Laden deaktivieren
 
 - Typ: Zahlenwert-Eingabe
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_soc_laden_deaktivieren`
@@ -234,7 +234,7 @@ Ein interner Zähler, der die Tage zählt seit dem der Speicher zum letzten Mal 
   - Schrittweite: 5
   - Maßeinheit: %
 
-### Speicheroptimierung: Vollladen nach Tagen
+### Vollladen nach Tagen
 
 - Typ: Zahlenwert-Eingabe
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_batterie_ladelimit_max_tage`
@@ -257,7 +257,7 @@ Ein interner Zähler, der die Tage zählt seit dem der Speicher zum letzten Mal 
 
 [`benachrichtigung.yaml`](./scripte/benachrichtigung.yaml)
 
-Sendet eine Benachrichtigung an die Companion App auf Deinem Smartphone, sofern gewünscht.
+Sendet eine Benachrichtigung an die Home Assistant Companion App auf Deinem Smartphone, sofern gewünscht.
 
 #### Notwendige Anpassungen
 - `<companion_app_device_name>` ersetzen. Der Gerätename Deines Smartphones auf dem die Companion App läuft um Benachrichtigungen zu erhalten.
@@ -266,9 +266,9 @@ Sendet eine Benachrichtigung an die Companion App auf Deinem Smartphone, sofern 
 
 [`evcc-priority-soc-aktualisieren.yaml`](./scripte/evcc-priority-soc-aktualisieren.yaml)
 
-Aktualisiert den Priority SoC von EVCC. Während die Speicheroptimierung verzögert ist und ein Fahrzeug geladen wird, darf der Speicher zur Optimierung de Eigenverbrauches laden. Sonst würde während des Ladevorganges immer wieder eingespeist werden, da die Ladeleistung nur in groben Schritten reguliert wird.
+Aktualisiert den Priority SoC von EVCC. Während die Speicheroptimierung verzögert ist und ein Fahrzeug geladen wird, darf der Speicher zur Optimierung de Eigenverbrauches laden. Sonst würde während des Ladevorganges immer wieder eingespeist werden, da die Ladeleistung nur in groben Schritten reguliert wird und immer wieder etwas von der Differenz eingespeist wird.
 
-Während des verzögertem Ladens wird der Priority SoC von EVCC wird hierzu auf den minimalen Ladestand, ab dem Laden wieder erlaubt wird, gesetzt. Hiermit wird das Fahrzeug bevorzugt während der verzögerten Ladung geladen und der Heimspeicher erst an zweiter Stelle von dem, was EVCC übrig lässt.
+Während des verzögerten Ladens wird der Priority SoC von EVCC hierzu auf den minimalen Ladestand, ab dem Laden wieder erlaubt wird, gesetzt. Dadurch wird das Laden des Fahrzeuges bevorzugt während der verzögerten Ladung geladen und der Heimspeicher erst an zweiter Stelle mit dem, was EVCC übrig lässt.
 
 Nach dem verzögerten Laden wird der Priority SoC auf den Standardwert gesetzt sofern keine Ladestandsbegrenzung aktiv ist. Ist eine Ladestandsbegrenzung aktiv, wird der Priority SoC auf den Wert der Ladestandsbegrenzung abzüglich 5% gesetzt, damit das Auto schon etwas vor dem Ladelimit zu laden anfängt um auch hier noch den Eigenverbrauch weiter zu optimieren.
 
@@ -287,9 +287,9 @@ Nach dem verzögerten Laden wird der Priority SoC auf den Standardwert gesetzt s
 
 Erlaube das Speicherladen, wenn die Optimierung ausgeschaltet wird.
 
-### Erlaube die de-prioritisierte Ladung des Speichers während verzögertem Speicherladen, wenn ein Auto geladen wird
+### EVCC: Erlaube die de-prioritisierte Ladung des Speichers während verzögertem Speicherladen, wenn ein Auto geladen wird
 
-[`evcc-de-prioritiserte-speicherladung.yaml`](./automatisierungen/evcc-de-prioritiserte-speicherladung.yaml)
+[`evcc-de-prioritisierte-speicherladung.yaml`](./automatisierungen/evcc-de-prioritisierte-speicherladung.yaml)
 
 Erlaube die Speicherladung und passe mittels obigen Script den Priority SoC von EVCC an, wenn während des verzögerten Ladens ein Auto geladen wird.
 
@@ -349,7 +349,7 @@ Aktualisiert den täglichen Maximalwert, wenn der Ladestand steigt.
 
 [`soc-fehler.yaml`](./automatisierungen/soc-fehler.yaml)
 
-Wenn ein SoC von 0 zurückgegeben wird, setze das flag `helper_speicheroptimierung_battery_lesefehler` für 2 Minuten, denn vermutlich wurde gab es hier einen Lesefehler, der bald wieder behoben wird.
+Wenn ein SoC von 0 zurückgegeben wird, setze das flag `helper_speicheroptimierung_battery_lesefehler` für 2 Minuten, denn vermutlich gab es hier einen Lesefehler, der bald wieder behoben wird.
 
 ### Verspätetes Laden starten
 
