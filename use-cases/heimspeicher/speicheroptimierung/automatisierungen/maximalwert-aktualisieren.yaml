@@ -1,0 +1,23 @@
+alias: "Speicheroptimierung: Täglicher Maximalwert schreiben"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.helper_speicheroptimierung_bat_soc
+conditions:
+  - condition: numeric_state
+    entity_id: sensor.helper_speicheroptimierung_bat_soc
+    above: input_number.helper_speicheroptimierung_today_max_soc
+  - condition: sun
+    after: sunrise
+    alias: >-
+      Erst nach Sonnenaufgang setzen, da nach der Nacht der Speicherstand
+      vermutlich eher klein sein wird.
+actions:
+  - action: input_number.set_value
+    metadata: {}
+    data:
+      value: "{{ states('sensor.helper_speicheroptimierung_bat_soc') }}"
+    target:
+      entity_id: input_number.helper_speicheroptimierung_today_max_soc
+mode: single

@@ -1,0 +1,111 @@
+alias: "Speicheroptimierung: Ladegrenze monitoren und einstellen."
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.helper_speicheroptimierung_bat_soc
+  - trigger: state
+    entity_id:
+      - input_number.helper_speicheroptimierung_limit_soc_grenze
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_ein
+    state: "on"
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+    state: "off"
+    alias: Wenn das Laden derzeit nicht verzögert ist.
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_limit_ein
+    state: "on"
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: input_select.helper_pv_battery_mode
+        state: Netzladen
+    alias: Wenn der Speichermodus NICHT im Modus Netzladen ist.
+  - condition: numeric_state
+    entity_id: sensor.solcast_pv_forecast_forecast_tomorrow
+    above: input_number.helper_speicheroptimierung_limit_guter_tag_prognose
+    alias: Wenn morgen ein guter Sonnentag ist
+  - alias: >-
+      Wenn die Tage ohne Vollladung noch nicht die maximale Anzahl an Tag ohne
+      Volllladung erreicht hat.
+    condition: template
+    value_template: >-
+      {{ states
+      ('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') |
+      float <
+      states('input_number.helper_speicheroptimierung_batterie_ladelimit_max_tage')
+      | float }}
+actions:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{ states ('sensor.helper_speicheroptimierung_bat_soc') | float >=
+              states('input_number.helper_speicheroptimierung_limit_soc_grenze')
+              | float }}
+            alias: Aktueller Speicher SoC ist größer als die Ladegrenze
+        sequence:
+          - action: input_select.select_option
+            metadata: {}
+            data:
+              option: Nur Entladen
+            target:
+              entity_id: input_select.helper_pv_battery_mode
+          - action: script.speicheroptimierung_benachrichtigung
+            metadata: {}
+            data:
+              message: >-
+                Die Ladegrenze wurde erreicht. Die weitere Ladung wurde
+                unterbunden, um den Speicher zu schonen:
+
+
+                Aktueller SOC: {{
+                states('sensor.helper_speicheroptimierung_bat_soc') }} %.
+
+
+                Übrig heute: {{
+                states('sensor.solcast_pv_forecast_forecast_remaining_today') }}
+                kWh.
+
+
+                Morgen: {{
+                states('sensor.solcast_pv_forecast_forecast_tomorrow') }} kWh.
+              title: Speicherladelimit erreicht.
+              color: green
+        alias: Obergrenze erreicht
+      - conditions:
+          - alias: Aktueller Speicher SoC ist unter Ladegrenze gefallen
+            condition: template
+            value_template: >-
+              {{ states ('sensor.helper_speicheroptimierung_bat_soc') | float <
+              states('input_number.helper_speicheroptimierung_limit_soc_grenze')
+              | float }}
+        sequence:
+          - action: input_select.select_option
+            metadata: {}
+            data:
+              option: Automatisches Laden und Entladen
+            target:
+              entity_id: input_select.helper_pv_battery_mode
+          - action: script.speicheroptimierung_benachrichtigung
+            metadata: {}
+            data:
+              message: >-
+                Die Ladung wurde wieder freigegeben, nachdem der Ladestand
+                abgefallen ist:
+
+
+                Aktueller SOC: {{
+                states('sensor.helper_speicheroptimierung_bat_soc') }}%.
+
+
+                Forecast: {{
+                states('sensor.solcast_pv_forecast_forecast_remaining_today')
+                }}kWh.
+              title: Speicher Ladung wieder freigegeben.
+            enabled: false
+        alias: Speicherstand unter Obergrenze gefallen.
+mode: single

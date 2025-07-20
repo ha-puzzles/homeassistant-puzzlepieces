@@ -1,0 +1,22 @@
+alias: Speicheroptimierung ausgeschaltet
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_boolean.helper_speicheroptimierung_ein
+    from: "on"
+    to: "off"
+conditions: []
+actions:
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: Automatisches Laden und Entladen
+    target:
+      entity_id: input_select.helper_pv_battery_mode
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+mode: single

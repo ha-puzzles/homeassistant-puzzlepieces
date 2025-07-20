@@ -1,0 +1,75 @@
+sequence:
+  - variables:
+      default_priority_soc: 90
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_ein
+            state: "off"
+        sequence:
+          - alias: Standardwert von EVCC Priority SOC setzen.
+            action: number.set_value
+            metadata: {}
+            data:
+              value: "{{ default_priority_soc }}"
+            target:
+              entity_id: number.evcc_site_priority_soc
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+            state: "on"
+        sequence:
+          - action: number.set_value
+            metadata: {}
+            data:
+              value: >-
+                {{
+                states('input_number.helper_speicheroptimierung_min_soc_laden_aktivieren')
+                | int }}
+            target:
+              entity_id: number.evcc_site_priority_soc
+            alias: >-
+              Das Fahrzeug soll bevorzugt geladen werden. Setze EVCC Priority
+              SOC auf den minimalen Speicherwert.
+        alias: "Laden wird derzeit verzögert: Gebe dem Fahrzeug Vorrang."
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+            state: "off"
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_limit_ein
+            state: "on"
+        sequence:
+          - action: number.set_value
+            metadata: {}
+            data:
+              value: >-
+                {{
+                states('input_number.helper_speicheroptimierung_limit_soc_grenze')
+                | float - 5 }}
+            target:
+              entity_id: number.evcc_site_priority_soc
+            alias: EVCC Priority SoC auf Ladegrenze - 5 festlegen.
+        alias: >-
+          Laden wird nicht verzögert und Ladelimit aktiv: Setze Priority SoC auf
+          Ladelimit - 5 %
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+            state: "off"
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_limit_ein
+            state: "off"
+        sequence:
+          - alias: Standardwert von EVCC Priority SOC setzen.
+            action: number.set_value
+            metadata: {}
+            data:
+              value: "{{ default_priority_soc }}"
+            target:
+              entity_id: number.evcc_site_priority_soc
+        alias: >-
+          Laden wird nicht verzögert und Ladelimit aus: Setze Priority SoC auf
+          Standardwert
+alias: "Speicheroptimierung: EVCC Priority SoC aktualisieren"
+description: ""

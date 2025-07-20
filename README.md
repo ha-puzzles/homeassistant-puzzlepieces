@@ -91,8 +91,4 @@ Um einen Helper zu erstellen...
    2. Vergebe einen beliebigen besser lesbaren Namen - dieser kann nun frei gewählt werden - er wirkt sich nicht mehr auf die bereits oben in Schritt 5 angelegte Entitäts-ID aus.
    3. Wähle ein beliebiges Symbol aus.
 
----
 
-
-![Home Assistant](./img/home-assistant.png)
-![Evcc](./img/evcc.png)

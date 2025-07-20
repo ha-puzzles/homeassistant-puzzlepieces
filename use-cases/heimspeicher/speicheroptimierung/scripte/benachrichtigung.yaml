@@ -1,0 +1,51 @@
+sequence:
+  - alias: Sende Benachrichtigung, falls gewünscht.
+    if:
+      - condition: state
+        entity_id: input_boolean.helper_speicheroptimierung_benachrichtigungen
+        state: "on"
+    then:
+      - action: notify.mobile_app_<companion_app_device_name>
+        metadata: {}
+        data:
+          data:
+            tag: "{{ tag }}"
+            notification_icon: "{{ notification_icon }}"
+            color: "{{ color }}"
+          message: "{{ message }} "
+          title: "{{ title }}"
+        alias: Benachrichtigung an Companion App
+alias: "Speicheroptimierung: Benachrichtigung"
+description: ""
+fields:
+  title:
+    selector:
+      text: null
+    name: title
+    description: Der Titel der Nachricht
+    required: true
+  message:
+    selector:
+      text: null
+    name: message
+    description: Der Benachrichtungstext
+    required: true
+  tag:
+    selector:
+      text: null
+    name: tag
+    default: speicheroptimierung
+    description: >-
+      Nachrichten mit demselben Tag ersetzen vorgehende Nachrichten mit diesem
+      Tag
+  notification_icon:
+    selector:
+      icon: {}
+    default: mdi:home-battery
+    name: notification_icon
+    description: Das Icon das in der Benachrichtung angezeigt wird.
+  color:
+    selector:
+      text: null
+    name: color
+    description: Die Farbe des icons.
