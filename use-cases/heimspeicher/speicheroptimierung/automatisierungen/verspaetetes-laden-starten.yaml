@@ -1,0 +1,53 @@
+alias: "Speicheroptimierung: Verspätetes Laden starten"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.solcast_pv_forecast_forecast_remaining_today
+    enabled: true
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_ein
+    state: "on"
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+    state: "on"
+  - condition: template
+    value_template: >-
+      {{ states('sensor.solcast_pv_forecast_forecast_remaining_today') | float
+      <= states('sensor.helper_speicheroptimierung_restenergie_aktuell') | float
+      }}
+    enabled: true
+    alias: >-
+      Restliche Energievorhersage unter der aktuellen Restenergie für den
+      Ladestart.
+actions:
+  - action: script.speicheroptimierung_benachrichtigung
+    metadata: {}
+    data:
+      title: Speicher Ladung gestartet.
+      message: >-
+        Heimspeicher beginnt nun zu laden.
+
+
+        Aktueller SOC: {{ states('sensor.helper_speicheroptimierung_bat_soc')
+        }}%.
+
+
+        Forecast: {{
+        states('sensor.solcast_pv_forecast_forecast_remaining_today') }}kWh.
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: Automatisches Laden und Entladen
+    target:
+      entity_id: input_select.helper_pv_battery_mode
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+  - action: script.speicheroptimierung_evcc_priority_soc_aktualisieren
+    metadata: {}
+    data: {}
+mode: single

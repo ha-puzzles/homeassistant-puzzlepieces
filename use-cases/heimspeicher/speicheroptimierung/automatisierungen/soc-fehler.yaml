@@ -1,0 +1,29 @@
+alias: >-
+  Speicheroptimierung: Vermutlicher SoC Lesefehler: helper_speicheroptimierung_battery_lesefehler an
+  für 2 minuten.
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.helper_speicheroptimierung_bat_soc
+    to: "0"
+conditions: []
+actions:
+  - action: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - input_boolean.helper_speicheroptimierung_battery_lesefehler
+  - delay:
+      hours: 0
+      minutes: 2
+      seconds: 0
+      milliseconds: 0
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - input_boolean.helper_speicheroptimierung_battery_lesefehler
+mode: restart

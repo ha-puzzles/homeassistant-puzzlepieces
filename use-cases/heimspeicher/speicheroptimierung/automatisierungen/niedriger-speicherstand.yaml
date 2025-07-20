@@ -1,0 +1,90 @@
+alias: "Speicheroptimierung: Laden bei zu niedrigem Speicherstand starten"
+description: ""
+triggers:
+  - alias: Speicherstand unterschreitet minimalen Speicherstand.
+    trigger: template
+    value_template: >-
+      {{ states('sensor.helper_speicheroptimierung_bat_soc') | float <=
+      states('input_number.helper_speicheroptimierung_min_soc_laden_aktivieren')
+      | float }}
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_ein
+    state: "on"
+actions:
+  - alias: Prüfe, dass kein Lesefehler beim Battery SOC aufgetreten ist.
+    if:
+      - condition: state
+        entity_id: input_boolean.helper_speicheroptimierung_battery_lesefehler
+        state: "off"
+    then:
+      - action: script.speicheroptimierung_benachrichtigung
+        metadata: {}
+        data:
+          message: >-
+            Der Speicherstand ist auf einen zu niedrigen Stand gefallen. Die
+            Speicherladung wird wieder aktiviert.
+
+
+            Aktueller SOC: {{
+            states('sensor.helper_speicheroptimierung_bat_soc') }}%.
+
+
+            Forecast: {{
+            states('sensor.solcast_pv_forecast_forecast_remaining_today') }}kWh.
+          title: Speicher Ladestand zu niedrig. Ladung aktiviert.
+      - action: input_select.select_option
+        metadata: {}
+        data:
+          option: Automatisches Laden und Entladen
+        target:
+          entity_id: input_select.helper_pv_battery_mode
+      - action: input_boolean.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+            - switch.evcc_lp_1_battery_boost
+            - switch.evcc_lp_2_battery_boost
+        alias: >-
+          Falls bei einem Ladevorgang der Battery Boost aktiv ist, diesen
+          deaktivieren.
+    else:
+      - alias: Sende Benachrichtigung, falls gewünscht.
+        if:
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_benachrichtigungen
+            state: "on"
+        then:
+          - alias: Benachrichtigung bei Lesefehler
+            action: notify.mobile_app_pixel_8
+            metadata: {}
+            data:
+              data:
+                tag: battery-delayed-charging
+                notification_icon: mdi:home-battery
+              message: >-
+                Es gab vor kurzem offensichtlich einen Lesefehler des SOCs aus
+                der Heimbatterie. Automatisierung "Heimspeicher:
+                Netzdienlichkeit: Laden bei zu niedrigem Speicherstand starten"
+                abgebrochen.
+              title: Batterie SOC Lesefehler
+      - action: script.speicheroptimierung_benachrichtigung
+        metadata: {}
+        data:
+          message: >-
+            Es gab vor kurzem offensichtlich einen Lesefehler des SOCs aus der
+            Heimbatterie. Automatisierung "Heimspeicher: Netzdienlichkeit: Laden
+            bei zu niedrigem Speicherstand starten" abgebrochen.
+          title: Batterie SOC Lesefehler
+          color: red
+mode: single

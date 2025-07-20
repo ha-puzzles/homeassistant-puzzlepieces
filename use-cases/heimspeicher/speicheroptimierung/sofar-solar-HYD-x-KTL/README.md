@@ -13,7 +13,7 @@ Ein Helfer, der einfach nur den aktuellen Ladestand des Heimspeichers zurückgib
 - Typ: Template für einen Sensor
 - Name beim Anlegen/Entitäts-ID:  `helper_speicheroptimierung_bat_soc`
 - Zustandstemplate:
-  ```
+  ```jinja
   {{ states('sensor.sofar_battery_capacity_total') | float }}
   ```
 - Maßeinheit: %

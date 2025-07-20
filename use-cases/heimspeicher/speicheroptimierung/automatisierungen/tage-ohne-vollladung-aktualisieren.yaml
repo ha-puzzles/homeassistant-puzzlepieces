@@ -1,0 +1,34 @@
+alias: "Speicheroptimierung: Tage ohne Vollladung setzen. Max SoC zurücksetzen"
+description: ""
+triggers:
+  - trigger: time
+    at: "00:00:00"
+conditions: []
+actions:
+  - if:
+      - condition: numeric_state
+        entity_id: input_number.helper_speicheroptimierung_today_max_soc
+        below: 100
+    then:
+      - action: input_number.increment
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler
+    else:
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: 0
+        target:
+          entity_id: input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler
+    alias: Tage ohne Vollladung erhöhen falls nicht voll, oder zurücksetzen.
+  - alias: Maximalen SoC Wert zurücksetzen.
+    action: input_number.set_value
+    metadata: {}
+    data:
+      value: 0
+    target:
+      entity_id:
+        - input_number.helper_speicheroptimierung_today_max_soc
+mode: single

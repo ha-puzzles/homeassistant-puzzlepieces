@@ -1,0 +1,95 @@
+alias: "Speicheroptimierung: Laden verzögern bei Erreichen von Ladeabschaltungslimit."
+description: ""
+triggers:
+  - alias: >-
+      Speicherstand überschreitet eingestellten Speicherstand zum stoppen der
+      Ladung.
+    trigger: template
+    value_template: >-
+      {{ states('sensor.helper_speicheroptimierung_bat_soc') | float >=
+      states('input_number.helper_speicheroptimierung_soc_laden_deaktivieren') |
+      float }}
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - trigger: state
+    entity_id:
+      - input_boolean.helper_speicheroptimierung_ein
+    from: "off"
+    to: "on"
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_ein
+    state: "on"
+  - alias: >-
+      Die Energievorhersage für heute größer ist als die aktuelle Restenergie +
+      1
+    condition: template
+    value_template: >-
+      {{ states('sensor.solcast_pv_forecast_forecast_remaining_today') | float
+      >= states('sensor.helper_speicheroptimierung_restenergie_aktuell') | float
+      + 1 }}
+  - condition: numeric_state
+    entity_id: sensor.solcast_pv_forecast_forecast_today
+    above: input_number.helper_speicheroptimierung_limit_guter_tag_prognose
+    alias: Heute ist ein guter Sonnentag
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: input_select.helper_pv_battery_mode
+        state: Netzladen
+    alias: Nicht unterbrechen, wenn der Speicher derzeit im Modus 'Netzladen' ist.
+actions:
+  - alias: Prüfe, dass kein Lesefehler beim Battery SOC aufgetreten ist.
+    if:
+      - condition: state
+        entity_id: input_boolean.helper_speicheroptimierung_battery_lesefehler
+        state: "off"
+    then:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+      - action: input_select.select_option
+        metadata: {}
+        data:
+          option: Nur Entladen
+        target:
+          entity_id: input_select.helper_pv_battery_mode
+      - alias: Aktualisiere die Zustände, falls ein Auto geladen wird.
+        action: automation.trigger
+        metadata: {}
+        data:
+          skip_condition: true
+        target:
+          entity_id:
+            - >-
+              automation.speicheroptimierung_erlaube_die_de_prioritisierte_ladung_des_speichers_wahrend_verzogertem_speicherladen_wenn_ein_auto_geladen_wird_um_den_eigenverbrauch_zu_optimieren
+      - action: script.speicheroptimierung_benachrichtigung
+        metadata: {}
+        data:
+          message: >-
+            Heimspeicherladung wird ab jetzt verzögert, da der Batteriestand, ab
+            dem verzögert wird, erreicht wurde.
+
+
+            Aktueller SOC: {{
+            states('sensor.helper_speicheroptimierung_bat_soc') }}%.  
+
+
+            Forecast: {{
+            states('sensor.solcast_pv_forecast_forecast_remaining_today') }}kWh.
+          title: Speicher Ladung verzögert.
+    else:
+      - action: script.speicheroptimierung_benachrichtigung
+        metadata: {}
+        data:
+          message: >-
+            Es gab vor kurzem offensichtlich einen Lesefehler des SOCs aus der
+            Heimbatterie. Automatisierung "Heimspeicher: Speicherdienlichkeit:
+            Laden stoppen" abgebrochen.
+          title: Batterie SOC Lesefehler
+          color: red
+mode: single

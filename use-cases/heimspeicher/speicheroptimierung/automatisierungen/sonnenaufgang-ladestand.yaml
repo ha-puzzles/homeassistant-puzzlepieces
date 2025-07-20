@@ -1,0 +1,64 @@
+alias: "Speicheroptimierung: Nach Sonnenaufgang noch genug Kapazität."
+description: ""
+triggers:
+  - trigger: sun
+    event: sunrise
+    offset: "00:30:00"
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_ein
+    state: "on"
+  - alias: >-
+      Die Energievorhersage für heute größer ist als die aktuelle Restenergie +
+      1
+    condition: template
+    value_template: >-
+      {{ states('sensor.solcast_pv_forecast_forecast_remaining_today') | float
+      >= states('sensor.helper_speicheroptimierung_restenergie_aktuell') | float
+      + 1 }}
+  - condition: numeric_state
+    entity_id: sensor.solcast_pv_forecast_forecast_today
+    above: input_number.helper_speicheroptimierung_limit_guter_tag_prognose
+    alias: Heute ist ein guter Sonnentag
+  - alias: >-
+      Aktueller Ladestand des Speichers ist über der eingestellten minimalen
+      Restkapazität.
+    condition: template
+    value_template: >-
+      {{ states('sensor.helper_speicheroptimierung_bat_soc') | float >=
+      states('input_number.helper_speicheroptimierung_soc_laden_deaktivieren') |
+      float }}
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: input_select.helper_pv_battery_mode
+        state: Netzladen
+    alias: Nicht unterbrechen, wenn der Speicher derzeit im Modus 'Netzladen' ist.
+actions:
+  - action: script.speicheroptimierung_benachrichtigung
+    metadata: {}
+    data:
+      message: >-
+        Morgens noch genug im Speicher. Heimspeicherladung wird jetzt
+        blockiert. 
+
+
+        Aktueller SOC: {{ states('sensor.helper_speicheroptimierung_bat_soc')
+        }}%. 
+
+
+        Forecast: {{
+        states('sensor.solcast_pv_forecast_forecast_remaining_today') }}kWh.
+      title: Speicher Ladung verzögert.
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: Nur Entladen
+    target:
+      entity_id: input_select.helper_pv_battery_mode
+  - action: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+mode: single

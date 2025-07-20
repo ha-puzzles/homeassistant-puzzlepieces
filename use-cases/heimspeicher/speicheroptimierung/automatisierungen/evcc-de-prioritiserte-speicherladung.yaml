@@ -1,0 +1,60 @@
+alias: >-
+  Speicheroptimierung: Erlaube die de-prioritisierte Ladung des Speichers
+  während verzögertem Speicherladen, wenn ein Auto geladen wird, um den
+  Eigenverbrauch zu optimieren.
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.evcc_lp_1_charging
+      - binary_sensor.evcc_lp_2_charging
+    alias: Zustand 'Laden' eines der Ladepunkte ändert sich.
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_ein
+    state: "on"
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+    state: "on"
+    alias: Während das Laden des Speichers verzögert wird.
+actions:
+  - choose:
+      - conditions:
+          - condition: or
+            conditions:
+              - condition: state
+                entity_id: binary_sensor.evcc_lp_1_charging
+                state: "on"
+              - condition: state
+                entity_id: binary_sensor.evcc_lp_2_charging
+                state: "on"
+            alias: Einer der Ladepunkte lädt gerade.
+        sequence:
+          - action: input_select.select_option
+            metadata: {}
+            data:
+              option: Automatisches Laden und Entladen
+            target:
+              entity_id: input_select.helper_pv_battery_mode
+        alias: >-
+          Einer der Ladepunkte lädt: Erlaube dass Überschüsse während der
+          Fahrzeugladung in den Speicher geladen werden.
+      - conditions:
+          - condition: state
+            entity_id: binary_sensor.evcc_lp_1_charging
+            state: "off"
+          - condition: state
+            entity_id: binary_sensor.evcc_lp_2_charging
+            state: "off"
+        sequence:
+          - action: input_select.select_option
+            metadata: {}
+            data:
+              option: Nur Entladen
+            target:
+              entity_id: input_select.helper_pv_battery_mode
+        alias: Keiner der Ladepunkte lädt. Verhindere die weitere Ladung.
+  - action: script.speicheroptimierung_evcc_priority_soc_aktualisieren
+    metadata: {}
+    data: {}
+mode: single

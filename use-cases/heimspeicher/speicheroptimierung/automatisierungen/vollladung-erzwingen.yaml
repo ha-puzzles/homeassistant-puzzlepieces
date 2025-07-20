@@ -1,0 +1,40 @@
+alias: >-
+  Speicheroptimierung: Wenn Speicher für mehr als 30 Tage nicht vollgeworden
+  ist, erzwinge Netzladen
+description: ""
+triggers:
+  - trigger: numeric_state
+    entity_id:
+      - input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler
+    above: 30
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_ein
+    state: "on"
+actions:
+  - action: input_number.set_value
+    metadata: {}
+    data:
+      value: 100
+    target:
+      entity_id: input_number.helper_pv_battery_target_soc
+    alias: Auf 100% laden.
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: Netzladen
+    target:
+      entity_id: input_select.helper_pv_battery_mode
+    alias: Netzladen starten.
+  - action: script.speicheroptimierung_benachrichtigung
+    metadata: {}
+    data:
+      notification_icon: mdi:home-battery-outline
+      title: Speichervollladung erzwungen.
+      message: >-
+        Nachdem der Speicher für mehr als 30 Tage nicht vollgeworden ist, wird
+        eine Vollladung nun aus dem Netz erzwungen um den LFP Speicher wieder zu
+        kalibrieren.
+      color: red
+      tag: speicheroptimierung-ladungerzwungen
+mode: single

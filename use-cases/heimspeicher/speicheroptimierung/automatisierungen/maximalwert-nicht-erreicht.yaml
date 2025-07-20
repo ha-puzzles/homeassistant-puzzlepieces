@@ -1,0 +1,77 @@
+alias: "Speicheroptimierung: Täglicher Maximalwert nicht erreicht: Meldung"
+description: ""
+triggers:
+  - trigger: sun
+    event: sunset
+    offset: 0
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_ein
+    state: "on"
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_benachrichtigungen
+    state: "on"
+actions:
+  - choose:
+      - conditions:
+          - condition: numeric_state
+            entity_id: input_number.helper_speicheroptimierung_today_max_soc
+            below: number.evcc_site_priority_soc
+        sequence:
+          - action: script.speicheroptimierung_benachrichtigung
+            metadata: {}
+            data:
+              tag: speicheroptimierung_maximalwert
+              notification_icon: mdi:home-battery-outline
+              message: >-
+                Der Heimspeicher hat heute nicht den Wert von EVCC Priority SOC
+                erreicht. Der maximal erreichte SOC war {{
+                states('input_number.helper_pv_battery_today_max_soc') }}.
+              title: Heimspeicher unter Priority SOC geblieben.
+              color: red
+      - conditions:
+          - condition: numeric_state
+            entity_id: input_number.helper_speicheroptimierung_today_max_soc
+            below: 100
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_limit_ein
+            state: "off"
+        sequence:
+          - action: script.speicheroptimierung_benachrichtigung
+            metadata: {}
+            data:
+              tag: speicheroptimierung_maximalwert
+              notification_icon: mdi:home-battery-outline
+              message: >-
+                Der Heimspeicher ist heute nicht ganz voll geworden, ist aber
+                über den EVCC Priority SOC gekommen. Wenn bis zum Abend ein Auto
+                geladen wurde ist dies OK. Der maximal erreichte SOC war {{
+                states('input_number.helper_pv_battery_today_max_soc') }}.
+              title: Heimspeicher nicht voll geworden.
+              color: gray
+        alias: Keine Ladestandsbegrenzung aktiv und nicht 100% erreicht.
+      - conditions:
+          - condition: numeric_state
+            entity_id: input_number.helper_speicheroptimierung_today_max_soc
+            below: input_number.helper_speicheroptimierung_limit_soc_grenze
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_limit_ein
+            state: "on"
+        sequence:
+          - action: script.speicheroptimierung_benachrichtigung
+            metadata: {}
+            data:
+              tag: speicheroptimierung_maximalwert
+              notification_icon: mdi:home-battery-outline
+              message: >-
+                Die maximale Ladestandbegrenzung ist aktiv. Der Heimspeicher hat
+                jedoch die Grenze von {{
+                states('input_number.helper_speicheroptimierung_limit_soc_grenze')
+                }} % nicht erreicht.
+
+                Der maximal erreichte SOC war {{
+                states('input_number.helper_pv_battery_today_max_soc') }}.
+              title: Heimspeicher hat nicht die Ladegrenze erreicht.
+              color: gray
+        alias: Ladestandsbegrenzung aktiv und Ladestandsgrenze nicht erreicht.
+mode: single

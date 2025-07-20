@@ -1,0 +1,24 @@
+alias: >-
+  Speicheroptimierung: EVCC Priority SoC Aktualisieren, wenn Ladeverzögerung
+  oder Ladelimit sich ändert.
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+  - trigger: state
+    entity_id:
+      - input_number.helper_speicheroptimierung_limit_soc_grenze
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+conditions:
+  - condition: state
+    entity_id: input_boolean.helper_speicheroptimierung_ein
+    state: "on"
+actions:
+  - action: script.speicheroptimierung_evcc_priority_soc_aktualisieren
+    metadata: {}
+    data: {}
+mode: single
