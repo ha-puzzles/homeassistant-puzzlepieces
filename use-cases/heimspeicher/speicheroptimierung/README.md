@@ -81,7 +81,7 @@ Lege die Helfer für den entsprechenden Wechselrichter aus den Unterordnern an:
 
 Für andere Wechselrichter diesen Helfer einfach abändern. Wichtiger ist, dass [Heimspeicher steuern](../heimspeicher-steuern) so ähnlich für Deinen Wechselrichter funktioniert.
 
-## helper_speicheroptimierung_battery_lesefehler
+### helper_speicheroptimierung_battery_lesefehler
 
 Ein internes Flag um potentielle Lesefehler beim Auslesen des Ladestandes zu erkennen. Falls ein kurzzeitiger Lesefehler den Ladestand des Speichers auf 0 setzt, würden hier einige Automationen sofort triggern. Mit Hilfes dieses Flags können die Automationen das verhindern.
 
