@@ -26,7 +26,8 @@ actions:
               message: >-
                 Der Heimspeicher hat heute nicht den Wert von EVCC Priority SOC
                 erreicht. Der maximal erreichte SOC war {{
-                states('input_number.helper_pv_battery_today_max_soc') }}.
+                states('input_number.helper_speicheroptimierung_today_max_soc')
+                }}.
               title: Heimspeicher unter Priority SOC geblieben.
               color: red
       - conditions:
@@ -46,7 +47,8 @@ actions:
                 Der Heimspeicher ist heute nicht ganz voll geworden, ist aber
                 über den EVCC Priority SOC gekommen. Wenn bis zum Abend ein Auto
                 geladen wurde ist dies OK. Der maximal erreichte SOC war {{
-                states('input_number.helper_pv_battery_today_max_soc') }}.
+                states('input_number.helper_speicheroptimierung_today_max_soc')
+                }}.
               title: Heimspeicher nicht voll geworden.
               color: gray
         alias: Keine Ladestandsbegrenzung aktiv und nicht 100% erreicht.
@@ -70,7 +72,8 @@ actions:
                 }} % nicht erreicht.
 
                 Der maximal erreichte SOC war {{
-                states('input_number.helper_pv_battery_today_max_soc') }}.
+                states('input_number.helper_speicheroptimierung_today_max_soc')
+                }}.
               title: Heimspeicher hat nicht die Ladegrenze erreicht.
               color: gray
         alias: Ladestandsbegrenzung aktiv und Ladestandsgrenze nicht erreicht.
