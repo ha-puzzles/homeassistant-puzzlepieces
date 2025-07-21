@@ -1,3 +1,6 @@
+> [!NOTE]
+> 2025-07-21: Zusätzliche Automatisierung hinzugefügt: Vorhersage fällt ab
+
 # Speicheroptimierte Heimspeicherladung
 
 Ziele dieser Speicheroptimierung sind:
@@ -356,6 +359,12 @@ Wenn ein SoC von 0 zurückgegeben wird, setze das flag `helper_speicheroptimieru
 [`verspaetetes-laden-starten.yaml`](./automatisierungen/verspaetetes-laden-starten.yaml)
 
 Verspätetes Laden wird gestartet sobald die Restprognose des heutigen Tages unter die Restprognosengrenze fällt.
+
+### Vorhersage fällt ab
+
+[`vorhersage-fällt-ab.yaml`](./automatisierungen/vorhersage-fällt-ab.yaml)
+
+Die Vorhersage für den heutigen Tag verschlechtert sich und fällt unter die Grenze für einen ausreichend guten Tag. Dann deaktiviere das verzögerte Laden und fange sofort mit Laden an.
 
 ### Wenn Speicher für mehr als 30 Tage nicht vollgeworden ist, erzwinge Netzladen
 
