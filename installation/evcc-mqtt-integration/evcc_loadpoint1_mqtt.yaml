@@ -231,6 +231,28 @@ mqtt:
       max: 10
       step: 1
 
+    - name: evcc_lp_1_enable_delay
+      unique_id: uniqueid__evcc_lp_1_enable_delay
+      icon: mdi:timer-outline
+      state_topic: "evcc/loadpoints/1/enableDelay"
+      command_topic: "evcc/loadpoints/1/enableDelay/set"
+      availability_topic: "evcc/status"
+      min: 1
+      max: 600
+      step: 5
+      unit_of_measurement: "s"
+
+    - name: evcc_lp_1_disable_delay
+      unique_id: uniqueid__evcc_lp_1_disable_delay
+      icon: mdi:timer-outline
+      state_topic: "evcc/loadpoints/1/disableDelay"
+      command_topic: "evcc/loadpoints/1/disableDelay/set"
+      availability_topic: "evcc/status"
+      min: 1
+      max: 600
+      step: 5
+      unit_of_measurement: "s"
+
   switch:
 
     - name: evcc_lp_1_battery_boost
