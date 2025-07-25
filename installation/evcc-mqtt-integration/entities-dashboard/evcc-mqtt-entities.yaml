@@ -32,7 +32,9 @@ views:
           - entity: sensor.evcc_lp_1_charged_energy
           - entity: binary_sensor.evcc_lp_1_charging
           - entity: binary_sensor.evcc_lp_1_connected
+          - entity: number.evcc_lp_1_disable_delay
           - entity: sensor.evcc_lp_1_effective_limit_soc
+          - entity: number.evcc_lp_1_enable_delay
           - entity: binary_sensor.evcc_lp_1_enabled
           - entity: number.evcc_lp_1_limit_soc
           - entity: number.evcc_lp_1_max_current
@@ -60,7 +62,9 @@ views:
           - entity: sensor.evcc_lp_2_charged_energy
           - entity: binary_sensor.evcc_lp_2_charging
           - entity: binary_sensor.evcc_lp_2_connected
+          - entity: number.evcc_lp_2_disable_delay
           - entity: sensor.evcc_lp_2_effective_limit_soc
+          - entity: number.evcc_lp_2_enable_delay
           - entity: binary_sensor.evcc_lp_2_enabled
           - entity: number.evcc_lp_2_limit_soc
           - entity: number.evcc_lp_2_max_current
@@ -78,6 +82,11 @@ views:
         title: Loadpoint 2
       - type: entities
         entities:
+          - entity: input_number.helper_evcc_lp_1_vehicle_min_soc
+          - entity: input_number.helper_evcc_lp_2_vehicle_min_soc
+        title: Helpers
+      - type: entities
+        entities:
           - entity: sensor.evcc_vehicle_1_capacity
           - entity: number.evcc_vehicle_1_limit_soc
           - entity: number.evcc_vehicle_1_min_soc
@@ -92,10 +101,3 @@ views:
           - entity: sensor.evcc_vehicle_2_name
           - entity: sensor.evcc_vehicle_2_title
         title: Vehicle 2
-      - type: entities
-        entities:
-          - entity: input_number.helper_evcc_lp_1_vehicle_min_soc
-          - entity: input_text.helper_evcc_lp_1_vehicle_title
-          - entity: input_number.helper_evcc_lp_2_vehicle_min_soc
-          - entity: input_text.helper_evcc_lp_2_vehicle_title
-        title: Helpers
