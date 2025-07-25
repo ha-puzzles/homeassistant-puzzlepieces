@@ -237,9 +237,9 @@ mqtt:
       state_topic: "evcc/loadpoints/1/enableDelay"
       command_topic: "evcc/loadpoints/1/enableDelay/set"
       availability_topic: "evcc/status"
-      min: 1
+      min: 0
       max: 600
-      step: 5
+      step: 10
       unit_of_measurement: "s"
 
     - name: evcc_lp_1_disable_delay
@@ -248,9 +248,9 @@ mqtt:
       state_topic: "evcc/loadpoints/1/disableDelay"
       command_topic: "evcc/loadpoints/1/disableDelay/set"
       availability_topic: "evcc/status"
-      min: 1
+      min: 0
       max: 600
-      step: 5
+      step: 10
       unit_of_measurement: "s"
 
   switch:
