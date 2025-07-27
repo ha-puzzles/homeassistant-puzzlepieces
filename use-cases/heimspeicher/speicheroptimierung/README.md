@@ -1,4 +1,7 @@
 > [!NOTE]
+>
+> 2025-07-27: Script [`evcc-priority-soc-aktualisieren.yaml`](./scripte/evcc-priority-soc-aktualisieren.yaml) berücksichtigt nun Ausnahme von der Speicherstandslimitierung. Fix im 'Aktueller Plan' Markdown.
+>
 > 2025-07-21: Zusätzliche Automatisierung hinzugefügt: Vorhersage fällt ab
 
 # Speicheroptimierte Heimspeicherladung
@@ -484,26 +487,26 @@ Um diese Karte zu erstellen sind folgende Schritte durchzuführen:
 {% if states('input_boolean.helper_speicheroptimierung_ein') == "on" %}
   {% if states('sensor.solcast_pv_forecast_forecast_today') | float >= states('input_number.helper_speicheroptimierung_limit_guter_tag_prognose') | float %}
       {% if states('sensor.solcast_pv_forecast_forecast_remaining_today') | float >= states('sensor.helper_speicheroptimierung_restenergie_aktuell') | float %}
-- ✅ Heute besteht eine gute Ertragsprognose. Verspätetes Speicherladen ist aktiv.
+- ✅ Heute besteht eine ausreichend gute Ertragsprognose. Verspätetes Speicherladen ist aktiv.
 
   - Die restliche Prognose für heute beträgt {{ states('sensor.solcast_pv_forecast_forecast_remaining_today') | round(1) }}kWh und verzögert noch den Start des Speicherladens.
   - Bei einem aktuellen Speicherstand von {{ states('sensor.helper_speicheroptimierung_bat_soc') }} % wird die Ladung ab einer restlichen Prognose von {{ states('sensor.helper_speicheroptimierung_restenergie_aktuell') }} kWh Restenergie starten.
       {% else %}
-- ✅ Die Speicherladung ist heute verzögert gestartet geworden dank einer guten, heutigen Ertragsprognose.
+- ✅ Die Speicherladung ist heute verzögert gestartet geworden dank einer ausreichend guten, heutigen Ertragsprognose.
       {% endif %}
   {% else %}
-- ⛔️ Heute besteht eine schlechte Ertragsprognose. Verspätetes Speicherladen ist deaktiviert um eine Aufladung zu gewährleisten.
+- ⚠️ Heute besteht eine schlechte Ertragsprognose. Verspätetes Speicherladen ist deaktiviert um eine Aufladung zu gewährleisten.
   {% endif %}
   {% if states('input_boolean.helper_speicheroptimierung_limit_ein') == "on" %}
-    {% if states('sensor.solcast_pv_forecast_forecast_tomorrow') | float >= states('input_number.helper_speicheroptimierung_limit_guter_tag_prognose') | float %}
-- ✅ Morgen besteht eine gute Ertragsprognose. Die Speicherladung wird auf {{ states('input_number.helper_speicheroptimierung_limit_soc_grenze') | int }}% limitiert. 
-    {% else %}
-- ⛔️ Morgen besteht eine schlechte Ertragsprognose. Der Speicher wird auf 100% geladen.
-    {% endif %}
     {% if states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | float < states('input_number.helper_speicheroptimierung_batterie_ladelimit_max_tage') | float %}
+      {% if states('sensor.solcast_pv_forecast_forecast_tomorrow') | float >= states('input_number.helper_speicheroptimierung_limit_guter_tag_prognose') | float %}
+- ✅ Morgen besteht eine ausreichend gute Ertragsprognose. Die Speicherladung wird auf {{ states('input_number.helper_speicheroptimierung_limit_soc_grenze') | int }}% limitiert. 
+      {% else %}
+- ⚠️ Morgen besteht eine schlechte Ertragsprognose. Der Speicher wird auf 100% geladen.
+      {% endif %}
 - ✅ Der Speicher wurde seit {{ states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) nicht mehr vollgeladen. In {{ states('input_number.helper_speicheroptimierung_batterie_ladelimit_max_tage') | int - states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) wird die Speicherstandsbegrenzung deaktiviert um den Ladestand des Speichers wieder neu zu kalibrieren.
     {% else %}
-- ⛔️ Da der Speicher seit {{ states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tagen nicht mehr vollgeladen wurde, ist die Speicherstandsbegrenzung nun deaktiviert damit die Zellen wieder ausbalanziert werden und der Ladestand kalibriert wird. Spätestens in {{ 30 - states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) wird der Speicher einmal aus dem Netz geladen, wenn er bis dahin nicht voll geworden ist.
+- ⚠️ Da der Speicher seit {{ states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tagen nicht mehr vollgeladen wurde, ist die Speicherstandsbegrenzung nun deaktiviert damit die Zellen wieder ausbalanziert werden und der Ladestand kalibriert wird. Spätestens in {{ 30 - states('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler') | int }} Tag(en) wird der Speicher einmal aus dem Netz geladen, wenn er bis dahin nicht voll geworden ist.
     {% endif %}
   {% else %}
 - ⛔️ Ladestandsbegrenzung ist ausgeschaltet. Der Speicher wird auf 100% geladen.
