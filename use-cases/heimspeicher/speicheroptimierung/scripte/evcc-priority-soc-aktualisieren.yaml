@@ -36,6 +36,46 @@ sequence:
           - condition: state
             entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
             state: "off"
+          - condition: template
+            value_template: >-
+              {{ states
+              ('input_number.helper_speicheroptimierung_batterie_nicht_voll_zahler')
+              | float >=
+              states('input_number.helper_speicheroptimierung_batterie_ladelimit_max_tage')
+              | float }}
+        sequence:
+          - alias: Vollladung erzwingen. Priority SoC auf 100% setzen.
+            action: number.set_value
+            metadata: {}
+            data:
+              value: "100"
+            target:
+              entity_id: number.evcc_site_priority_soc
+        alias: >-
+          Laden wird nicht verzögert aber Tage ohne Vollladung überschritten:
+          Setze Priority SoC 100 %
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+            state: "off"
+          - condition: numeric_state
+            entity_id: sensor.solcast_pv_forecast_forecast_tomorrow
+            below: input_number.helper_speicheroptimierung_limit_guter_tag_prognose
+        sequence:
+          - alias: Priority SoC auf 95% setzen.
+            action: number.set_value
+            metadata: {}
+            data:
+              value: "95"
+            target:
+              entity_id: number.evcc_site_priority_soc
+        alias: >-
+          Laden wird nicht verzögert aber morgen schlechter Tag: Setze Priority
+          SoC 100 %
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.helper_speicheroptimierung_verzoegertes_laden_aktiv
+            state: "off"
           - condition: state
             entity_id: input_boolean.helper_speicheroptimierung_limit_ein
             state: "on"
