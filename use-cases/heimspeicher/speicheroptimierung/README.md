@@ -473,7 +473,7 @@ title: Speicheroptimierung
 
 ### Aktueller Plan
 
-Eine Karte, die eine Zusammenfassung anzuzeigen, was anhand der aktuellen Einstellungen passieren wird:
+Eine Karte, die eine Zusammenfassung anzeigt, was anhand der aktuellen Einstellungen passieren wird:
 
 ![Aktueller Plan Karte](./img/karte-aktueller-plan.png)
 
