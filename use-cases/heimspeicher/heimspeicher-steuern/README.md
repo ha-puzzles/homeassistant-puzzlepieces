@@ -67,6 +67,11 @@ Auch hier empfiehlt es sich nach dem ersten Anlegen den Helfer nochmals zu öffn
   - Anzeigemodus: Schieberegeler
   - Schrittweite: z.B. 500
   - Maßeinheit: W
+ 
+### Flag: battery_updating_passive_mode
+
+- Typ: Boolsche Eingabe
+- Name beim Anlegen/Entitäts-ID:  `battery_updating_passive_mode`
 
 ## Automatisierungen & Skripte
 
