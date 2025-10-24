@@ -23,7 +23,7 @@ Für die Automatisierungen und Skripte in den Unterordnern müssen folgende Helf
 - Name beim Anlegen/Entitäts-ID:  `helper_pv_battery_mode`
 - Optionen:
   - Automatisches Laden und Entladen
-  - Nur Entladen
+  - Nur Entladen mit Überschuss
   - Nur Laden
   - Netzladen
   - Aus
