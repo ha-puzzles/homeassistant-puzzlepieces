@@ -71,7 +71,7 @@ Auch hier empfiehlt es sich nach dem ersten Anlegen den Helfer nochmals zu öffn
 ### Flag: battery_updating_passive_mode
 
 - Typ: Boolsche Eingabe
-- Name beim Anlegen/Entitäts-ID:  `battery_updating_passive_mode`
+- Name beim Anlegen/Entitäts-ID:  `helper_battery_updating_passive_mode`
 
 ## Automatisierungen & Skripte
 
