@@ -166,7 +166,7 @@ mqtt:
       availability_topic: "evcc/status"
 
     - name: evcc_lp_1_smart_cost_active
-      unique_id: uniqueid___evcc_lp_1_smart_cost_active
+      unique_id: uniqueid__evcc_lp_1_smart_cost_active
       icon: mdi:ev-station
       state_topic: "evcc/loadpoints/1/smartCostActive"
       payload_on: "true"
