@@ -1,5 +1,10 @@
-views:
-  - title: EVCC MQTT ENTITIES
+####################################
+# import after that entry:
+#  - type: masonry
+#    path: 'your_dashboard-path'
+#    title: 'your-dashboard-title'
+# IMPORTANT! don't replace spaces!!!
+####################################
     cards:
       - type: entities
         entities:
