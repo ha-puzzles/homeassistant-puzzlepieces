@@ -119,7 +119,6 @@ mqtt:
 
     - name: evcc_lp_1_session_price
       unique_id: uniqueid__evcc_lp_1_session_price
-      icon: mdi:home-lightning-bolt-outline
       state_topic: "evcc/loadpoints/1/sessionPrice"
       state_class: total
       icon: mdi:currency-eur
@@ -128,7 +127,6 @@ mqtt:
 
     - name: evcc_lp_1_session_price_per_kwh
       unique_id: uniqueid__evcc_lp_1_session_price_per_kwh
-      icon: mdi:home-lightning-bolt-outline
       state_topic: "evcc/loadpoints/1/sessionPricePerKWh"
       state_class: total
       icon: mdi:currency-eur
