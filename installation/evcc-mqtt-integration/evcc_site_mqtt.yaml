@@ -126,13 +126,4 @@ mqtt:
       max: +5000
       unit_of_measurement: "W"
 
-    - name: evcc_site_tariffGrid
-      unique_id: uniqueid_evcc_site_tariffGrid
-      icon: mdi:currency-eur
-      state_topic: "evcc/site/tariffGrid"
-      command_topic: "evcc/site/tariffGrid/set"
-      availability_topic: "evcc/status"
-      unit_of_measurement: "€"
-      min: -0.05
-      max: 0.445
-      step: 0.005
+
