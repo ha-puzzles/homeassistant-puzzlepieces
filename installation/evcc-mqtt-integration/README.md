@@ -75,6 +75,7 @@ Lege die Folgenden Helfer an:
 
 
 #### Automationen um die Helper zu synchronisieren
+Diese ist nur erforderlich wenn Du zwei Ladepunkte und zwei Fahrzeuge hast und minSOC des jeweiligen Fahrzeug zu dem Loadpoint wo das Fahrzeug angeschlossen ist übertragen werden soll!
 
 [Grundlagen um Automatisierungen zu erstellen](../../README.md#home-assistant-artefakte).
 
