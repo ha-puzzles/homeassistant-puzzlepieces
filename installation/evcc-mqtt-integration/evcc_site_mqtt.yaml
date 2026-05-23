@@ -6,7 +6,7 @@ mqtt:
   
     - name: evcc_site_battery_soc
       unique_id: uniqueid__evcc_site_battery_soc
-      state_topic: "evcc/site/batterySoc"
+      state_topic: "evcc/site/battery/soc"
       state_class: total
       icon: mdi:label-percent-outline
       value_template: "{{ value | round(1) }}"
@@ -25,7 +25,7 @@ mqtt:
     - name: evcc_site_battery_power
       unique_id: uniqueid__evcc_site_battery_power
       icon: mdi:home-lightning-bolt-outline
-      state_topic: "evcc/site/batteryPower"
+      state_topic: "evcc/site/battery/power"
       state_class: total
       value_template: "{{ value | round(1) }}"
       unit_of_measurement: "W"
@@ -87,12 +87,6 @@ mqtt:
       state_topic: "evcc/site/batteryDischargeControl"
       availability_topic: "evcc/status"
 
-    - name: evcc_site_battery_mode
-      unique_id: uniqueid__evcc_site_battery_mode
-      icon: mdi:battery
-      state_topic: "evcc/site/batteryMode"
-      availability_topic: "evcc/status"
-
     - name: evcc_site_battery_grid_charge_active
       unique_id: uniqueid__evcc_site_battery_grid_charge_active
       icon: mdi:battery
@@ -132,13 +126,4 @@ mqtt:
       max: +5000
       unit_of_measurement: "W"
 
-    - name: evcc_site_battery_grid_charge_limit
-      unique_id: uniqueid__battery_grid_charge_limit
-      icon: mdi:currency-eur
-      state_topic: "evcc/site/batteryGridChargeLimit"
-      command_topic: "evcc/site/batteryGridChargeLimit/set"
-      availability_topic: "evcc/status"
-      unit_of_measurement: "€"
-      min: -0.05
-      max: 0.445
-      step: 0.005
+
