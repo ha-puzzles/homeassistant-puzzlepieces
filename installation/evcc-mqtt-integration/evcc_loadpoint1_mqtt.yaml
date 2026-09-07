@@ -12,6 +12,7 @@ mqtt:
       options:
         - "off"
         - "now"
+        - "smart"
         - "minpv"
         - "pv"
 
