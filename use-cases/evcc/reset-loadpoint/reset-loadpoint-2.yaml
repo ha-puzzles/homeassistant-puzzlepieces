@@ -17,7 +17,7 @@ actions:
   - action: select.select_option
     metadata: {}
     data:
-      option: pv
+      option: smart
     target:
       entity_id: select.evcc_lp_2_mode
 mode: single

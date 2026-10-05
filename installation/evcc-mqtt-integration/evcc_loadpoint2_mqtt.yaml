@@ -12,8 +12,18 @@ mqtt:
       options:
         - "off"
         - "now"
-        - "minpv"
-        - "pv"
+        - "smart"
+
+    - name: evcc_lp_2_alwayscharge
+      unique_id: uniqueid__evcc_lp_2_alwayscharge_select
+      icon: mdi:tune-variant
+      state_topic: "evcc/loadpoints/2/alwaysCharge"
+      command_topic: "evcc/loadpoints/2/alwaysCharge/set"
+      availability_topic: "evcc/status"
+      options:
+        - "off"
+        - "on"
+        - "once"
 
     - name: evcc_lp_2_phases
       unique_id: uniqueid__evcc_lp_2_phases_select
@@ -265,7 +275,7 @@ mqtt:
       entity_category: "config"
       availability:
         - topic: "evcc/loadpoints/2/mode"
-          value_template: "{{value == 'pv' or value == 'minpv'}}"
+          value_template: "{{value == 'smart'}}"
           payload_available: True
           payload_not_available: False
         - topic: "evcc/status"

@@ -7,7 +7,7 @@ Grundsätzlich wollen wir hier nicht die Dokumentationen anderer wiederholen. Ab
 Es wird benötigt:
 
 - [Home Assistant](https://www.home-assistant.io/)
-- [EVCC](https://evcc.io/)
+- [EVCC](https://evcc.io/) (0.316 oder höher)
 - [Mosquitto](https://mosquitto.org/) MQTT Broker
 
 ### Installation mit HAOS
