@@ -31,10 +31,7 @@ conditions:
     conditions:
       - condition: state
         entity_id: select.evcc_lp_1_mode
-        state: pv
-      - condition: state
-        entity_id: select.evcc_lp_1_mode
-        state: minpv
+        state: smart
       - condition: state
         entity_id: select.evcc_lp_1_mode
         state: now
