@@ -28,6 +28,7 @@
       - type: entities
         entities:
           - entity: sensor.evcc_lp_1_active_phases
+          - entity: select.evcc_lp_1_alwayscharge
           - entity: switch.evcc_lp_1_battery_boost
           - entity: sensor.evcc_lp_1_charge_current_l1
           - entity: sensor.evcc_lp_1_charge_current_l2
@@ -58,6 +59,7 @@
       - type: entities
         entities:
           - entity: sensor.evcc_lp_2_active_phases
+          - entity: select.evcc_lp_2_alwayscharge
           - entity: switch.evcc_lp_2_battery_boost
           - entity: sensor.evcc_lp_2_charge_current_l1
           - entity: sensor.evcc_lp_2_charge_current_l2
